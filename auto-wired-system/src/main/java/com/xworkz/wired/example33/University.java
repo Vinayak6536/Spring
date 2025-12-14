@@ -1,4 +1,4 @@
-package com.xworkz.wired.example60;
+package com.xworkz.wired.example33;
 
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Component("policeStation")
+@Component("university")
 @Scope("prototype")
-public class PoliceStation {
+public class University {
     private String name;
     private String city;
-    private int staff;
+    private int colleges;
 
     @Autowired
-    Inspector inspector;
+    public Professor professor;
 }

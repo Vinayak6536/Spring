@@ -1,18 +1,18 @@
-package com.xworkz.wired.example60;
+package com.xworkz.wired.example33;
 
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Component
 @Scope("prototype")
-public class Inspector {
+public class Professor {
     private String name;
-    private int badgeNo;
+    private String subject;
     private int experience;
 }
