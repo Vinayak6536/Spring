@@ -11,6 +11,11 @@ public class MedicineServiceImpl implements MedicineService {
     @Autowired
     private MedicineDao medicineDao;
 
+    public MedicineServiceImpl(){
+        System.out.println("Created Medicine ServiceImpl.......");
+    }
+
+
     @Override
     public boolean validateAndSave(MedicineDto medicineDto) {
         boolean isValid=false;
