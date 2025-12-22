@@ -24,7 +24,10 @@
                     <a class="nav-link active" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ZomatoForm.jsp">Zomato Form</a>
+                    <a class="nav-link" href="ZomatoForm.jsp">Add Restaurant</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Search.jsp">Search</a>
                 </li>
             </ul>
         </div>
@@ -36,6 +39,14 @@
     <h2 class="mb-4">Welcome to Zomato</h2>
     <a href="ZomatoForm.jsp" class="btn btn-danger btn-lg">
         Open Zomato Form
+    </a>
+</div>
+
+<!-- Content -->
+<div class="container text-center mt-5">
+    <h2 class="mb-4">Welcome to Zomato</h2>
+    <a href="Search.jsp" class="btn btn-danger btn-lg">
+        Search
     </a>
 </div>
 

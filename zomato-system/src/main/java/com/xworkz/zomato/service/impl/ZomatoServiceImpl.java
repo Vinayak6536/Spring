@@ -7,6 +7,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Data
 @Component
 public class ZomatoServiceImpl implements ZomatoService {
@@ -26,5 +28,18 @@ public class ZomatoServiceImpl implements ZomatoService {
         }
 
         return isValid;
+    }
+
+    @Override
+    public Optional<ZomatoDto> getNameByPhoneNo(Long phoneNo) {
+
+        if (phoneNo != null){
+            Optional<ZomatoDto> zomatoDto1=zomatoDao.savePhone(phoneNo);
+
+            return zomatoDto1;
+        }
+
+
+        return Optional.empty();
     }
 }

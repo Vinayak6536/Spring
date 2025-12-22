@@ -8,22 +8,20 @@
 </head>
 
 <body class="bg-light">
-<!-- Navbar -->
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-    <div class="container">
+    <div class="container-fluid">
         <a class="navbar-brand" href="#">Zomato</a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link" href="index.jsp">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ZomatoForm.jsp">Zomato Form</a>
+                    <a class="nav-link" href="ZomatoForm.jsp">Add Restaurant</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="Search.jsp">Search</a>
                 </li>
             </ul>
         </div>

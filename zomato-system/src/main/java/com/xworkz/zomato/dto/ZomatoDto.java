@@ -1,14 +1,12 @@
 package com.xworkz.zomato.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class ZomatoDto {
     private String name;
     private String ownerName;
