@@ -10,5 +10,8 @@ Combination:<input type="text" name="combination"/>
 ExpiryDate:<input type="text" name="expiryDate"/>
 <input type="submit" value="send">
 </pre>
+
+
+<a href="Search.jsp">search</a>
 </body>
 </html>

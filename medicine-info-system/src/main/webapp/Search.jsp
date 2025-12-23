@@ -19,6 +19,12 @@ MedicinePrice: ${medicine.getMedicinePrice()}
 Mg: ${medicine.getMg()}
 Combination: ${medicine.getCombination()}
 Expiry Date: ${medicine.getExpiryDate()}
+
+
+<!-- Using Separate Key
+<h4><a href="getMedicine?medicineId=${medicine.getMedicineId()}">Edit</a></h4>  -->
+
+<h4><a href="getMedicine/${medicine.getMedicineId()}">Edit</a></h4>
 </pre>
 </body>
 </html>

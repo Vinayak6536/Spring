@@ -14,4 +14,6 @@ public class MedicineDto {
     private String mg;
     private String combination;
     private String expiryDate;
+
+
 }
