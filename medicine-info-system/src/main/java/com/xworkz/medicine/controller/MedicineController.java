@@ -37,7 +37,7 @@ public class MedicineController {
     @GetMapping("/search")
     public String searchMedicineName(@RequestParam("query") String medicineName, Model model) {
 
-        System.out.println(medicineName);
+
 
         Optional<MedicineDto> medicineDto = medicineService.getMedicineByMedicineName(medicineName);
 

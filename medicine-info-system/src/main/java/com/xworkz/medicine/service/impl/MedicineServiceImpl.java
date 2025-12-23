@@ -4,11 +4,10 @@ import com.xworkz.medicine.dao.MedicineDao;
 import com.xworkz.medicine.dto.MedicineDto;
 import com.xworkz.medicine.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
+
 import java.util.Optional;
 
 @Service
