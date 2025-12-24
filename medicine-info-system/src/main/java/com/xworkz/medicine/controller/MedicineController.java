@@ -27,9 +27,9 @@ public class MedicineController {
         System.out.println(dto);
         boolean medicineSaved = medicineService.validateAndSave(dto);
         if (medicineSaved) {
-            return "MedicineResult.jsp";
+            return "MedicineResult";
         } else {
-            return "Error.jsp";
+            return "Error";
         }
 
     }
@@ -43,10 +43,12 @@ public class MedicineController {
 
         if (medicineDto.isPresent()) {
             model.addAttribute("medicine", medicineDto.get());
-            return "Search.jsp";
+
+            // using prefix("/") and suffix(".jsp") in configuration file.
+            return "Search";
         } else {
             //model.addAttribute("err",medicineDto.get());
-            return "Error.jsp";
+            return "Error";
         }
 
     }
@@ -75,9 +77,9 @@ public class MedicineController {
         Optional<MedicineDto> dto = medicineService.getMedicineId(Integer.parseInt(medicineId));
         if (dto.isPresent()) {
             model.addAttribute("medicine", dto.get());
-            return "/UpdateMedicine.jsp";
+            return "UpdateMedicine";
         } else {
-            return "/Error.jsp";
+            return "Error";
         }
     }
 
@@ -90,9 +92,9 @@ public class MedicineController {
 
         if (updated) {
             System.out.println("Details Updated");
-            return "MedicineResult.jsp";
+            return "MedicineResult";
         } else {
-            return "Error.jsp";
+            return "Error";
         }
 
     }
