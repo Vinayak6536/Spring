@@ -5,6 +5,10 @@ import com.xworkz.zomato.dao.ZomatoDao;
 import com.xworkz.zomato.dto.ZomatoDto;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -34,38 +38,20 @@ public class ZomatoDaoImpl implements ZomatoDao {
     }
 
 
-    @SneakyThrows
+
     @Override
     public boolean save(ZomatoDto zomatoDto) {
-        boolean isValid = false;
 
+        Configuration configuration=new Configuration();
+        configuration.configure().addAnnotatedClass(ZomatoDto.class);
 
-        String insert = "insert into zomato(name,ownername,ownerage,phoneno,branch,address,pincode,city,state,country) values (?,?,?,?,?,?,?,?,?,?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insert)) {
-            System.out.println(connection);
+        SessionFactory sessionFactory=configuration.buildSessionFactory();
+        Session session= sessionFactory.openSession();
+        Transaction transaction=session.beginTransaction();
+        session.save(zomatoDto);
+        transaction.commit();
 
-            preparedStatement.setString(1, zomatoDto.getName());
-            preparedStatement.setString(2, zomatoDto.getOwnerName());
-            preparedStatement.setInt(3, zomatoDto.getOwnerAge());
-            preparedStatement.setLong(4, zomatoDto.getPhoneNo());
-            preparedStatement.setString(5, zomatoDto.getBranch());
-            preparedStatement.setString(6, zomatoDto.getAddress());
-            preparedStatement.setLong(7, zomatoDto.getPincode());
-            preparedStatement.setString(8, zomatoDto.getCity());
-            preparedStatement.setString(9, zomatoDto.getState());
-            preparedStatement.setString(10, zomatoDto.getCountry());
-
-            int row = preparedStatement.executeUpdate();
-            if (row > 0) {
-                isValid = true;
-                System.out.println(row + " " + "Rows Affected");
-                System.out.println(zomatoDto);
-            } else {
-                System.out.println("Update error..");
-            }
-
-            return isValid;
-        }
+        return true;
     }
 
     @SneakyThrows
