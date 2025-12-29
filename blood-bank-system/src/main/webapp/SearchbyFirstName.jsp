@@ -15,7 +15,8 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#">American Red Cross</a>
+        <a class="navbar-brand fw-bold" href="#">My Application</a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -23,10 +24,18 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Donate Blood</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#">Create Account</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.jsp">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Registration.jsp">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.jsp">Login</a>
+                </li>
+                <li class="nav-item">
+                                    <a class="nav-link" href="SearchbyFirstName.jsp">Search</a>
+                                </li>
             </ul>
         </div>
     </div>
