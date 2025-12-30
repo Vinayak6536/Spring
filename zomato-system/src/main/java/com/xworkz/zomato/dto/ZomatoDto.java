@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @ToString
 
 @Entity
-@Table(name = "zomato")
+//@Table(name = "zomato")
 public class ZomatoDto {
     @Id
     @Column(name = "name")

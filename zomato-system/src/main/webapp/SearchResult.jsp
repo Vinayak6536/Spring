@@ -57,8 +57,12 @@
                         <td colspan="5" class="text-center">
                             <a href="editDetails/${phone.getName()}" class="btn btn-primary">
                                 Edit
+                            <a href="delete/${phone.getName()}" class="btn btn-primary">
+                                                       Delete
+                                                    </a>
                             </a>
                         </td>
+
                     </tr>
                 </table>
             </div>
