@@ -12,4 +12,6 @@ public interface ZomatoDao {
     Optional<ZomatoDto> savePhone(Long phoneNo);
 
     Optional<ZomatoDto> saveName(String name);
+
+    boolean deleted(ZomatoDto zomatoDto);
 }

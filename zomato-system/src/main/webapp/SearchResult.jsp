@@ -56,10 +56,10 @@
                     <tr>
                         <td colspan="5" class="text-center">
                             <a href="editDetails/${phone.getName()}" class="btn btn-primary">
-                                Edit
+                                Edit  </a>
                             <a href="delete/${phone.getName()}" class="btn btn-primary">
                                                        Delete
-                                                    </a>
+
                             </a>
                         </td>
 

@@ -12,4 +12,6 @@ public interface ZomatoService {
     Optional<ZomatoDto> getNameByPhoneNo(Long  phoneNo);
 
     Optional<ZomatoDto> getRestaurantName(String name);
+
+    boolean deleteAndSave(ZomatoDto zomatoDto);
 }

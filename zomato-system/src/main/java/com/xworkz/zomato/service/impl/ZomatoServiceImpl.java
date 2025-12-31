@@ -65,4 +65,17 @@ public class ZomatoServiceImpl implements ZomatoService {
 
         return isValid;
     }
+
+    @Override
+    public boolean deleteAndSave(ZomatoDto zomatoDto) {
+        boolean isValid = false;
+
+        if (zomatoDto != null) {
+            return zomatoDao.deleted(zomatoDto);
+        } else {
+            System.out.println("Invalid Details");
+        }
+
+        return isValid;
+    }
 }

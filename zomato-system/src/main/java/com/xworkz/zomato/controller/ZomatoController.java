@@ -75,6 +75,20 @@ public class ZomatoController {
 
     }
 
+    @GetMapping("update")
+    public String deleteRestaurant(ZomatoDto zomatoDto){
+
+        boolean updated=zomatoService.deleteAndSave(zomatoDto);
+
+        if (updated){
+            return "ZomatoResult";
+        }
+        else {
+            return "Error";
+        }
+
+    }
+
 
 
 

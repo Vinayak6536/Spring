@@ -151,5 +151,8 @@ public class ZomatoDaoImpl implements ZomatoDao {
         }
     }
 
-
+    @Override
+    public boolean deleted(ZomatoDto zomatoDto) {
+        return false;
+    }
 }
