@@ -5,7 +5,6 @@ import com.xworkz.zomato.dto.ZomatoDto;
 import com.xworkz.zomato.service.ZomatoService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -67,15 +66,11 @@ public class ZomatoServiceImpl implements ZomatoService {
     }
 
     @Override
-    public boolean deleteAndSave(ZomatoDto zomatoDto) {
-        boolean isValid = false;
-
-        if (zomatoDto != null) {
-            return zomatoDao.deleted(zomatoDto);
-        } else {
-            System.out.println("Invalid Details");
+    public boolean deleteRestaurantName(String name) {
+        if (name != null) {
+            return zomatoDao.deleteName(name);
+        }else {
+            return false;
         }
-
-        return isValid;
     }
 }

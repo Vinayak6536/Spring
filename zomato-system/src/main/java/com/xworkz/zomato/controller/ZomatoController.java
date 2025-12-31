@@ -16,45 +16,44 @@ public class ZomatoController {
     @Autowired
     private ZomatoService zomatoService;
 
-    public ZomatoController(){
+    public ZomatoController() {
         System.out.println("Execute ZomatoController....");
     }
 
     @PostMapping("addZomato")
-    public String  addZomato(ZomatoDto zomatoDto){
+    public String addZomato(ZomatoDto zomatoDto) {
         System.out.println("Add Zomato Restaurant");
-        boolean addData=zomatoService.validateAndSave(zomatoDto);
-        if (addData){
+        boolean addData = zomatoService.validateAndSave(zomatoDto);
+        if (addData) {
             System.out.println("Saved Successfully");
             return "ZomatoResult";
-        }
-        else {
+        } else {
             return "Error";
         }
     }
 
     @GetMapping("search")
-   public String getPhoneNo(@RequestParam("phone") Long phoneNo, Model model){
+    public String getPhoneNo(@RequestParam("phone") Long phoneNo, Model model) {
 
-        Optional<ZomatoDto> zomatoDto=zomatoService.getNameByPhoneNo(phoneNo);
+        Optional<ZomatoDto> zomatoDto = zomatoService.getNameByPhoneNo(phoneNo);
 
-        if (zomatoDto.isPresent()){
-            model.addAttribute("phone",zomatoDto.get());
+        if (zomatoDto.isPresent()) {
+            model.addAttribute("phone", zomatoDto.get());
             return "SearchResult";
-        }else {
+        } else {
 
             return "Error";
         }
     }
 
     @GetMapping("editDetails/{name}")
-    public String getRestaurantName(@PathVariable("name") String name, Model model){
+    public String getRestaurantName(@PathVariable("name") String name, Model model) {
 
-        Optional<ZomatoDto> zomatoDto=zomatoService.getRestaurantName(name);
+        Optional<ZomatoDto> zomatoDto = zomatoService.getRestaurantName(name);
         System.out.println(name);
-        if (zomatoDto.isPresent()){
+        if (zomatoDto.isPresent()) {
 
-            model.addAttribute("name",zomatoDto.get());
+            model.addAttribute("name", zomatoDto.get());
             return "UpdateRestaurant";
         } else {
             return "Error";
@@ -62,34 +61,30 @@ public class ZomatoController {
     }
 
     @PostMapping("update")
-    public String updateRestaurant(ZomatoDto zomatoDto){
+    public String updateRestaurant(ZomatoDto zomatoDto) {
 
-        boolean updated=zomatoService.updateAndSave(zomatoDto);
+        boolean updated = zomatoService.updateAndSave(zomatoDto);
 
-        if (updated){
+        if (updated) {
             return "ZomatoResult";
-        }
-        else {
+        } else {
             return "Error";
         }
 
     }
 
-    @GetMapping("update")
-    public String deleteRestaurant(ZomatoDto zomatoDto){
+    @GetMapping("delete/{deleted}")
+    public String deleteRestaurant(@PathVariable("deleted") String name, Model model) {
 
-        boolean updated=zomatoService.deleteAndSave(zomatoDto);
+        boolean zomatoDto = zomatoService.deleteRestaurantName(name);
+        System.out.println(name);
+        if (zomatoDto) {
 
-        if (updated){
-            return "ZomatoResult";
-        }
-        else {
+            model.addAttribute("name", zomatoDto);
+            return "Success";
+        } else {
             return "Error";
         }
 
     }
-
-
-
-
 }

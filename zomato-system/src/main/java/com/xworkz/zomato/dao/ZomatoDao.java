@@ -13,5 +13,5 @@ public interface ZomatoDao {
 
     Optional<ZomatoDto> saveName(String name);
 
-    boolean deleted(ZomatoDto zomatoDto);
+    boolean deleteName(String name);
 }

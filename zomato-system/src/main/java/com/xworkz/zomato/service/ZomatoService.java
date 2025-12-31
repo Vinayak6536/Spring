@@ -13,5 +13,5 @@ public interface ZomatoService {
 
     Optional<ZomatoDto> getRestaurantName(String name);
 
-    boolean deleteAndSave(ZomatoDto zomatoDto);
+    boolean deleteRestaurantName(String name);
 }

@@ -152,7 +152,21 @@ public class ZomatoDaoImpl implements ZomatoDao {
     }
 
     @Override
-    public boolean deleted(ZomatoDto zomatoDto) {
-        return false;
+    public boolean deleteName(String name) {
+
+        boolean isDelete=false;
+        Configuration configuration=new Configuration();
+        configuration.configure().addAnnotatedClass(ZomatoDto.class);
+
+        SessionFactory sessionFactory=configuration.buildSessionFactory();
+        Session session= sessionFactory.openSession();
+        Transaction transaction=session.beginTransaction();
+        ZomatoDto dto= session.get(ZomatoDto.class, name);
+        if (dto != null) {
+            session.delete(dto);
+            transaction.commit();
+            isDelete=true;
+        }
+        return isDelete;
     }
 }
