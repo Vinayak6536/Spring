@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component("airport")
 @Scope("prototype")                         //this scope using to create multiple address/objects or diffrent addresses
 public class Airport {
-    @Autowired
+    @Autowired  //
     Terminal terminal;
 
     private int airportId;
