@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class PersonalLoanServiceImpl implements PersonalLoanService {
+    public PersonalLoanServiceImpl(){
+        System.out.println("PersonalLoanServiceImpl Invoked....");
+    }
+
     @Autowired
     private PersonalLoanDao personalLoanDao;
     

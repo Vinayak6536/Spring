@@ -14,6 +14,9 @@ import java.sql.PreparedStatement;
 @ToString
 @Component
 public class PersonalLoanDaoImpl implements PersonalLoanDao {
+    public PersonalLoanDaoImpl(){
+        System.out.println("PersonalLoanDaoImpl Invoked....");
+    }
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
