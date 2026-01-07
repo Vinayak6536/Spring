@@ -2,6 +2,7 @@ package com.xworkz.event.repository;
 
 import com.xworkz.event.entity.EventEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface EventRepository {
@@ -12,4 +13,18 @@ public interface EventRepository {
     boolean updateTimeById(int id,int time);
 
     boolean deleteById(int id);
+
+    EventEntity getEventByName(String eventName);
+
+    List<EventEntity> getEventByTime(int time);
+
+    Object[] getEventManagerAndLocationByName(String name);
+
+    List<EventEntity> getAllEventlist();
+
+    Object getLocationByTime(int time);
+
+    String  getEventNameByManager(String manager);
+
+    List<String> getAllManagerName();
 }
