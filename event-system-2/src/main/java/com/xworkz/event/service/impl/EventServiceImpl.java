@@ -8,11 +8,14 @@ import com.xworkz.event.service.EventService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class EventServiceImpl implements EventService {
     EventRepository eventRepository=new EventRepositoryImpl();
+    EventDto dto=new EventDto();
     @Override
     public boolean validateAndSave(EventDto eventDto) {
         if (eventDto != null){
@@ -48,5 +51,64 @@ public class EventServiceImpl implements EventService {
     public boolean deleteById(int id) {
         eventRepository.deleteById(id );
         return true;
+    }
+
+    @Override
+    public EventDto getEventByName(String eventName) {
+        if (eventName != null){
+
+
+            EventEntity entity=eventRepository.getEventByName(eventName);
+            BeanUtils.copyProperties(entity,dto);
+            return dto;
+        }
+        return null;
+    }
+
+    @Override
+    public List<EventEntity> getEventByTime(int time) {
+        if (time != 0){
+            List<EventEntity> entity=eventRepository.getEventByTime(time);
+            return entity;
+        }
+        return null;
+    }
+
+    @Override
+    public Object[] getEventManagerAndLocationByName(String name) {
+        if (name != null){
+            Object[] getName=eventRepository.getEventManagerAndLocationByName(name);
+            return getName;
+        }
+        return null;
+    }
+
+    @Override
+    public List<EventEntity> getAllEventlist() {
+        List<EventEntity> list=eventRepository.getAllEventlist();
+        if (list != null) {
+
+            return list;
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public Object getLocationByTime(int time) {
+        if (time != 0){
+          return eventRepository.getLocationByTime(time);
+        }
+        return null;
+    }
+
+    @Override
+    public String getEventNameByManager(String manager) {
+        return eventRepository.getEventNameByManager(manager);
+    }
+
+    @Override
+    public List<String> getAllManagerName() {
+        return eventRepository.getAllManagerName();
     }
 }
