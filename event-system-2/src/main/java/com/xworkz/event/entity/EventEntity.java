@@ -3,17 +3,18 @@ package com.xworkz.event.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@ToString
 public class EventEntity {
     @Id
  //   @Column(name = "id")
