@@ -27,4 +27,8 @@ public interface EventRepository {
     String  getEventNameByManager(String manager);
 
     List<String> getAllManagerName();
+
+    boolean editEventManagerByEventNameAndEventTime(String eventManager, String eventName, int time);
+
+    boolean deleteByEventName(String eventName);
 }

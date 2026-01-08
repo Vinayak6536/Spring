@@ -8,13 +8,19 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@ToString
+@NamedQueries({
+        @NamedQuery(name = "getEventByName",query = "select getname from EventEntity getname where getname.eventName= :ename" ),
+        @NamedQuery(name = "deleteByEventName",query = "delete from EventEntity e where e.eventName= :eName")
+
+})
 public class EventEntity {
     @Id
  //   @Column(name = "id")
