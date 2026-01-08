@@ -75,7 +75,7 @@ public class EventRepositoryImpl implements EventRepository {
 
         EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("vinayak-xworkz");
         EntityManager entityManager= entityManagerFactory.createEntityManager();
-        Query query=entityManager.createQuery("select getname from EventEntity getname where getname.eventName= :ename");
+        Query query=entityManager.createNamedQuery("getEventByName");
         query.setParameter("ename",eventName);
         EventEntity eventEntity= (EventEntity) query.getSingleResult();
 
@@ -119,5 +119,38 @@ public class EventRepositoryImpl implements EventRepository {
     public List<String> getAllManagerName() {
         List<String> strings=entityManagerFactory.createEntityManager().createQuery("select managers.eventManager from EventEntity managers").getResultList();
         return strings;
+    }
+
+    @Override
+    public boolean editEventManagerByEventNameAndEventTime(String eventManager, String eventName, int time) {
+       // int updated= entityManagerFactory.createEntityManager().createQuery("update EventEntity e set e.eventManager= :eManager where e.eventName= :eName and e.time= :eTime").setParameter("eManager",eventManager).setParameter("eName",eventName).setParameter("eTime",time).executeUpdate();
+
+        EntityManager entityManager=entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query=entityManager.createQuery("update EventEntity e set e.eventManager= :eManager where e.eventName= :eName and e.time= :eTime");
+        int updated=query.setParameter("eManager",eventManager).setParameter("eName",eventName).setParameter("eTime",time).executeUpdate();
+        entityManager.getTransaction().commit();
+        if (updated > 0){
+
+            return true;
+
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteByEventName(String eventName) {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query=entityManager.createNamedQuery("deleteByEventName"); //using NamedQuery
+        int deleted=query.setParameter("eName",eventName).executeUpdate();
+        entityManager.getTransaction().commit();
+        if (deleted > 0){
+
+            return true;
+        }
+        entityManager.close();
+        return false;
+
     }
 }
