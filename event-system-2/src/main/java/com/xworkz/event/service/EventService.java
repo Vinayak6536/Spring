@@ -31,4 +31,10 @@ public interface EventService {
     String  getEventNameByManager(String manager);
 
     List<String> getAllManagerName();
+
+    boolean updateEventManagerByEventNameAndEventTime(String eventManager,String eventName,int time);
+
+    boolean updateEventTimeByEventName(String eventName,int time);
+
+    boolean deleteByEventName(String eventName);
 }
