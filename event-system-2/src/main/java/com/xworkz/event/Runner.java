@@ -44,5 +44,9 @@ public class Runner {
         System.out.println(eventService.getEventNameByManager("Chaitanya"));
 
         Stream.of(eventService.getAllManagerName()).forEach(System.out::println);
+
+        System.out.println(eventService.updateEventManagerByEventNameAndEventTime("Darshan","Startup Meetup",14));
+
+        System.out.println(eventService.deleteByEventName("Cultural Event"));
     }
 }
