@@ -111,4 +111,19 @@ public class EventServiceImpl implements EventService {
     public List<String> getAllManagerName() {
         return eventRepository.getAllManagerName();
     }
+
+    @Override
+    public boolean updateEventManagerByEventNameAndEventTime(String eventManager, String eventName, int time) {
+        return eventRepository.editEventManagerByEventNameAndEventTime(eventManager,eventName,time);
+    }
+
+    @Override
+    public boolean deleteByEventName(String eventName) {
+        return eventRepository.deleteByEventName(eventName);
+    }
+
+    @Override
+    public boolean updateEventTimeByEventName(String eventName, int time) {
+        return false;
+    }
 }
