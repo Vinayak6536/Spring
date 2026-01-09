@@ -13,5 +13,5 @@ public interface JobDao {
 
     boolean educationDataSave(EducationDto educationDto);
 
-    boolean experienceDataSave(ExperienceDto experienceDto);
+ //   boolean experienceDataSave(ExperienceDto experienceDto);
 }
