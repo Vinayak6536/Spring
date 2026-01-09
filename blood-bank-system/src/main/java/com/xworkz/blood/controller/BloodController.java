@@ -26,7 +26,9 @@ public class BloodController {
 
     @PostMapping("/createAccount")
     public String addRegister(BloodDto bloodDto) {
-        boolean saved = bloodService.updateAndSave(bloodDto);
+        System.out.println("Add Register");
+        System.out.println(bloodDto);
+        boolean saved = bloodService.validateAndSave(bloodDto);
         if (saved) {
             return "Success";
         } else {
