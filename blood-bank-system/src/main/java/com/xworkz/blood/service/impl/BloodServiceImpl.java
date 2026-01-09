@@ -2,7 +2,9 @@ package com.xworkz.blood.service.impl;
 
 import com.xworkz.blood.dao.BloodDao;
 import com.xworkz.blood.dto.BloodDto;
+import com.xworkz.blood.entity.BloodEntity;
 import com.xworkz.blood.service.BloodService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ public class BloodServiceImpl implements BloodService {
 
     @Autowired
     private BloodDao bloodDao;
+
+    BloodEntity entity=new BloodEntity();
     @Override
     public boolean validateAndSave(BloodDto dto) {
         boolean valid = true;
@@ -77,7 +81,11 @@ public class BloodServiceImpl implements BloodService {
 
             if (valid) {
                 System.out.println("Registration data is valid. Saving...");
-                return bloodDao.save(dto);
+                System.out.println(dto);
+
+                BeanUtils.copyProperties(dto,entity);
+                System.out.println("Entity"+entity);
+                return bloodDao.save(entity);
             }
 
 
@@ -150,7 +158,8 @@ public class BloodServiceImpl implements BloodService {
 
             if (valid) {
                 System.out.println("Registration data is valid. Saving...");
-                return bloodDao.updatedSave(dto);
+                BeanUtils.copyProperties(dto,entity);
+                return bloodDao.updatedSave(entity);
             }
 
 
