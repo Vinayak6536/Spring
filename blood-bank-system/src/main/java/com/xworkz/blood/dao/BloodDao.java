@@ -1,13 +1,14 @@
 package com.xworkz.blood.dao;
 
 import com.xworkz.blood.dto.BloodDto;
+import com.xworkz.blood.entity.BloodEntity;
 
 import java.util.List;
 
 public interface BloodDao {
-    boolean save(BloodDto dto);
+    boolean save(BloodEntity entity);
 
-    boolean updatedSave(BloodDto dto);
+    boolean updatedSave(BloodEntity entity);
 
     boolean deleted(String firstName);
 

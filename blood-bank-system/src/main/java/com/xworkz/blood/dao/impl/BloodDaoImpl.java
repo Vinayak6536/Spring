@@ -3,10 +3,14 @@ package com.xworkz.blood.dao.impl;
 import com.xworkz.blood.constants.JDBCconnect;
 import com.xworkz.blood.dao.BloodDao;
 import com.xworkz.blood.dto.BloodDto;
+import com.xworkz.blood.entity.BloodEntity;
 import com.xworkz.blood.service.BloodService;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,41 +22,24 @@ import java.util.List;
 @Repository
 public class BloodDaoImpl implements BloodDao {
 
-    static {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    @Autowired
+    private EntityManagerFactory factory;
+//    static {
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-    @SneakyThrows
+
     @Override
-    public boolean save(BloodDto dto) {
-
-        String insert = "INSERT INTO donor_registration " +
-                "(donor_id, first_name, last_name, dob, zip_code, email, phone, password) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-
-        try (Connection connection = DriverManager.getConnection(JDBCconnect.URL.getValue(), JDBCconnect.USERNAME.getValue(), JDBCconnect.PASSWORD.getValue());
-             PreparedStatement preparedStatement = connection.prepareStatement(insert)) {
-            System.out.println(connection);
-
-            preparedStatement.setString(1, dto.getDonorId());
-            preparedStatement.setString(2, dto.getFirstName());
-            preparedStatement.setString(3, dto.getLastName());
-            preparedStatement.setDate(4, java.sql.Date.valueOf(dto.getDob())); // yyyy-mm-dd
-            preparedStatement.setInt(5, dto.getZipCode());
-            preparedStatement.setString(6, dto.getEmail());
-            preparedStatement.setLong(7, dto.getPhone());
-            preparedStatement.setString(8, dto.getPassword()); // store hashed password
-
-            int rows = preparedStatement.executeUpdate();
-
-            System.out.println("Rows Inserted: " + rows);
-        }
-
+    public boolean save(BloodEntity entity) {
+        System.out.println(entity);
+        EntityManager entityManager=factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(entity);
+        entityManager.getTransaction().commit();
         return true;
     }
 
@@ -98,28 +85,10 @@ public class BloodDaoImpl implements BloodDao {
 
     @SneakyThrows
     @Override
-    public boolean updatedSave(BloodDto dto) {
-        String insert = "update donor_registration set donor_id=?,first_name= ?,last_name= ?, dob=?,zip_code= ?,email= ?, phone=? where first_name=?";
-
-
-        try (Connection connection = DriverManager.getConnection(JDBCconnect.URL.getValue(), JDBCconnect.USERNAME.getValue(), JDBCconnect.PASSWORD.getValue());
-             PreparedStatement preparedStatement = connection.prepareStatement(insert)) {
-            System.out.println(connection);
-
-            preparedStatement.setString(1, dto.getDonorId());
-            preparedStatement.setString(2, dto.getFirstName());
-            preparedStatement.setString(3, dto.getLastName());
-            preparedStatement.setDate(4, java.sql.Date.valueOf(dto.getDob())); // yyyy-mm-dd
-            preparedStatement.setInt(5, dto.getZipCode());
-            preparedStatement.setString(6, dto.getEmail());
-            preparedStatement.setLong(7, dto.getPhone());
-            preparedStatement.setString(8, dto.getFirstName());
-
-            int rows = preparedStatement.executeUpdate();
-
-            System.out.println("Rows Inserted: " + rows);
-        }
-
+    public boolean updatedSave(BloodEntity entity) {
+        EntityManager entityManager= factory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.createNamedQuery("updateBloodEntityByName").setParameter("eName",en);
         return true;
     }
 
