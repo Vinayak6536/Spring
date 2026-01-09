@@ -102,14 +102,15 @@ public class JobDaoImpl implements JobDao {
         } return false;
     }
 
-    @Override
-    public boolean experienceDataSave(ExperienceDto experienceDto) {
-        String insert="insert into education_details(school_Name,school_Perc,college_Name,college_Perc,degree_Name,degree_Perc,master_Name,master_Perc) values (?,?,?,?,?,?,?,?)";
-        try (PreparedStatement preparedStatement= connection.prepareStatement(insert)) {
-            System.out.println(connection);
-
-
-
-        }
-    }
+//    @Override
+//    public boolean experienceDataSave(ExperienceDto experienceDto) {
+//        String insert="insert into education_details(school_Name,school_Perc,college_Name,college_Perc,degree_Name,degree_Perc,master_Name,master_Perc) values (?,?,?,?,?,?,?,?)";
+//        try (PreparedStatement preparedStatement= connection.prepareStatement(insert)) {
+//            System.out.println(connection);
+//
+//
+//
+//        }
+//        return false;
+//    }
 }
