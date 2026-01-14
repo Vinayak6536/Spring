@@ -1,6 +1,7 @@
 package com.xworkz.blood.controller;
 
 import com.xworkz.blood.dto.BloodDto;
+import com.xworkz.blood.entity.BloodEntity;
 import com.xworkz.blood.service.BloodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,8 +40,7 @@ public class BloodController {
     @GetMapping("/searchByFirstName")
     public String searchByFirstName(@RequestParam("firstName") String firstName, Model model) {
 
-
-        List<BloodDto> searchByFirstNameone = bloodService.findByFirstName(firstName);
+        List<BloodEntity> searchByFirstNameone = bloodService.findByFirstName(firstName);
         System.out.println(searchByFirstNameone);
         model.addAttribute("donorList", searchByFirstNameone);
         return "Result";
@@ -50,7 +50,7 @@ public class BloodController {
     @GetMapping("/editBlood")
     public String editBlood(@RequestParam("firstName")String firstName, Model model) {
         System.out.println(firstName);
-        List<BloodDto> searchByFirstNameTwo = bloodService.findByFirstName(firstName);
+        List<BloodEntity> searchByFirstNameTwo = bloodService.findByFirstName(firstName);
         if (!searchByFirstNameTwo.isEmpty()) {
             model.addAttribute("donor", searchByFirstNameTwo.get(0));
             return "UpdateDonor";
@@ -69,9 +69,9 @@ public class BloodController {
     }
 
     @GetMapping("/delete")
-    public String deleteDetails(@RequestParam("firstName")String firstName, Model model){
-        System.out.println(firstName);
-        boolean searchByFirstNameTwo = bloodService.deleted(firstName);
+    public String deleteDetails(@RequestParam("donorId")String id, Model model){
+        System.out.println(id);
+        boolean searchByFirstNameTwo = bloodService.deleted(id);
         if (searchByFirstNameTwo) {
             model.addAttribute("donor", searchByFirstNameTwo);
             return "Success";

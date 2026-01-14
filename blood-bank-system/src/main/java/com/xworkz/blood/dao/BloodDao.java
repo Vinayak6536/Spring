@@ -1,6 +1,5 @@
 package com.xworkz.blood.dao;
 
-import com.xworkz.blood.dto.BloodDto;
 import com.xworkz.blood.entity.BloodEntity;
 
 import java.util.List;
@@ -10,7 +9,7 @@ public interface BloodDao {
 
     boolean updatedSave(BloodEntity entity);
 
-    boolean deleted(String firstName);
+    boolean deleted(String id);
 
-    List<BloodDto> findByFirstName(String firstName);
+    List<BloodEntity> findByFirstName(String firstName);
 }
