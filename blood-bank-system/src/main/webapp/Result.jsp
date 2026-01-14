@@ -83,7 +83,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                     <a href="delete?firstName=${donor.firstName}"
+                                     <a href="delete?donorId=${donor.donorId}"
                                      class="btn btn-sm btn-primary">
                                      Delete
                                  </a>

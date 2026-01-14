@@ -7,7 +7,6 @@ import com.xworkz.blood.service.BloodService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -94,14 +93,15 @@ public class BloodServiceImpl implements BloodService {
     }
 
     @Override
-    public List<BloodDto> findByFirstName(String firstName) {
+    public List<BloodEntity> findByFirstName(String firstName) {
 
         if (firstName == null || firstName.trim().length() < 3) {
             System.out.println("Invalid first name for search");
             return null;
         }
         else {
-            List<BloodDto> fetch=bloodDao.findByFirstName(firstName);
+
+            List<BloodEntity> fetch=bloodDao.findByFirstName(firstName);
             return fetch;
         }
     }
@@ -168,13 +168,13 @@ public class BloodServiceImpl implements BloodService {
     }
 
     @Override
-    public boolean deleted(String firstName) {
-        if (firstName == null || firstName.trim().length() < 3) {
+    public boolean deleted(String id) {
+        if (id == null || id.trim().length() < 3 ) {
             System.out.println("Invalid first name for search");
             return false;
         }
         else {
-            boolean delete=bloodDao.deleted(firstName);
+            boolean delete=bloodDao.deleted(id);
             return delete;
         }
     }
