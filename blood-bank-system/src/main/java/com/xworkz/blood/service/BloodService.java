@@ -1,8 +1,8 @@
 package com.xworkz.blood.service;
 
 import com.xworkz.blood.dto.BloodDto;
+import com.xworkz.blood.entity.BloodEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ public interface BloodService {
 
     boolean updateAndSave(BloodDto dto);
 
-    boolean deleted(String firstName);
+    boolean deleted(String  id);
 
-    List<BloodDto> findByFirstName(String firstName);
+    List<BloodEntity> findByFirstName(String firstName);
 
 
 }
