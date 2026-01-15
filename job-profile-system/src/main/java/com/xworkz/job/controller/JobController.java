@@ -29,18 +29,32 @@ public class JobController {
         boolean saved= jobService.validateAndSave(personalDto);
 
         if (saved){
-            model.addAttribute("firstName",personalDto.getFirstName());
+            System.out.println(personalDto);
+            model.addAttribute("firstName",personalDto);
             return "PersonalSuccess";
         }else {
             return "Error";
         }
     }
 
-    @GetMapping("getName")
-    public String getId(@RequestParam("firstName")String name, Model model){
+    @GetMapping("getPhone")
+    public String getIdByPhone(@RequestParam("phone")long phone,Model model){
+        System.out.println(phone);
+        Optional<PersonalDto> personalDto=  jobService.getIdByPhone(phone);
+        if (personalDto.isPresent()){
+            model.addAttribute("dtos",personalDto.get());
+            model.addAttribute("enableNext", true);
+            return "PersonalSuccess";
+        }else {
+            return "Error";
+        }
+    }
 
-        System.out.println(name);
-        Optional<PersonalDto> personalDto=  jobService.validateAndFetch(name);
+    @GetMapping("getId")
+    public String getId(@RequestParam("id")int id, Model model){
+
+        System.out.println(id);
+        Optional<PersonalDto> personalDto=  jobService.validateAndFetch(id);
         if (personalDto.isPresent()){
             model.addAttribute("dto",personalDto.get());
             return "EducationDetails";
@@ -62,6 +76,7 @@ public class JobController {
 
     @PostMapping("experience")
     public String addExperience(ExperienceDto experienceDto){
+
 
 
         return "";
