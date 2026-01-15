@@ -54,13 +54,23 @@
                         ✅ Data Saved Successfully
                     </h4>
 
+
                     <p class="text-muted">
-                        Personal details saved for <strong>${firstName}</strong>
+                        Personal details saved for
+                        <strong>
+                            <a href="getPhone?phone=${firstName.getPhone()}">
+                                ${firstName.getFirstName()}
+                            </a>
+                        </strong>
                     </p>
 
-                    <a href="getName?firstName=${firstName}" class="btn btn-primary px-4">
-                        Next
-                    </a>
+<a href="getId?id=${dtos.getId()}"
+   class="btn btn-primary px-4 ${enableNext ? '' : 'disabled'}"
+   style="${enableNext ? '' : 'pointer-events:none;'}">
+    Next
+</a>
+
+
                 </div>
             </div>
 
@@ -69,4 +79,11 @@
 </div>
 
 </body>
+<script>
+    function enableNextButton() {
+        const btn = document.getElementById("nextBtn");
+        btn.classList.remove("disabled");
+        btn.style.pointerEvents = "auto";
+    }
+</script>
 </html>

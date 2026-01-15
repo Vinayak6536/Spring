@@ -25,10 +25,21 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Optional<PersonalDto> validateAndFetch(String name) {
-        if (name != null){
-            return jobDao.getIdByName(name);
+    public Optional<PersonalDto> validateAndFetch(int id) {
+        if (id != 0){
+            return jobDao.getIdByName(id);
         }else{
+            System.out.println("No record");
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<PersonalDto> getIdByPhone(long phone) {
+        if (phone != 0){
+            return jobDao.getIdByPhone(phone);
+        }else {
+            System.out.println("No record");
             return Optional.empty();
         }
     }
