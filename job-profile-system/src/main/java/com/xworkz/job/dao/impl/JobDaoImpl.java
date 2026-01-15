@@ -3,7 +3,6 @@ package com.xworkz.job.dao.impl;
 import com.xworkz.job.constants.JDBCconnect;
 import com.xworkz.job.dao.JobDao;
 import com.xworkz.job.dto.EducationDto;
-import com.xworkz.job.dto.ExperienceDto;
 import com.xworkz.job.dto.PersonalDto;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
@@ -54,28 +53,55 @@ public class JobDaoImpl implements JobDao {
 
     @SneakyThrows
     @Override
-    public Optional<PersonalDto> getIdByName(String name) {
+    public Optional<PersonalDto> getIdByName(int id) {
         System.out.println("Name Dao Method started...");
-        String insert="select id from personal_details where firstname=?";
+        String insert="select id from personal_details where id=?";
         try (PreparedStatement preparedStatement= connection.prepareStatement(insert)) {
             System.out.println(connection);
 
-            preparedStatement.setString(1, name);
-            System.out.println(name);
+            preparedStatement.setInt(1, id);
+            System.out.println(id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                int id= resultSet.getInt("id");
-                System.out.println(id);
+                int id1= resultSet.getInt("id");
+                System.out.println(id1);
                 //String name1= resultSet.getString("");
                 //System.out.println(name1);
-                PersonalDto personalDto=new PersonalDto(id);
+                PersonalDto personalDto=new PersonalDto(id1);
                 return Optional.of(personalDto);
             }else {
                 System.out.println("No record");
                 return Optional.empty();
             }
 
+        }
+    }
+
+    @SneakyThrows
+    @Override
+    public Optional<PersonalDto> getIdByPhone(long phone) {
+        System.out.println("Name Dao Method started...");
+        String insert = "select id from personal_details where phone=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insert)) {
+            System.out.println(connection);
+
+            preparedStatement.setLong(1, phone);
+            System.out.println(phone);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int id1 = resultSet.getInt("id");
+                System.out.println(id1);
+                //String name1= resultSet.getString("");
+                //System.out.println(name1);
+                PersonalDto personalDto = new PersonalDto(id1);
+                return Optional.of(personalDto);
+            } else {
+                System.out.println("No record");
+
+                return Optional.empty();
+            }
         }
     }
 
