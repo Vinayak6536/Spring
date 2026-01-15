@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface JobService {
     boolean validateAndSave(PersonalDto personalDto);
 
-    Optional<PersonalDto> validateAndFetch(String name);
+    Optional<PersonalDto> validateAndFetch(int id);
 
     boolean educationValidate(EducationDto educationDto);
+
+    Optional<PersonalDto> getIdByPhone(long phone);
 }
