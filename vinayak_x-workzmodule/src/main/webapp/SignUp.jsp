@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -112,7 +115,9 @@
                        <form action="signUp"
                              method="post"
                              onsubmit="return validateForm()">
-
+<c:if test="${not empty exist}">
+                <p class="text-center fs-4 fw-bold text-uppercase text-danger">${ exist }</p>
+            </c:if>
 
                            <div class="mb-2">
                                <label>First Name</label>
@@ -176,7 +181,6 @@
                                     Register
                                 </button>
                             </div>
-
                         </form>
                     </div>
                 </div>

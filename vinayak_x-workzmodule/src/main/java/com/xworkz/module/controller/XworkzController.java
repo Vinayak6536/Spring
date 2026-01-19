@@ -18,26 +18,38 @@ public class XworkzController {
     }
 
     @PostMapping("signUp")
-    public String getSignUp(XworkzDto xworkzDto){
-        if (xworkzDto != null){
+    public String getSignUp(XworkzDto xworkzDto,Model model){
+        if (!xworkzService.checkEmailOrPhone(xworkzDto.getEmail()) && !xworkzService.checkEmailOrPhone(String.valueOf(xworkzDto.getPhoneNo())) && xworkzDto != null ){
             xworkzService.validateAndSave(xworkzDto);
 
             return "SignIn";
         }
+        model.addAttribute("exist","User Already Exist");
         return "SignUp";
     }
 
     @GetMapping("signIn")
     public String getSignIn(String emailOrPhone, String password, Model model){
-        System.out.println(emailOrPhone);
-        System.out.println(password);
-        XworkzDto xworkzDto=xworkzService.findEmail(emailOrPhone,password);
-        System.out.println(xworkzDto);
-        if (xworkzDto != null) {
-            model.addAttribute("Success", xworkzDto);
 
+        String fetchedPassword=xworkzService.findEmail(emailOrPhone,password);
+
+        if (fetchedPassword != null) {
+            model.addAttribute("Success", fetchedPassword);
+            xworkzService.setCount(emailOrPhone);
             return "index";
         }
-        return "SignUp";
+
+        else {
+            int count=xworkzService.getCount(emailOrPhone);
+            if (count>=2){
+                return "ForgetPassword";
+            }else {
+                xworkzService.updateCount(emailOrPhone);
+            }
+        }
+
+        model.addAttribute("emailOrPhoneno",emailOrPhone);
+        return "SignIn";
     }
+
 }
