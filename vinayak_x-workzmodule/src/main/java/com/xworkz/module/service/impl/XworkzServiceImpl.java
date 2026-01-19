@@ -26,16 +26,19 @@ public class XworkzServiceImpl implements XworkzService {
     private PasswordCipherUtil passwordCipherUtil;
 
 
-
     private static final String SECRET_KEY = "MySecretKey12345";
 
     @Override
-    public boolean validateAndSave(XworkzDto xworkzDto) {
-        if (xworkzDto != null){
+    public boolean checkEmailOrPhone(String emailorPhone) {
+        return xworkzRepository.checkEmailOrPhone(emailorPhone);
+    }
 
+    @Override
+    public boolean validateAndSave(XworkzDto xworkzDto) {
+        if (xworkzDto != null) {
             PasswordCipherUtil util = new PasswordCipherUtil();
             String encryptedPassword = util.encrypt(xworkzDto.getPassword());
-            BeanUtils.copyProperties(xworkzDto,xworkzEntity);
+            BeanUtils.copyProperties(xworkzDto, xworkzEntity);
             xworkzEntity.setPassword(encryptedPassword);
             System.out.println(xworkzEntity);
             return xworkzRepository.save(xworkzEntity);
@@ -46,25 +49,32 @@ public class XworkzServiceImpl implements XworkzService {
     }
 
     @Override
-    public XworkzDto findEmail(String emailOrPhone, String password) {
-        if (emailOrPhone != null){
-            System.out.println(emailOrPhone);
-            System.out.println(password);
-           XworkzEntity xworkzEntity= xworkzRepository.findEmail(emailOrPhone);
-            System.out.println(xworkzEntity);
-            XworkzDto xworkzDto=new XworkzDto();
-            BeanUtils.copyProperties(xworkzEntity,xworkzDto);
-           String util=passwordCipherUtil.decrypt(xworkzDto.getPassword());
-            System.out.println(xworkzDto);
-            System.out.println(util);
-           if (util.equals(password)){
-               System.out.println(xworkzDto);
-                return xworkzDto;
-           }
-           else {
-               System.out.println("Invalid Password");
-           }
+    public String findEmail(String emailOrPhone, String password) {
+        if (emailOrPhone != null) {
+
+            String fetchedPassword = xworkzRepository.findEmail(emailOrPhone);
+            String decryptPassword = passwordCipherUtil.decrypt(fetchedPassword);
+            if (decryptPassword.equals(password)) {
+                return fetchedPassword;
+            } else {
+                System.out.println("Invalid Password");
+            }
         }
         return null;
+    }
+
+    @Override
+    public int getCount(String emailOrPhoneNo) {
+        return xworkzRepository.getCount(emailOrPhoneNo);
+    }
+
+    @Override
+    public void updateCount(String emailOrPhone) {
+        xworkzRepository.updateCount(emailOrPhone);
+    }
+
+    @Override
+    public void setCount(String emailOrPhone) {
+        xworkzRepository.setCount(emailOrPhone);
     }
 }
