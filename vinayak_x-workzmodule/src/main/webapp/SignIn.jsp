@@ -90,14 +90,15 @@
                                        id="emailOrPhone"
                                        class="form-control"
                                        placeholder="Enter email or mobile number"
-                                       required>
+                                       value="${emailOrPhoneno}" required>
                                 <div id="emailOrPhoneError" class="error"></div>
                             </div>
 
 
                             <div class="mb-3">
                                 <label>Password</label>
-                                <input type="password" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control"
+                                placeholder="Enter Password">
                                 <div id="passwordError" class="error"></div>
                             </div>
 
