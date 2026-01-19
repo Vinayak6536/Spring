@@ -5,5 +5,13 @@ import com.xworkz.module.entity.XworkzEntity;
 public interface XworkzRepository {
     boolean save(XworkzEntity xworkzEntity);
 
-    XworkzEntity findEmail(String emailOrPhone);
+    String findEmail(String emailOrPhone);
+
+    int getCount(String emailOrPhoneNo);
+
+    void updateCount(String emailOrPhone);
+
+    void setCount(String emailOrPhone);
+
+    boolean checkEmailOrPhone(String emailorPhone);
 }

@@ -16,6 +16,8 @@ public class XworkzEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+
     private String firstName;
     private String lastName;
     private int age;
@@ -23,5 +25,5 @@ public class XworkzEntity {
     private long phoneNo;
     private String email;
     private String password;
-
+    private int count;
 }
