@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class PasswordCipherUtil {
 
-    private static final String SECRET_KEY = "MySecretKey12345"; // 16 chars
+    private static final String SECRET_KEY = "MySecretKey12345";
 
     // Encrypt password
     public String encrypt(String password) {

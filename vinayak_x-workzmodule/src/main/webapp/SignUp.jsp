@@ -25,69 +25,119 @@
     </style>
 
     <script>
-        function validateForm() {
-            let valid = true;
-            document.querySelectorAll(".error").forEach(e => e.innerText = "");
+    const namePattern = /^[A-Za-z]+$/;
+    const phonePattern = /^[6-9]\d{9}$/;
+    const passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
-            const firstName = document.getElementById("firstName").value.trim();
-            const lastName = document.getElementById("lastName").value.trim();
-            const age = document.getElementById("age").value;
-            const phone = document.getElementById("phoneNo").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
-            const gender = document.querySelector('input[name="gender"]:checked');
-
-            const phonePattern = /^[6-9][0-9]{9}$/;
-            const passwordPattern =
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-            if (firstName === "") {
-                document.getElementById("firstNameError").innerText = "First name is required";
-                valid = false;
-            }
-
-            if (lastName === "") {
-                document.getElementById("lastNameError").innerText = "Last name is required";
-                valid = false;
-            }
-
-            if (age === "" || age <= 0) {
-                document.getElementById("ageError").innerText = "Enter valid age";
-                valid = false;
-            }
-
-            if (!gender) {
-                document.getElementById("genderError").innerText = "Select gender";
-                valid = false;
-            }
-
-            if (!phonePattern.test(phone)) {
-                document.getElementById("phoneError").innerText =
-                    "Mobile number must start with 6-9 and be 10 digits";
-                valid = false;
-            }
-
-            if (email === "") {
-                document.getElementById("emailError").innerText = "Email is required";
-                valid = false;
-            }
-
-            if (!passwordPattern.test(password)) {
-                document.getElementById("passwordError").innerText =
-                    "Password must contain uppercase, lowercase, number & special character";
-                valid = false;
-            }
-
-            if (password !== confirmPassword) {
-                document.getElementById("confirmPasswordError").innerText =
-                    "Passwords do not match";
-                valid = false;
-            }
-
-            return valid;
+    function validateFirstName() {
+        const value = firstName.value.trim();
+        if (value === "") {
+            firstNameError.innerText = "First name is required";
+            return false;
         }
+        if (!namePattern.test(value)) {
+            firstNameError.innerText = "Only letters allowed";
+            return false;
+        }
+        firstNameError.innerText = "";
+        return true;
+    }
+
+    function validateLastName() {
+        const value = lastName.value.trim();
+        if (value === "") {
+            lastNameError.innerText = "Last name is required";
+            return false;
+        }
+        if (!namePattern.test(value)) {
+            lastNameError.innerText = "Only letters allowed";
+            return false;
+        }
+        lastNameError.innerText = "";
+        return true;
+    }
+
+    function validateAge() {
+        const value = age.value;
+        if (value === "") {
+            ageError.innerText = "Age is required";
+            return false;
+        }
+        if (value < 18 || value > 120) {
+            ageError.innerText = "Age must be between 18 and 120";
+            return false;
+        }
+        ageError.innerText = "";
+        return true;
+    }
+
+    function validateGender() {
+        const gender = document.querySelector('input[name="gender"]:checked');
+        if (!gender) {
+            genderError.innerText = "Select gender";
+            return false;
+        }
+        genderError.innerText = "";
+        return true;
+    }
+
+    function validatePhone() {
+        const value = phoneNo.value.trim();
+        if (!phonePattern.test(value)) {
+            phoneError.innerText =
+                "Mobile number must start with 6-9 and be 10 digits";
+            return false;
+        }
+        phoneError.innerText = "";
+        return true;
+    }
+
+    function validateEmail() {
+        const value = email.value.trim();
+        if (value === "") {
+            emailError.innerText = "Email is required";
+            return false;
+        }
+        emailError.innerText = "";
+        return true;
+    }
+
+    function validatePassword() {
+        const value = password.value;
+        if (!passwordPattern.test(value)) {
+            passwordError.innerText =
+                "Password must contain uppercase, lowercase, number & special character";
+            return false;
+        }
+        passwordError.innerText = "";
+        return true;
+    }
+
+    function validateConfirmPassword() {
+        if (password.value !== confirmPassword.value) {
+            confirmPasswordError.innerText = "Passwords do not match";
+            return false;
+        }
+        confirmPasswordError.innerText = "";
+        return true;
+    }
+
+    function validateForm() {
+        return (
+            validateFirstName() &
+            validateLastName() &
+            validateAge() &
+            validateGender() &
+            validatePhone() &
+            validateEmail() &
+            validatePassword() &
+            validateConfirmPassword()
+        );
+    }
     </script>
+
+
 </head>
 
 <body>
@@ -112,76 +162,73 @@
                     </div>
 
                     <div class="card-body">
-                       <form action="signUp"
-                             method="post"
-                             onsubmit="return validateForm()">
-<c:if test="${not empty exist}">
-                <p class="text-center fs-4 fw-bold text-uppercase text-danger">${ exist }</p>
-            </c:if>
+                       <form action="signUp" method="post" onsubmit="return validateForm()">
 
-                           <div class="mb-2">
-                               <label>First Name</label>
-                               <input type="text" id="firstName" name="firstName"
-                                      class="form-control" onblur="return validateForm()" required>
-                               <div id="firstNameError" class="error" onblur="return validateForm()"></div>
-                           </div>
+                       <c:if test="${not empty exist}"> <p class="text-center fs-4 fw-bold text-uppercase text-danger">${ exist }</p> </c:if>
 
-                           <div class="mb-2">
-                               <label>Last Name</label>
-                               <input type="text" id="lastName" name="lastName"
-                                      class="form-control" onblur="return validateForm()" required>
-                               <div id="lastNameError" class="error"></div>
-                           </div>
+                       <div class="mb-2">
+                           <label>First Name</label>
+                           <input type="text" id="firstName" name="firstName"
+                                  class="form-control" oninput="validateFirstName()" required>
+                           <div id="firstNameError" class="error"></div>
+                       </div>
 
-                           <div class="mb-2">
-                               <label>Age</label>
-                               <input type="number" id="age" name="age"
-                                      class="form-control" min="1" onblur="return validateForm()" required>
-                               <div id="ageError" class="error"></div>
-                           </div>
+                       <div class="mb-2">
+                           <label>Last Name</label>
+                           <input type="text" id="lastName" name="lastName"
+                                  class="form-control" oninput="validateLastName()" required>
+                           <div id="lastNameError" class="error"></div>
+                       </div>
 
-                           <div class="mb-2">
-                               <label>Gender</label><br>
-                               <input type="radio" name="gender" value="Male" onblur="return validateForm()" required> Male
-                               <input type="radio" name="gender" value="Female" onblur="return validateForm()" class="ms-3"> Female
-                               <div id="genderError" class="error"></div>
-                           </div>
+                       <div class="mb-2">
+                           <label>Age</label>
+                           <input type="number" id="age" name="age"
+                                  class="form-control" min="18" max="120"
+                                  oninput="validateAge()" required>
+                           <div id="ageError" class="error"></div>
+                       </div>
 
-                           <div class="mb-2">
-                               <label>Mobile Number</label>
-                               <input type="text" id="phoneNo" name="phoneNo"
-                                      class="form-control" maxlength="10" onblur="return validateForm()" required>
-                               <div id="phoneError" class="error"></div>
-                           </div>
+                       <div class="mb-2">
+                           <label>Gender</label><br>
+                           <input type="radio" name="gender" value="Male"
+                                  onchange="validateGender()"> Male
+                           <input type="radio" name="gender" value="Female"
+                                  class="ms-3" onchange="validateGender()"> Female
+                           <div id="genderError" class="error"></div>
+                       </div>
 
-                           <div class="mb-2">
-                               <label>Email</label>
-                               <input type="email" id="email" name="email"
-                                      class="form-control" onblur="return validateForm()" required>
-                               <div id="emailError" class="error"></div>
-                           </div>
+                       <div class="mb-2">
+                           <label>Mobile Number</label>
+                           <input type="text" id="phoneNo" name="phoneNo"
+                                  class="form-control" maxlength="10"
+                                  oninput="validatePhone()" required>
+                           <div id="phoneError" class="error"></div>
+                       </div>
 
-                           <div class="mb-2">
-                               <label>Password</label>
-                               <input type="password" id="password" name="password"
-                                      class="form-control" onblur="return validateForm()" required>
-                               <div id="passwordError" class="error"></div>
-                           </div>
+                       <div class="mb-2">
+                           <label>Email</label>
+                           <input type="email" id="email" name="email"
+                                  class="form-control" oninput="validateEmail()" required>
+                           <div id="emailError" class="error"></div>
+                       </div>
 
-                           <div class="mb-3">
-                               <label>Confirm Password</label>
-                               <input type="password" id="confirmPassword" name="confirmPassword"
-                                      class="form-control" onblur="return validateForm()" required>
-                               <div id="confirmPasswordError" class="error"></div>
-                           </div>
+                       <div class="mb-2">
+                           <label>Password</label>
+                           <input type="password" id="password" name="password"
+                                  class="form-control" oninput="validatePassword()" required>
+                           <div id="passwordError" class="error"></div>
+                       </div>
+
+                       <div class="mb-3">
+                           <label>Confirm Password</label>
+                           <input type="password" id="confirmPassword" name="confirmPassword"
+                                  class="form-control" oninput="validateConfirmPassword()" required>
+                           <div id="confirmPasswordError" class="error"></div>
+                       </div>
 
 
-                            <div class="d-grid">
-                                <button class="btn btn-warning btn-lg">
-                                    Register
-                                </button>
-                            </div>
-                        </form>
+                       <button class="btn btn-warning btn-lg w-100">Register</button>
+                       </form>
                     </div>
                 </div>
 
