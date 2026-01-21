@@ -6,8 +6,12 @@ import com.xworkz.module.service.XworkzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class XworkzController {
@@ -18,38 +22,46 @@ public class XworkzController {
     }
 
     @PostMapping("signUp")
-    public String getSignUp(XworkzDto xworkzDto,Model model){
+    public ModelAndView getSignUp(@Valid XworkzDto xworkzDto, BindingResult result,ModelAndView model){
+        if (result.hasErrors()){
+            result.getFieldErrors().forEach(fieldError -> model.addObject(fieldError.getField() +"Error",fieldError.getDefaultMessage()));
+            model.setViewName("SignUp");
+            return model;
+        }
         if (!xworkzService.checkEmailOrPhone(xworkzDto.getEmail()) && !xworkzService.checkEmailOrPhone(String.valueOf(xworkzDto.getPhoneNo())) && xworkzDto != null ){
             xworkzService.validateAndSave(xworkzDto);
 
-            return "SignIn";
+            model.setViewName("SignIn");
+            return model;
+
         }
-        model.addAttribute("exist","User Already Exist");
-        return "SignUp";
+        model.addObject("exist","User Already Exist");
+        model.setViewName("SignUp");
+        return model;
     }
 
     @GetMapping("signIn")
-    public String getSignIn(String emailOrPhone, String password, Model model){
+    public String getSignIn(String emailOrPhone, String password, Model model) {
 
-        String fetchedPassword=xworkzService.findEmail(emailOrPhone,password);
+        String fetchedPassword = xworkzService.findEmail(emailOrPhone, password);
 
         if (fetchedPassword != null) {
             model.addAttribute("Success", fetchedPassword);
             xworkzService.setCount(emailOrPhone);
             return "index";
-        }
+        } else {
+            int count = xworkzService.getCount(emailOrPhone);
+            if (count >= 2) {
+                return "ForgotPassword";
+            } else {
 
-        else {
-            int count=xworkzService.getCount(emailOrPhone);
-            if (count>=2){
-                return "ForgetPassword";
-            }else {
                 xworkzService.updateCount(emailOrPhone);
+
             }
+
+            model.addAttribute("message", (3 - (count + 1))+" "+"Attempts Left");
+            model.addAttribute("emailOrPhoneno", emailOrPhone);
+            return "SignIn";
         }
-
-        model.addAttribute("emailOrPhoneno",emailOrPhone);
-        return "SignIn";
     }
-
 }
