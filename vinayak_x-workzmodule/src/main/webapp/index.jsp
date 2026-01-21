@@ -45,7 +45,7 @@
         <div class="fs-1 fw-bold text-warning">_</div>
 
         <p class="mt-3">
-            <a href="#" class="text-decoration-none fw-semibold">
+            <a href="SignUp.jsp" class="text-decoration-none fw-semibold">
                 Click here for registration
             </a>
         </p>
