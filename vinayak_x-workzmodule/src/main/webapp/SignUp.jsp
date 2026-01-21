@@ -22,6 +22,11 @@
             color: red;
             font-size: 14px;
         }
+        footer {
+
+                    background-color: #212529;
+                    color: white;
+                }
     </style>
 
     <script>
@@ -170,14 +175,15 @@
                            <label>First Name</label>
                            <input type="text" id="firstName" name="firstName"
                                   class="form-control" oninput="validateFirstName()" required>
-                           <div id="firstNameError" class="error"></div>
+                           <div id="firstNameError" class="error">${firstNameError}</div>
+
                        </div>
 
                        <div class="mb-2">
                            <label>Last Name</label>
                            <input type="text" id="lastName" name="lastName"
                                   class="form-control" oninput="validateLastName()" required>
-                           <div id="lastNameError" class="error"></div>
+                           <div id="lastNameError" class="error">${lastNameError}</div>
                        </div>
 
                        <div class="mb-2">
@@ -185,7 +191,7 @@
                            <input type="number" id="age" name="age"
                                   class="form-control" min="18" max="120"
                                   oninput="validateAge()" required>
-                           <div id="ageError" class="error"></div>
+                           <div id="ageError" class="error">${ageError}</div>
                        </div>
 
                        <div class="mb-2">
@@ -194,7 +200,7 @@
                                   onchange="validateGender()"> Male
                            <input type="radio" name="gender" value="Female"
                                   class="ms-3" onchange="validateGender()"> Female
-                           <div id="genderError" class="error"></div>
+                           <div id="genderError" class="error">${genderError}</div>
                        </div>
 
                        <div class="mb-2">
@@ -202,28 +208,28 @@
                            <input type="text" id="phoneNo" name="phoneNo"
                                   class="form-control" maxlength="10"
                                   oninput="validatePhone()" required>
-                           <div id="phoneError" class="error"></div>
+                           <div id="phoneError" class="error">${phoneError}</div>
                        </div>
 
                        <div class="mb-2">
                            <label>Email</label>
                            <input type="email" id="email" name="email"
                                   class="form-control" oninput="validateEmail()" required>
-                           <div id="emailError" class="error"></div>
+                           <div id="emailError" class="error">${emailError}</div>
                        </div>
 
                        <div class="mb-2">
                            <label>Password</label>
                            <input type="password" id="password" name="password"
                                   class="form-control" oninput="validatePassword()" required>
-                           <div id="passwordError" class="error"></div>
+                           <div id="passwordError" class="error">${passwordError}</div>
                        </div>
 
                        <div class="mb-3">
                            <label>Confirm Password</label>
                            <input type="password" id="confirmPassword" name="confirmPassword"
                                   class="form-control" oninput="validateConfirmPassword()" required>
-                           <div id="confirmPasswordError" class="error"></div>
+                           <div id="confirmPasswordError" class="error">${confirmPasswordError}</div>
                        </div>
 
 
