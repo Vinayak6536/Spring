@@ -22,6 +22,10 @@
             color: red;
             font-size: 14px;
         }
+        footer {
+                    background-color: #212529;
+                    color: white;
+                }
     </style>
 
     <script>
@@ -107,14 +111,28 @@
                                     Login
                                 </button>
                             </div>
+                       <c:if test="${not empty message}"> <p class="text-center fs-4 fw-bold text-uppercase text-danger">${ message }</p> </c:if>
 
-                            <!-- SIGN UP LINK -->
                             <div class="text-center mt-3">
-                                <p class="mb-2">Don't have an account?</p>
-                                <a href="SignUp.jsp" class="btn btn-outline-primary">
-                                    Sign Up
-                                </a>
+
+
+                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                  <p class="mb-2">Don’t have an account?</p>  <a href="SignUp.jsp" class="btn btn-outline-primary">
+                                        Sign Up
+                                    </a>
+</div>
+<div>
+<a href="ChangePassword" class="btn btn-link p-0">
+                                        Change Password?
+                                    </a>
+                                    <span class="text-muted">|</span>
+
+                                    <a href="ForgotPassword.jsp" class="btn btn-link p-0">
+                                        Forgot Password?
+                                    </a>
+                                </div>
                             </div>
+
 
 
                         </form>
