@@ -1,4 +1,4 @@
-package com.xworkz.module.crypt;
+package com.xworkz.module.util;
 
 import org.springframework.stereotype.Component;
 
