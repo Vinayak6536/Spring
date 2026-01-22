@@ -14,4 +14,6 @@ public interface XworkzRepository {
     void setCount(String emailOrPhone);
 
     boolean checkEmailOrPhone(String emailorPhone);
+
+    boolean saveOtp(String emailOrPhone, int randaomOTP);
 }

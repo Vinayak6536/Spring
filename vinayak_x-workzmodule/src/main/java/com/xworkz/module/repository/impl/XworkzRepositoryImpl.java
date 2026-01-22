@@ -116,4 +116,23 @@ public class XworkzRepositoryImpl implements XworkzRepository {
             entityManager.getTransaction().commit();
         }
     }
+
+    @Override
+    public boolean saveOtp(String emailOrPhone, int randaomOTP) {
+        boolean isOtpValid=false;
+        try {
+            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query= entityManager.createQuery("update XworkzEntity e set e.otp=:otp where e.email=:email").setParameter("otp",randaomOTP).setParameter("email",emailOrPhone);
+            int otp= query.executeUpdate();
+            if (otp > 0){
+                isOtpValid=true;
+            }
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isOtpValid;
+    }
 }
