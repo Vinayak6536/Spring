@@ -1,6 +1,6 @@
 package com.xworkz.module.service.impl;
 
-import com.xworkz.module.crypt.PasswordCipherUtil;
+import com.xworkz.module.util.PasswordCipherUtil;
 import com.xworkz.module.dto.XworkzDto;
 import com.xworkz.module.entity.XworkzEntity;
 import com.xworkz.module.repository.XworkzRepository;
@@ -9,8 +9,6 @@ import com.xworkz.module.service.XworkzService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 
 @Service
@@ -76,5 +74,12 @@ public class XworkzServiceImpl implements XworkzService {
     @Override
     public void setCount(String emailOrPhone) {
         xworkzRepository.setCount(emailOrPhone);
+    }
+
+    @Override
+    public boolean saveOtp(String emailOrPhone, int randaomOTP) {
+        if (randaomOTP != 0){
+            return xworkzRepository.saveOtp(emailOrPhone,randaomOTP);
+        }
     }
 }
