@@ -15,4 +15,5 @@ public interface XworkzService {
 
     boolean checkEmailOrPhone(String emailorPhone);
 
+    boolean saveOtp(String emailOrPhone, int randaomOTP);
 }

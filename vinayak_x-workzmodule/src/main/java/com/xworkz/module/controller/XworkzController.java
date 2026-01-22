@@ -3,15 +3,18 @@ package com.xworkz.module.controller;
 import com.xworkz.module.dto.XworkzDto;
 import com.xworkz.module.service.XworkzService;
 
+import com.xworkz.module.util.OTPUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Random;
 
 @Controller
 public class XworkzController {
@@ -63,5 +66,28 @@ public class XworkzController {
             model.addAttribute("emailOrPhoneno", emailOrPhone);
             return "SignIn";
         }
+    }
+
+    @PostMapping("forgetPassword")
+    public ModelAndView getOTP(@RequestParam("emailOrPhone")String emailOrPhone,ModelAndView model){
+        Random random=new Random();
+        int randaomOTP= random.nextInt(999999) + 100000;
+
+        boolean isOtpSaved=xworkzService.saveOtp(emailOrPhone,randaomOTP);
+        if (isOtpSaved){
+            model.addObject("email",emailOrPhone);
+            String subject="OTP Details";
+            String text="Your OTP for Verification Is: "+randaomOTP;
+            OTPUtil.sendSimpleMessage(emailOrPhone,subject,text);
+            model.setViewName("ForgotPassword");
+        }else {
+            model.addObject("email",emailOrPhone);
+        }
+        return model;
+    }
+
+    @PostMapping("/verifyOtp")
+    public ModelAndView verifyOtp(@RequestParam("otp") int otp,String emailOrPhone,ModelAndView model){
+        boolean isOtpVerified=
     }
 }
