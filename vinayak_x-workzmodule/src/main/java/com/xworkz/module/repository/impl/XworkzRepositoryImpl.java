@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import java.time.LocalDateTime;
 
 @Repository
 public class XworkzRepositoryImpl implements XworkzRepository {
@@ -38,6 +39,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
 
     @Override
     public boolean save(XworkzEntity xworkzEntity) {
+        System.out.println("rep"+xworkzEntity.getPhoneNo());
         if (xworkzEntity != null) {
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
@@ -119,14 +121,16 @@ public class XworkzRepositoryImpl implements XworkzRepository {
 
     @Override
     public boolean saveOtp(String emailOrPhone, int randaomOTP) {
-        boolean isOtpValid=false;
+        boolean isOtpValid = false;
+        System.out.println(emailOrPhone);
+        System.out.println(randaomOTP);
         try {
-            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
-            Query query= entityManager.createQuery("update XworkzEntity e set e.otp=:otp where e.email=:email").setParameter("otp",randaomOTP).setParameter("email",emailOrPhone);
-            int otp= query.executeUpdate();
-            if (otp > 0){
-                isOtpValid=true;
+            Query query = entityManager.createQuery("update XworkzEntity e set e.otp=:otp, e.otpCreatedTime=:otptime where e.email=:email").setParameter("otp", randaomOTP).setParameter("otptime",LocalDateTime.now()).setParameter("email", emailOrPhone);
+            int otp = query.executeUpdate();
+            if (otp > 0) {
+                isOtpValid = true;
             }
             entityManager.getTransaction().commit();
             entityManager.close();
@@ -134,5 +138,46 @@ public class XworkzRepositoryImpl implements XworkzRepository {
             e.printStackTrace();
         }
         return isOtpValid;
+    }
+
+    @Override
+    public void clearExpiredOtp() {
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("update XworkzEntity e set e.otp=null,e.otpCreatedTime=null where e.otpCreatedTime < :expirytime").setParameter("expirytime", LocalDateTime.now().minusMinutes(5)).executeUpdate();
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int verifyOtp(String emailOrPhone) {
+        try {
+            System.out.println(emailOrPhone+"repo");
+            return (int) entityManagerFactory.createEntityManager().createQuery("select e.otp from XworkzEntity e where e.email=:email").setParameter("email", emailOrPhone).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean resetPassword(String emailOrPhone,String encrypt) {
+        try {
+            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            int update = entityManager.createQuery("update XworkzEntity e set e.password=:password where e.email=:email").setParameter("password", encrypt).setParameter("email", emailOrPhone).executeUpdate();
+            entityManager.getTransaction().commit();
+            if (update > 0){
+                System.out.println("Updated Successfully");
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

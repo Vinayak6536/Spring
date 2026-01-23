@@ -16,4 +16,10 @@ public interface XworkzRepository {
     boolean checkEmailOrPhone(String emailorPhone);
 
     boolean saveOtp(String emailOrPhone, int randaomOTP);
+
+    int verifyOtp(String emailOrPhone);
+
+    void clearExpiredOtp();
+
+    boolean resetPassword(String emailOrPhone, String encrypt);
 }
