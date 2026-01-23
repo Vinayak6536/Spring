@@ -34,8 +34,9 @@ public class XworkzDto {
         private String gender;
 
         @NotNull(message = "Phone number is required")
-        @Pattern(regexp = "^[6-9][0-9]{9}$", message = "Invalid phone number")
-        private String phoneNo;
+        @Min(value = 6000000000L, message = "Invalid phone number")
+        @Max(value = 9999999999L, message = "Invalid phone number")
+        private long phoneNo;
 
         @NotBlank(message = "Email is required")
         @Email(message = "Invalid email format")
