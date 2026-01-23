@@ -84,7 +84,11 @@
                     </div>
 
                     <div class="card-body">
-                    ${success}
+                    <c:if test="${not empty updatePassword}">
+                        <p class="text-center fs-4 fw-bold text-uppercase text-success">
+                            ${updatePassword}
+                        </p>
+                    </c:if>
                         <form action="<%= request.getContextPath() %>/signIn" method="get" onsubmit="return validateLogin()">
 
                             <div class="mb-3">

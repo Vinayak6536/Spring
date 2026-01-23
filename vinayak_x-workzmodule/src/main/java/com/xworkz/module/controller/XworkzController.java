@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,18 +21,23 @@ import java.util.Random;
 public class XworkzController {
     @Autowired
     private XworkzService xworkzService;
+
+    @Autowired
+    private OTPUtil otpUtil;
+
     public XworkzController(){
         System.out.println("Running Controller.......");
     }
 
     @PostMapping("signUp")
     public ModelAndView getSignUp(@Valid XworkzDto xworkzDto, BindingResult result,ModelAndView model){
+        System.out.println(xworkzDto);
         if (result.hasErrors()){
             result.getFieldErrors().forEach(fieldError -> model.addObject(fieldError.getField() +"Error",fieldError.getDefaultMessage()));
             model.setViewName("SignUp");
             return model;
         }
-        if (!xworkzService.checkEmailOrPhone(xworkzDto.getEmail()) && !xworkzService.checkEmailOrPhone(String.valueOf(xworkzDto.getPhoneNo())) && xworkzDto != null ){
+        if ( !xworkzService.checkEmailOrPhone(xworkzDto.getEmail()) && !xworkzService.checkEmailOrPhone(String.valueOf(xworkzDto.getPhoneNo())) && xworkzDto != null ){
             xworkzService.validateAndSave(xworkzDto);
 
             model.setViewName("SignIn");
@@ -55,6 +61,7 @@ public class XworkzController {
         } else {
             int count = xworkzService.getCount(emailOrPhone);
             if (count >= 2) {
+                model.addAttribute("emailOrPhoneno", emailOrPhone);
                 return "ForgotPassword";
             } else {
 
@@ -69,25 +76,91 @@ public class XworkzController {
     }
 
     @PostMapping("forgetPassword")
-    public ModelAndView getOTP(@RequestParam("emailOrPhone")String emailOrPhone,ModelAndView model){
-        Random random=new Random();
-        int randaomOTP= random.nextInt(999999) + 100000;
+    public ModelAndView getOTP(@RequestParam("emailOrPhone") String emailOrPhone,@RequestParam String action,@RequestParam(value = "otp", required = false) Integer otp, ModelAndView model){
+        try {
+            System.out.println(emailOrPhone);
+            Random random = new Random();
+            int randaomOTP = random.nextInt(900000) + 100000;
 
-        boolean isOtpSaved=xworkzService.saveOtp(emailOrPhone,randaomOTP);
-        if (isOtpSaved){
-            model.addObject("email",emailOrPhone);
-            String subject="OTP Details";
-            String text="Your OTP for Verification Is: "+randaomOTP;
-            OTPUtil.sendSimpleMessage(emailOrPhone,subject,text);
-            model.setViewName("ForgotPassword");
-        }else {
-            model.addObject("email",emailOrPhone);
+          //  boolean isOtpSaved = xworkzService.saveOtp(emailOrPhone, randaomOTP);
+           // System.out.println(isOtpSaved);
+            if ("sendOtp".equals(action)) {
+                xworkzService.saveOtp(emailOrPhone, randaomOTP);
+                model.addObject("email", emailOrPhone);
+                String subject = "OTP Details";
+                String text = "Your OTP for Verification Is: " + randaomOTP;
+                otpUtil.sendSimpleMessage(emailOrPhone, text, subject);
+                model.addObject("success", "OTP sent successfully");
+                model.addObject("otpSent",true);
+                model.setViewName("ForgotPassword");
+                return model;
+            }
+
+            if ("resendOtp".equals(action)){
+                xworkzService.saveOtp(emailOrPhone, randaomOTP);
+                model.addObject("email", emailOrPhone);
+                String subject = "OTP Details";
+                String text = "Your OTP for Verification Is: " + randaomOTP;
+                otpUtil.sendSimpleMessage(emailOrPhone, text, subject);
+                model.addObject("success", "OTP resent successfully");
+                model.addObject("resendDisabled", true);
+                model.addObject("otpSent",true);
+                model.setViewName("ForgotPassword");
+                return model;
+            }
+
+            if ("verifyOtp".equals(action)){
+                boolean isOtpVerified=xworkzService.verifyOtp(emailOrPhone,otp);
+                if (isOtpVerified){
+                    model.addObject("verifyOtp","OTP Verification Successfully");
+                    model.addObject("emailOrPhone",emailOrPhone);
+                    model.setViewName("ResetPassword");
+                    return model;
+                }
+                else {
+                    model.addObject("otpVerify","Invalid OTP");
+                    model.setViewName("ForgotPassword");
+                    return model;
+                }
+            }
+            else {
+                model.addObject("email",emailOrPhone);
+                model.addObject("otpVerify","Invalid OTP");
+                model.setViewName("ForgotPassword");
+                return model;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        model.setViewName("ForgotPassword");
         return model;
     }
 
-    @PostMapping("/verifyOtp")
-    public ModelAndView verifyOtp(@RequestParam("otp") int otp,String emailOrPhone,ModelAndView model){
-        boolean isOtpVerified=
+//    @GetMapping("/verifyOtp")
+//    public ModelAndView verifyOtp(@RequestParam int otp, @RequestParam("emailOrPhone") String emailOrPhone, ModelAndView model){
+//        boolean isOtpVerified=xworkzService.verifyOtp(emailOrPhone,otp);
+//        if (isOtpVerified){
+//            model.addObject("verifyOtp","OTP Verification Successfully");
+//            model.setViewName("ResetPassword");
+//        }
+//        else {
+//            model.addObject("otpVerify","Invalid OTP");
+//            model.setViewName("ForgotPassword");
+//        }
+////        model.addObject()
+//        return model;
+//    }
+
+    @PostMapping("resetPassword")
+    public ModelAndView resetPassword(@RequestParam String emailOrPhone, String password,String confirmPassword,ModelAndView model){
+
+     boolean updated=xworkzService.resetPassword(emailOrPhone,password,confirmPassword);
+     if (updated){
+         model.addObject("updatePassword","Reset Password Successfully");
+         model.setViewName("SignIn");
+         return model;
+     }
+     return model;
     }
 }
