@@ -33,6 +33,7 @@ public class XworkzServiceImpl implements XworkzService {
 
     @Override
     public boolean validateAndSave(XworkzDto xworkzDto) {
+        System.out.println("service"+xworkzDto);
         if (xworkzDto != null) {
             PasswordCipherUtil util = new PasswordCipherUtil();
             String encryptedPassword = util.encrypt(xworkzDto.getPassword());
@@ -78,8 +79,38 @@ public class XworkzServiceImpl implements XworkzService {
 
     @Override
     public boolean saveOtp(String emailOrPhone, int randaomOTP) {
+        System.out.println(emailOrPhone);
+        System.out.println(randaomOTP);
+        xworkzRepository.clearExpiredOtp();
         if (randaomOTP != 0){
             return xworkzRepository.saveOtp(emailOrPhone,randaomOTP);
         }
+        return false;
+    }
+
+    @Override
+    public boolean verifyOtp(String emailOrPhone, int otp) {
+        xworkzRepository.clearExpiredOtp();
+        System.out.println(emailOrPhone+"ser");
+        System.out.println(otp+"ser");
+        if (emailOrPhone != null){
+            int verifyOtp=xworkzRepository.verifyOtp(emailOrPhone);
+            System.out.println(verifyOtp);
+            if (verifyOtp == otp){
+                return true;
+            }else {
+                System.out.println("Password Incorrect");
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean resetPassword(String emailOrPhone, String password, String confirmPassword) {
+        if (password.equals(confirmPassword)){
+            String encrypt= passwordCipherUtil.encrypt(password);
+           return xworkzRepository.resetPassword(emailOrPhone,encrypt);
+        }
+        return false;
     }
 }

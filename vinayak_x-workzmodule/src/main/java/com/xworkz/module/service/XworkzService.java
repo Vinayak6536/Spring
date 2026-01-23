@@ -16,4 +16,8 @@ public interface XworkzService {
     boolean checkEmailOrPhone(String emailorPhone);
 
     boolean saveOtp(String emailOrPhone, int randaomOTP);
+
+    boolean verifyOtp(String emailOrPhone, int otp);
+
+    boolean resetPassword(String emailOrPhone,String password,String confirmPassword);
 }
