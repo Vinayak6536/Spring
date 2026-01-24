@@ -22,8 +22,6 @@ public class XworkzController {
     @Autowired
     private XworkzService xworkzService;
 
-    @Autowired
-    private OTPUtil otpUtil;
 
     public XworkzController(){
         System.out.println("Running Controller.......");
@@ -87,10 +85,7 @@ public class XworkzController {
             if ("sendOtp".equals(action)) {
                 xworkzService.saveOtp(emailOrPhone, randaomOTP);
                 model.addObject("email", emailOrPhone);
-                String subject = "OTP Details";
-                String text = "Your OTP for Verification Is: " + randaomOTP;
-                otpUtil.sendSimpleMessage(emailOrPhone, text, subject);
-                model.addObject("success", "OTP sent successfully");
+                 model.addObject("success", "OTP sent successfully");
                 model.addObject("otpSent",true);
                 model.setViewName("ForgotPassword");
                 return model;
@@ -99,9 +94,6 @@ public class XworkzController {
             if ("resendOtp".equals(action)){
                 xworkzService.saveOtp(emailOrPhone, randaomOTP);
                 model.addObject("email", emailOrPhone);
-                String subject = "OTP Details";
-                String text = "Your OTP for Verification Is: " + randaomOTP;
-                otpUtil.sendSimpleMessage(emailOrPhone, text, subject);
                 model.addObject("success", "OTP resent successfully");
                 model.addObject("resendDisabled", true);
                 model.addObject("otpSent",true);
