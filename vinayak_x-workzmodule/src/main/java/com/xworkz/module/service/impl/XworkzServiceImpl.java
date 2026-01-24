@@ -1,5 +1,6 @@
 package com.xworkz.module.service.impl;
 
+import com.xworkz.module.util.OTPUtil;
 import com.xworkz.module.util.PasswordCipherUtil;
 import com.xworkz.module.dto.XworkzDto;
 import com.xworkz.module.entity.XworkzEntity;
@@ -23,6 +24,8 @@ public class XworkzServiceImpl implements XworkzService {
     @Autowired
     private PasswordCipherUtil passwordCipherUtil;
 
+    @Autowired
+    private OTPUtil otpUtil;
 
     private static final String SECRET_KEY = "MySecretKey12345";
 
@@ -79,10 +82,12 @@ public class XworkzServiceImpl implements XworkzService {
 
     @Override
     public boolean saveOtp(String emailOrPhone, int randaomOTP) {
-        System.out.println(emailOrPhone);
-        System.out.println(randaomOTP);
         xworkzRepository.clearExpiredOtp();
         if (randaomOTP != 0){
+            String subject = "OTP Details";
+            String text = "Your OTP for Verification Is: " + randaomOTP;
+            otpUtil.sendSimpleMessage(emailOrPhone, text, subject);
+
             return xworkzRepository.saveOtp(emailOrPhone,randaomOTP);
         }
         return false;
@@ -108,6 +113,7 @@ public class XworkzServiceImpl implements XworkzService {
     @Override
     public boolean resetPassword(String emailOrPhone, String password, String confirmPassword) {
         if (password.equals(confirmPassword)){
+
             String encrypt= passwordCipherUtil.encrypt(password);
            return xworkzRepository.resetPassword(emailOrPhone,encrypt);
         }
