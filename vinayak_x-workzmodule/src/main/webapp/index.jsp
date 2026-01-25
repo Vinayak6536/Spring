@@ -21,20 +21,78 @@
             background-color: #212529;
             color: white;
         }
+
+        .profile-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-dropdown img {
+            border: 2px solid white;
+        }
+
+        .dropdown-menu-custom {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 50px;
+            background: white;
+            min-width: 180px;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .dropdown-menu-custom a {
+            display: block;
+            padding: 10px;
+            color: black;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .dropdown-menu-custom a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .profile-dropdown:hover .dropdown-menu-custom {
+            display: block;
+        }
+
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
-<a href="index.jsp"><img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40"></a>
 
-        <div class="ms-auto">
-            <a href="SignIn.jsp" class="btn btn-outline-light me-2">Sign In</a>
-            <a href="SignUp.jsp" class="btn btn-warning">Sign Up</a>
+        <a href="index.jsp">
+            <img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40">
+        </a>
+
+        <div class="ms-auto d-flex align-items-center">
+
+            <!-- Profile Hover -->
+            <div class="profile-dropdown">
+                <img src="<%= request.getContextPath() %>/resources/static/admin.png"
+                     height="40"
+                     class="rounded-circle"
+                     alt="Profile">
+
+                <div class="dropdown-menu-custom">
+                    <a href="Profile.jsp">View Profile</a>
+                    <a href="EditProfile.jsp">Edit Profile</a>
+                    <a href="ChangePassword.jsp">Change Password</a>
+                    <hr>
+                    <a href="SignOut.jsp" class="text-danger">Logout</a>
+                </div>
+            </div>
+
         </div>
     </div>
 </nav>
+
+
 
 <div class="content d-flex align-items-center">
     <div class="container text-center">
