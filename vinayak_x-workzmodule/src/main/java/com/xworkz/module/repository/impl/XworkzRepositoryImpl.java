@@ -39,7 +39,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
 
     @Override
     public boolean save(XworkzEntity xworkzEntity) {
-        System.out.println("rep"+xworkzEntity.getPhoneNo());
+      //  System.out.println("rep"+xworkzEntity.getPhoneNo());
         if (xworkzEntity != null) {
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
@@ -127,11 +127,21 @@ public class XworkzRepositoryImpl implements XworkzRepository {
         try {
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
-            Query query = entityManager.createQuery("update XworkzEntity e set e.otp=:otp, e.otpCreatedTime=:otptime where e.email=:email").setParameter("otp", randaomOTP).setParameter("otptime",LocalDateTime.now()).setParameter("email", emailOrPhone);
-            int otp = query.executeUpdate();
-            if (otp > 0) {
-                isOtpValid = true;
+            if (emailOrPhone.matches("\\d+")) {
+                long phone = Long.parseLong(emailOrPhone);
+                Query query = entityManager.createQuery("update XworkzEntity e set e.otp=:otp, e.otpCreatedTime=:otptime where e.phoneNo=:phone").setParameter("otp", randaomOTP).setParameter("otptime", LocalDateTime.now()).setParameter("phone", phone);
+                int otp = query.executeUpdate();
+                if (otp > 0) {
+                    isOtpValid = true;
+                }
+            }else {
+                Query query = entityManager.createQuery("update XworkzEntity e set e.otp=:otp, e.otpCreatedTime=:otptime where e.email=:email").setParameter("otp", randaomOTP).setParameter("otptime", LocalDateTime.now()).setParameter("email", emailOrPhone);
+                int otp = query.executeUpdate();
+                if (otp > 0) {
+                    isOtpValid = true;
+                }
             }
+
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (Exception e) {
@@ -156,8 +166,14 @@ public class XworkzRepositoryImpl implements XworkzRepository {
     @Override
     public int verifyOtp(String emailOrPhone) {
         try {
-            System.out.println(emailOrPhone+"repo");
-            return (int) entityManagerFactory.createEntityManager().createQuery("select e.otp from XworkzEntity e where e.email=:email").setParameter("email", emailOrPhone).getSingleResult();
+           // System.out.println(emailOrPhone+"repo");
+            if (emailOrPhone.matches("\\d+")) {
+                long phone = Long.parseLong(emailOrPhone);
+                return (int) entityManagerFactory.createEntityManager().createQuery("select e.otp from XworkzEntity e where e.phoneNo=:phone").setParameter("phone", phone).getSingleResult();
+            }else {
+                return (int) entityManagerFactory.createEntityManager().createQuery("select e.otp from XworkzEntity e where e.email=:email").setParameter("email", emailOrPhone).getSingleResult();
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -169,12 +185,22 @@ public class XworkzRepositoryImpl implements XworkzRepository {
         try {
             EntityManager entityManager= entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
-            int update = entityManager.createQuery("update XworkzEntity e set e.password=:password where e.email=:email").setParameter("password", encrypt).setParameter("email", emailOrPhone).executeUpdate();
-            entityManager.getTransaction().commit();
-            if (update > 0){
-                System.out.println("Updated Successfully");
-                return true;
+            if (emailOrPhone.matches("\\d+")) {
+                long phone = Long.parseLong(emailOrPhone);
+                int update = entityManager.createQuery("update XworkzEntity e set e.password=:password where e.phoneNo=:phone").setParameter("password", encrypt).setParameter("phone", phone).executeUpdate();
+                if (update > 0) {
+                    System.out.println("Updated Successfully");
+                    return true;
+                }
+            }else {
+                int update = entityManager.createQuery("update XworkzEntity e set e.password=:password where e.email=:email").setParameter("password", encrypt).setParameter("email", emailOrPhone).executeUpdate();
+                if (update > 0) {
+                    System.out.println("Updated Successfully");
+                    return true;
+                }
             }
+            entityManager.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

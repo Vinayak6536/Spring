@@ -42,6 +42,8 @@
                  data-bs-target="#profileModal">
 
             <a href="SignOut.jsp" class="btn btn-outline-light">Logout</a>
+            <a href="SigIn.jsp" class="btn btn-outline-light">Login</a>
+            <a href="SignUp.jsp" class="btn btn-outline-light">SignUp</a>
         </div>
 
     </div>
