@@ -30,4 +30,6 @@ public class XworkzEntity {
 
     private int otp;
     private LocalDateTime otpCreatedTime;
+
+    private int resendOtpCount;
 }
