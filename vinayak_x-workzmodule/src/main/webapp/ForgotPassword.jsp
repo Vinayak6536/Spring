@@ -29,27 +29,35 @@
     </style>
 
     <script>
+        let countdown = 2;
+        const resendBtn = document.getElementById("resendBtn");
+        const resendCount = parseInt(document.getElementById("resendCount").value);
+
+        // Disable permanently if already used twice
+        if (resendCount >= 2) {
+            resendBtn.disabled = true;
+            resendBtn.innerText = "Resend limit reached";
+        } else {
+            resendBtn.disabled = true;
+
+            const timer = setInterval(() => {
+                resendBtn.innerText = "Resend OTP (" + countdown + "s)";
+                countdown--;
+
+                if (countdown < 0) {
+                    clearInterval(timer);
+                    resendBtn.disabled = false;
+                    resendBtn.innerText = "Resend OTP";
+                }
+            }, 1000);
+        }
+
         function disableResend(btn) {
             btn.disabled = true;
             btn.innerText = "Sending OTP...";
         }
-
-         let countdown = 30;
-            const resendBtn = document.getElementById("resendBtn");
-
-            if (resendBtn) {
-                const timer = setInterval(() => {
-                    countdown--;
-                    resendBtn.innerText = "Resend OTP (" + countdown + "s)";
-
-                    if (countdown <= 0) {
-                        clearInterval(timer);
-                        resendBtn.disabled = false;
-                        resendBtn.innerText = "Resend OTP";
-                    }
-                }, 1000);
-            }
     </script>
+
 </head>
 
 <body>
@@ -134,17 +142,18 @@
                                     </button>
                                 </div>
 
-                                <!-- RESEND OTP -->
+                                <input type="hidden" id="resendCount" value="${resendCount}" />
+
                                 <div class="d-grid mt-2">
-                                        <button type="submit"
-                                                id="resendBtn"
-                                                name="action"
-                                                value="resendOtp"
-                                                class="btn btn-secondary btn-lg"
-                                                disabled>
-                                            Resend OTP (30s)
-                                        </button>
-                                    </div>
+                                    <button type="submit"
+                                            id="resendBtn"
+                                            name="action"
+                                            value="resendOtp"
+                                            class="btn btn-secondary btn-lg"
+                                            disabled>
+                                        Resend OTP (30s)
+                                    </button>
+                                </div>
 
                             </c:if>
 <c:if test="${not empty otpVerify}">
