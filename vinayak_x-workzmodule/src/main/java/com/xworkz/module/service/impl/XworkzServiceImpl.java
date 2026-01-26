@@ -36,7 +36,7 @@ public class XworkzServiceImpl implements XworkzService {
 
     @Override
     public boolean validateAndSave(XworkzDto xworkzDto) {
-        System.out.println("service"+xworkzDto);
+      //  System.out.println("service"+xworkzDto);
         if (xworkzDto != null) {
             PasswordCipherUtil util = new PasswordCipherUtil();
             String encryptedPassword = util.encrypt(xworkzDto.getPassword());
@@ -96,8 +96,8 @@ public class XworkzServiceImpl implements XworkzService {
     @Override
     public boolean verifyOtp(String emailOrPhone, int otp) {
         xworkzRepository.clearExpiredOtp();
-        System.out.println(emailOrPhone+"ser");
-        System.out.println(otp+"ser");
+     //   System.out.println(emailOrPhone);
+    //    System.out.println(otp);
         if (emailOrPhone != null){
             int verifyOtp=xworkzRepository.verifyOtp(emailOrPhone);
             System.out.println(verifyOtp);
