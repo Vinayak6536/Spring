@@ -52,7 +52,6 @@ public class XworkzDto {
         @NotBlank(message = "Confirm password is required")
         private String confirmPassword;
 
-        // getters & setters
     }
 
 
