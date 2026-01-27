@@ -22,6 +22,18 @@
             color: red;
             font-size: 14px;
         }
+
+        .admin-icon {
+                    border-radius: 50%;
+                    border: 2px solid #ffc107;   /* optional yellow border */
+                    padding: 4px;               /* space inside circle */
+                    transition: transform 0.2s ease;
+                }
+
+                .admin-icon:hover {
+                    transform: scale(1.1);
+                }
+
         footer {
                     background-color: #212529;
                     color: white;
@@ -64,13 +76,30 @@
 
 <body>
 <nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-<a href="index.jsp"><img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40"></a>
+    <div class="container d-flex align-items-center">
 
-        <div class="ms-auto">
-            <a href="SignIn.jsp" class="btn btn-outline-light me-2">Sign In</a>
-            <a href="SignUp.jsp" class="btn btn-warning">Sign Up</a>
+        <a href="#" onclick="showSection('home')">
+            <img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40">
+        </a>
+
+        <div class="d-flex align-items-center ms-4 gap-4">
+            <span class="nav-link-custom" onclick="showSection('about')">About</span>
+            <span class="nav-link-custom" onclick="showSection('fields')">Fields</span>
+            <span class="nav-link-custom" onclick="showSection('contact')">Contact</span>
         </div>
+
+        <div class="ms-auto d-flex align-items-center">
+            <a href="AdminLogin.jsp"
+               class="d-flex align-items-center text-white text-decoration-none">
+
+                <img src="<%= request.getContextPath() %>/resources/static/admin.png"
+                     height="40"
+                     class="admin-icon me-2">
+
+                <span class="fw-semibold">Admin Login</span>
+            </a>
+        </div>
+
     </div>
 </nav>
 <div class="page-content">
@@ -89,7 +118,17 @@
                             ${updatePassword}
                         </p>
                     </c:if>
-                        <form action="<%= request.getContextPath() %>/signIn" method="get" onsubmit="return validateLogin()">
+                    <c:if test="${not empty notExist}">
+                                            <p class="text-center fs-4 fw-bold text-success">
+                                                ${notExist}
+                                            </p>
+                                        </c:if>
+                       <c:if test="${not empty wrongPassword}">
+                                            <p class="text-center fs-4 fw-bold text-success">
+                                                ${wrongPassword }
+                                            </p>
+                                        </c:if>
+                        <form action="<%= request.getContextPath() %>/AdminLogin" method="get" onsubmit="return validateLogin()">
 
                             <div class="mb-3">
                                 <label>Email or Mobile Number</label>
