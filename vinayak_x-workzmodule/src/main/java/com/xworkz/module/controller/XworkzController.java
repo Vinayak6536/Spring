@@ -21,101 +21,106 @@ public class XworkzController {
     private XworkzService xworkzService;
 
 
-    public XworkzController(){
+    public XworkzController() {
         System.out.println("Running Controller.......");
     }
 
     @PostMapping("signUp")
-    public ModelAndView getSignUp(@Valid XworkzDto xworkzDto, BindingResult result,ModelAndView model){
+    public ModelAndView getSignUp(@Valid XworkzDto xworkzDto, BindingResult result, ModelAndView model) {
         System.out.println(xworkzDto);
-        if (result.hasErrors()){
-            result.getFieldErrors().forEach(fieldError -> model.addObject(fieldError.getField() +"Error",fieldError.getDefaultMessage()));
+        if (result.hasErrors()) {
+            result.getFieldErrors().forEach(fieldError -> model.addObject(fieldError.getField() + "Error", fieldError.getDefaultMessage()));
             model.setViewName("SignUp");
             return model;
         }
-        if ( !xworkzService.checkEmailOrPhone(xworkzDto.getEmail()) && !xworkzService.checkEmailOrPhone(String.valueOf(xworkzDto.getPhoneNo())) && xworkzDto != null ){
+        if (!xworkzService.checkEmailOrPhone(xworkzDto.getEmail()) && !xworkzService.checkEmailOrPhone(String.valueOf(xworkzDto.getPhoneNo())) && xworkzDto != null) {
             xworkzService.validateAndSave(xworkzDto);
 
-            model.setViewName("SignIn");
+            model.setViewName("AdminLogin");
             return model;
 
         }
-        model.addObject("exist","User Already Exist");
+        model.addObject("exist", "User Already Exist");
         model.setViewName("SignUp");
         return model;
     }
 
-    @GetMapping("signIn")
-    public String getSignIn(String emailOrPhone, String password, Model model) {
+    @GetMapping("AdminLogin")
+    public String getAdminLogin(String emailOrPhone, String password, Model model) {
 
-        String fetchedPassword = xworkzService.findEmail(emailOrPhone, password);
+        if (xworkzService.checkEmailOrPhone(emailOrPhone)) {
+            String fetchedPassword = xworkzService.findEmail(emailOrPhone, password);
 
-        if (fetchedPassword != null) {
-            model.addAttribute("Success", fetchedPassword);
-            xworkzService.setCount(emailOrPhone);
-            return "index";
-        } else {
-            int count = xworkzService.getCount(emailOrPhone);
-            if (count >= 2) {
-                model.addAttribute("emailOrPhoneno", emailOrPhone);
-                return "ForgotPassword";
+            if (fetchedPassword != null) {
+                model.addAttribute("Success", fetchedPassword);
+                xworkzService.setCount(emailOrPhone);
+                return "AdminPage";
             } else {
+                int count = xworkzService.getCount(emailOrPhone);
+                if (count >= 2) {
+                    model.addAttribute("emailOrPhoneno", emailOrPhone);
+                    return "ForgotPassword";
+                } else {
 
-                xworkzService.updateCount(emailOrPhone);
+                    xworkzService.updateCount(emailOrPhone);
 
+                }
+                model.addAttribute("message", (3 - (count + 1)) + " " + "Attempts Left");
+                model.addAttribute("wrongPassword","Incorrect password");
+                model.addAttribute("emailOrPhoneno", emailOrPhone);
+                return "AdminLogin";
             }
+        } else {
 
-            model.addAttribute("message", (3 - (count + 1))+" "+"Attempts Left");
-            model.addAttribute("emailOrPhoneno", emailOrPhone);
-            return "SignIn";
+            model.addAttribute("notExist", "Email or Phone Number does not exist");
+            return "AdminLogin";
+
         }
     }
 
     @PostMapping("forgetPassword")
-    public ModelAndView getOTP(@RequestParam("emailOrPhone") String emailOrPhone,@RequestParam String action,@RequestParam(value = "otp", required = false) Integer otp, ModelAndView model){
+    public ModelAndView getOTP(@RequestParam("emailOrPhone") String emailOrPhone, @RequestParam String action, @RequestParam(value = "otp", required = false) Integer otp, ModelAndView model) {
         try {
             System.out.println(emailOrPhone);
             Random random = new Random();
             int randaomOTP = random.nextInt(900000) + 100000;
 
-          //  boolean isOtpSaved = xworkzService.saveOtp(emailOrPhone, randaomOTP);
-           // System.out.println(isOtpSaved);
+            //  boolean isOtpSaved = xworkzService.saveOtp(emailOrPhone, randaomOTP);
+            // System.out.println(isOtpSaved);
             if ("sendOtp".equals(action)) {
                 xworkzService.saveOtp(emailOrPhone, randaomOTP);
                 model.addObject("email", emailOrPhone);
-                 model.addObject("success", "OTP sent successfully");
-                model.addObject("otpSent",true);
+                model.addObject("success", "OTP sent successfully");
+                model.addObject("otpSent", true);
                 model.setViewName("ForgotPassword");
                 return model;
             }
 
-            if ("resendOtp".equals(action)){
+            if ("resendOtp".equals(action)) {
                 xworkzService.saveOtp(emailOrPhone, randaomOTP);
                 model.addObject("email", emailOrPhone);
                 model.addObject("success", "OTP resent successfully");
                 model.addObject("resendDisabled", true);
-                model.addObject("otpSent",true);
+                model.addObject("otpSent", true);
                 model.setViewName("ForgotPassword");
                 return model;
             }
 
-            if ("verifyOtp".equals(action)){
-                boolean isOtpVerified=xworkzService.verifyOtp(emailOrPhone,otp);
-                if (isOtpVerified){
-                    model.addObject("verifyOtp","OTP Verification Successfully");
-                    model.addObject("emailOrPhone",emailOrPhone);
+            if ("verifyOtp".equals(action)) {
+                boolean isOtpVerified = xworkzService.verifyOtp(emailOrPhone, otp);
+                if (isOtpVerified) {
+                    model.addObject("verifyOtp", "OTP Verification Successfully");
+                    model.addObject("emailOrPhone", emailOrPhone);
                     model.setViewName("ResetPassword");
                     return model;
-                }
-                else {
-                    model.addObject("otpVerify","Invalid OTP");
+                } else {
+                    model.addObject("otpVerify", "Invalid OTP");
                     model.setViewName("ForgotPassword");
                     return model;
                 }
-            }
-            else {
-                model.addObject("email",emailOrPhone);
-                model.addObject("otpVerify","Invalid OTP");
+            } else {
+                model.addObject("email", emailOrPhone);
+                model.addObject("otpVerify", "Invalid OTP");
                 model.setViewName("ForgotPassword");
                 return model;
 
@@ -138,19 +143,19 @@ public class XworkzController {
 //            model.addObject("otpVerify","Invalid OTP");
 //            model.setViewName("ForgotPassword");
 //        }
-////        model.addObject()
+
+    /// /        model.addObject()
 //        return model;
 //    }
-
     @PostMapping("resetPassword")
-    public ModelAndView resetPassword(@RequestParam String emailOrPhone, String password,String confirmPassword,ModelAndView model){
+    public ModelAndView resetPassword(@RequestParam String emailOrPhone, String password, String confirmPassword, ModelAndView model) {
 
-     boolean updated=xworkzService.resetPassword(emailOrPhone,password,confirmPassword);
-     if (updated){
-         model.addObject("updatePassword","Reset Password Successfully");
-         model.setViewName("SignIn");
-         return model;
-     }
-     return model;
+        boolean updated = xworkzService.resetPassword(emailOrPhone, password, confirmPassword);
+        if (updated) {
+            model.addObject("updatePassword", "Reset Password Successfully");
+            model.setViewName("AdminLogin");
+            return model;
+        }
+        return model;
     }
 }

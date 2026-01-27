@@ -30,6 +30,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
                 int exist = (int) query.getSingleResult();
                 if (exist > 0) return true;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,7 +68,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
     }
 
 
