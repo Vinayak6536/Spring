@@ -53,14 +53,15 @@ public class XworkzServiceImpl implements XworkzService {
     @Override
     public String findEmail(String emailOrPhone, String password) {
         if (emailOrPhone != null) {
-
-            String fetchedPassword = xworkzRepository.findEmail(emailOrPhone);
-            String decryptPassword = passwordCipherUtil.decrypt(fetchedPassword);
-            if (decryptPassword.equals(password)) {
-                return fetchedPassword;
-            } else {
-                System.out.println("Invalid Password");
-            }
+                String fetchedPassword = xworkzRepository.findEmail(emailOrPhone);
+                String decryptPassword = passwordCipherUtil.decrypt(fetchedPassword);
+             //   System.out.println(decryptPassword);
+                if (decryptPassword.equals(password)) {
+                    return fetchedPassword;
+                } else {
+                    System.out.println("Invalid Password");
+                    return null;
+                }
         }
         return null;
     }
