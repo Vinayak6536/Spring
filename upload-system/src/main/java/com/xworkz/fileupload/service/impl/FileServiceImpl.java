@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,10 +31,10 @@ public class FileServiceImpl implements FileService {
         Path path= Paths.get("V:\\FileUploader\\"+file.getOriginalFilename()+System.currentTimeMillis()+".jpg");
         Files.write(path,bytes);
         fileEntity.setOriginalFileName(file.getOriginalFilename());
-        fileEntity.setBytes(String.valueOf(file.getBytes()));
+        fileEntity.setFileData(file.getBytes());
         fileEntity.setContentType(file.getContentType());
-
-        fileEntity.setResource(String.valueOf(file.getResource()));
-file.getInputStream()
+        fileEntity.setPath(String.valueOf(path));
+        fileEntity.setFileSize(file.getSize());
+        return fileRepository.save(fileEntity);
     }
 }
