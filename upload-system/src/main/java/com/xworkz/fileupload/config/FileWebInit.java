@@ -1,6 +1,5 @@
 package com.xworkz.fileupload.config;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class FileWebInit extends AbstractAnnotationConfigDispatcherServletInitializer {
