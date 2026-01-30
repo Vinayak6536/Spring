@@ -1,20 +1,26 @@
 package com.xworkz.fileupload.entity;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Component
 public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
     private String originalFileName;
+
+    @Lob
     private byte[] fileData;
     private String contentType;
+    private String path;
+    private long fileSize;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

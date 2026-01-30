@@ -15,10 +15,17 @@ import java.io.IOException;
 public class FileController {
     @Autowired
     private FileService fileService;
-    @PostMapping("upload")
+
+    @PostMapping("/upload")
     public String fileUpload(@ModelAttribute FileDto fileDto)throws IOException{
         if (fileDto != null){
+            boolean isValid = fileService.validateAndSave(fileDto);
+
+            if (isValid){
+                System.out.println("Data Saved");
+            }
 
         }
+        return "";
     }
 }
