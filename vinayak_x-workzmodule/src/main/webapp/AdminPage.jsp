@@ -10,8 +10,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <style>
+        html, body {
+            height: 100%;
+        }
+
         body {
             background-color: #f4f6f9;
+            display: flex;
+            flex-direction: column;
         }
 
         .nav-link-custom {
@@ -55,13 +61,11 @@
             border-radius: 22px;
             background: linear-gradient(135deg, #ffffff, #f1f4f9);
             box-shadow: 0 14px 30px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
+            transition: 0.3s;
         }
 
         .dashboard-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            transform: translateY(-8px);
         }
 
         .dashboard-header {
@@ -78,20 +82,36 @@
             background: linear-gradient(135deg, #198754, #20c997);
         }
 
+        .batch-card-body {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .batch-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid #dee2e6;
+        }
+
         .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
+            padding: 8px 0;
             border-bottom: 1px dashed #ccc;
-            font-size: 16px;
         }
 
-        .info-row span {
-            color: #6c757d;
+        /* sections hidden by default */
+        .page-section {
+            display: none;
         }
 
-        .info-row strong {
-            color: #212529;
+        footer {
+            background: #212529;
+            color: white;
         }
     </style>
 </head>
@@ -102,14 +122,14 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container d-flex align-items-center">
 
-        <a href="index.jsp">
+        <a href="#" onclick="showBatches()">
             <img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40">
         </a>
 
-        <div class="ms-4 d-flex align-items-center">
-            <span class="nav-link-custom">About</span>
-            <span class="nav-link-custom">Fields</span>
-            <span class="nav-link-custom">Contact</span>
+        <div class="d-flex align-items-center ms-4 gap-4">
+            <span class="nav-link-custom" onclick="showSection('about')">About</span>
+            <span class="nav-link-custom" onclick="showSection('fields')">Fields</span>
+            <span class="nav-link-custom" onclick="showSection('contact')">Contact</span>
         </div>
 
         <div class="ms-auto admin-hover">
@@ -129,54 +149,56 @@
     </div>
 </nav>
 
-<!-- ================= DASHBOARD ================= -->
-<div class="container mt-5">
+<!-- ================= BATCH LIST (DEFAULT) ================= -->
+<div class="container my-5 flex-grow-1" id="batchSection">
     <div class="row g-4 justify-content-center">
 
-        <!-- Card 1 -->
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="dashboard-card">
-                <div class="dashboard-header">
-                    Batch Details
-                </div>
+                <div class="dashboard-header">Batch</div>
 
-                <div class="p-4 text-center">
-                    <div class="info-row">
-                        <span>Batch ID</span>
-                        <strong>XW-B101</strong>
+                <div class="batch-card-body">
+                    <img src="<%= request.getContextPath() %>/resources/static/java.png" class="batch-logo">
+
+                    <div class="w-100">
+                        <div class="info-row">
+                            <span>Batch ID</span>
+                            <strong>XW-JFS-101</strong>
+                        </div>
+                        <div class="info-row">
+                            <span>Trainer</span>
+                            <strong>Ravi Kumar</strong>
+                        </div>
+
+                        <a href="BatchDetails.jsp" class="btn btn-outline-primary w-100 mt-3">
+                            <i class="bi bi-eye"></i> View Batch
+                        </a>
                     </div>
-
-                    <div class="info-row">
-                        <span>Batch Leader</span>
-                        <strong>Ravi Kumar</strong>
-                    </div>
-
-                    <a href="BatchDetails.jsp" class="btn btn-outline-primary w-100 mt-4">
-                        <i class="bi bi-eye"></i> View Batch
-                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="dashboard-card">
-                <div class="dashboard-header green">
-                    Batch Management
-                </div>
+                <div class="dashboard-header green">Batch</div>
 
-                <div class="p-4 text-center">
-                    <p class="text-muted mb-4">
-                        Manage all batches and leaders
-                    </p>
+                <div class="batch-card-body">
+                    <img src="<%= request.getContextPath() %>/resources/static/python.png" class="batch-logo">
 
-                    <a href="AllBatchList.jsp" class="btn btn-outline-success w-100 mb-3">
-                        <i class="bi bi-list-ul"></i> View All Batches
-                    </a>
+                    <div class="w-100">
+                        <div class="info-row">
+                            <span>Batch ID</span>
+                            <strong>XW-PFS-102</strong>
+                        </div>
+                        <div class="info-row">
+                            <span>Trainer</span>
+                            <strong>Anita Sharma</strong>
+                        </div>
 
-                    <a href="CreateBatch.jsp" class="btn btn-outline-secondary w-100">
-                        <i class="bi bi-plus-circle"></i> Create New Batch
-                    </a>
+                        <a href="BatchDetails.jsp" class="btn btn-outline-success w-100 mt-3">
+                            <i class="bi bi-eye"></i> View Batch
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -184,7 +206,57 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<!-- ================= ABOUT ================= -->
+<section id="about" class="page-section py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold">About Us</h2>
+        <p class="mt-3">
+            Xworkz provides industry-focused training with real-time projects and expert mentors.
+        </p>
+    </div>
+</section>
+
+<!-- ================= FIELDS ================= -->
+<section id="fields" class="page-section py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold">Our Fields</h2>
+        <div class="row mt-4">
+            <div class="col-md-3">Java Full Stack</div>
+            <div class="col-md-3">Web Development</div>
+            <div class="col-md-3">Spring & Hibernate</div>
+            <div class="col-md-3">SQL & Database</div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="page-section py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold">Contact Us</h2>
+        <p class="mt-3">
+            Bangalore, India<br>
+            +91 9876543210<br>
+            support@xworkz.com
+        </p>
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="text-center py-3 mt-auto">
+    © 2026 My Application. All rights reserved.
+</footer>
+
+<!-- ================= JS FOR SHOW/HIDE ================= -->
+<script>
+    function showSection(sectionId) {
+        // Hide all sections
+        const sections = document.querySelectorAll('.page-section');
+        sections.forEach(sec => sec.style.display = 'none');
+
+        // Show selected section
+        document.getElementById(sectionId).style.display = 'block';
+    }
+</script>
 
 </body>
 </html>

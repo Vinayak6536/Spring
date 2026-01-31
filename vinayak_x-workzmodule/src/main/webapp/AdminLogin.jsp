@@ -109,7 +109,7 @@
 
                 <div class="card shadow">
                     <div class="card-header bg-dark text-white text-center">
-                        <h4>Sign In</h4>
+                        <h4>Admin Login</h4>
                     </div>
 
                     <div class="card-body">
@@ -159,7 +159,7 @@
                             <div class="text-center mt-3">
 
 
-                                <div class="d-flex justify-content-center align-items-center gap-3">
+                         <%--       <div class="d-flex justify-content-center align-items-center gap-3">
                                   <p class="mb-2">Don’t have an account?</p>  <a href="SignUp.jsp" class="btn btn-outline-primary">
                                         Sign Up
                                     </a>
@@ -169,7 +169,8 @@
                                         Change Password?
                                     </a>
                                     <span class="text-muted">|</span>
-
+          --%>
+                             <div>
                                     <a href="ForgotPassword.jsp" class="btn btn-link p-0">
                                         Forgot Password?
                                     </a>
