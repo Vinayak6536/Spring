@@ -153,59 +153,40 @@
 <div class="container my-5 flex-grow-1" id="batchSection">
     <div class="row g-4 justify-content-center">
 
+        <!-- Batches Card -->
         <div class="col-md-5">
-            <div class="dashboard-card">
-                <div class="dashboard-header">Batch</div>
-
-                <div class="batch-card-body">
-                    <img src="<%= request.getContextPath() %>/resources/static/java.png" class="batch-logo">
-
-                    <div class="w-100">
-                        <div class="info-row">
-                            <span>Batch ID</span>
-                            <strong>XW-JFS-101</strong>
-                        </div>
-                        <div class="info-row">
-                            <span>Trainer</span>
-                            <strong>Ravi Kumar</strong>
-                        </div>
-
-                        <a href="BatchDetails.jsp" class="btn btn-outline-primary w-100 mt-3">
-                            <i class="bi bi-eye"></i> View Batch
-                        </a>
-                    </div>
+            <div class="dashboard-card text-center p-4">
+                <div class="dashboard-header">
+                    <i class="bi bi-journal-code me-2"></i> Batches
                 </div>
+                <div class="mt-4">
+                    <h5>Learn with Experts</h5>
+                    <p>Join our curated batches for Java, Python, and Web Development. Hands-on projects included!</p>
+                </div>
+                <a href="BatchDetails.jsp" class="btn btn-primary w-75 mt-3">
+                    <i class="bi bi-eye"></i> Explore Batches
+                </a>
             </div>
         </div>
 
+        <!-- Students Card -->
         <div class="col-md-5">
-            <div class="dashboard-card">
-                <div class="dashboard-header green">Batch</div>
-
-                <div class="batch-card-body">
-                    <img src="<%= request.getContextPath() %>/resources/static/python.png" class="batch-logo">
-
-                    <div class="w-100">
-                        <div class="info-row">
-                            <span>Batch ID</span>
-                            <strong>XW-PFS-102</strong>
-                        </div>
-                        <div class="info-row">
-                            <span>Trainer</span>
-                            <strong>Anita Sharma</strong>
-                        </div>
-
-                        <a href="BatchDetails.jsp" class="btn btn-outline-success w-100 mt-3">
-                            <i class="bi bi-eye"></i> View Batch
-                        </a>
-                    </div>
+            <div class="dashboard-card text-center p-4">
+                <div class="dashboard-header green">
+                    <i class="bi bi-people-fill me-2"></i> Students
                 </div>
+                <div class="mt-4">
+                    <h5>Grow Your Skills</h5>
+                    <p>Track and manage all enrolled students easily. Real-time progress and updates.</p>
+                </div>
+                <a href="StudentDetails.jsp" class="btn btn-success w-75 mt-3">
+                    <i class="bi bi-eye"></i> View Students
+                </a>
             </div>
         </div>
 
     </div>
 </div>
-
 <!-- ================= ABOUT ================= -->
 <section id="about" class="page-section py-5 bg-light">
     <div class="container text-center">
