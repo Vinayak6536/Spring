@@ -1,4 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,8 +142,8 @@
             </div>
 
             <div class="admin-hover-card p-3 text-center">
-                <h6 class="fw-bold mb-1">Admin User</h6>
-                <p class="text-muted mb-3">admin@xworkz.com</p>
+                <h6 class="fw-bold mb-1">${admin.getFirstName()}</h6>
+                <p class="text-muted mb-3">${admin.getEmail()}</p>
                 <a href="SignOut.jsp" class="btn btn-danger btn-sm w-100">Logout</a>
             </div>
         </div>
@@ -163,7 +165,7 @@
                     <h5>Learn with Experts</h5>
                     <p>Join our curated batches for Java, Python, and Web Development. Hands-on projects included!</p>
                 </div>
-                <a href="BatchDetails.jsp" class="btn btn-primary w-75 mt-3">
+                <a href="BatchList.jsp" class="btn btn-primary w-75 mt-3">
                     <i class="bi bi-eye"></i> Explore Batches
                 </a>
             </div>

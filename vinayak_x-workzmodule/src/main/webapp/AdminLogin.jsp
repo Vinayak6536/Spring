@@ -34,6 +34,20 @@
                     transform: scale(1.1);
                 }
 
+.nav-link-custom {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+        .nav-link-custom:hover {
+            text-decoration: underline;
+        }
+
+.page-section {
+            display: none;
+        }
+
         footer {
                     background-color: #212529;
                     color: white;
@@ -78,7 +92,7 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container d-flex align-items-center">
 
-        <a href="#" onclick="showSection('home')">
+        <a href="index.jsp" onclick="showSection('home')">
             <img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40">
         </a>
 
@@ -187,10 +201,53 @@
         </div>
     </div>
 </div>
+<section id="about" class="page-section py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="fw-bold">About Us</h2>
+            <p class="mt-3">
+                Xworkz provides industry-focused training with real-time projects,
+                expert mentors, and placement guidance to build strong IT careers.
+            </p>
+        </div>
+    </section>
 
+    <!-- ================= FIELDS ================= -->
+    <section id="fields" class="page-section py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold">Our Fields</h2>
+            <div class="row mt-4">
+                <div class="col-md-3">Java Full Stack</div>
+                <div class="col-md-3">Web Development</div>
+                <div class="col-md-3">Spring & Hibernate</div>
+                <div class="col-md-3">SQL & Database</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="page-section py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="fw-bold">Contact Us</h2>
+            <p class="mt-3">
+                <i class="bi bi-geo-alt-fill"></i> Bangalore, India<br>
+                <i class="bi bi-telephone-fill"></i> +91 9876543210<br>
+                <i class="bi bi-envelope-fill"></i> support@xworkz.com
+            </p>
+
+        </div>
+    </section>
 <footer class="text-center py-3 bg-dark text-white">
     © 2026 My Application. All rights reserved.
 </footer>
+<script>
+    function showSection(sectionId) {
+        // Hide all sections
+        const sections = document.querySelectorAll('.page-section');
+        sections.forEach(sec => sec.style.display = 'none');
 
+        // Show selected section
+        document.getElementById(sectionId).style.display = 'block';
+    }
+</script>
 </body>
 </html>
