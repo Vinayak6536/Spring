@@ -149,27 +149,30 @@
 <div class="container my-5 flex-grow-1" id="batchSection">
     <div class="row g-4 justify-content-center">
 
-        <!-- AUTO CARD GENERATION -->
         <c:forEach items="${batchList}" var="batch">
+            <div class="col-sm-10 col-md-6 col-lg-4 d-flex">
+                <div class="dashboard-card w-100 d-flex flex-column">
 
-            <div class="col-md-5 col-lg-4">
-                <div class="dashboard-card">
-
-                    <div class="dashboard-header">
+                    <!-- Card Header -->
+                    <div class="dashboard-header text-center">
                         Batch
                     </div>
 
-                    <div class="batch-card-body">
+                    <!-- Card Body -->
+                    <div class="batch-card-body d-flex align-items-center gap-3 p-3 flex-grow-1">
+
+                        <!-- Image -->
                         <img src="<%= request.getContextPath() %>/resources/static/${batch.image}"
                              class="batch-logo">
 
-                        <div class="w-100">
-                            <div class="info-row">
+                        <!-- Info -->
+                        <div class="flex-grow-1">
+                            <div class="info-row d-flex justify-content-between">
                                 <span>Batch ID</span>
                                 <strong>${batch.batchId}</strong>
                             </div>
 
-                            <div class="info-row">
+                            <div class="info-row d-flex justify-content-between">
                                 <span>Trainer</span>
                                 <strong>${batch.trainerName}</strong>
                             </div>
@@ -179,16 +182,15 @@
                                 <i class="bi bi-eye"></i> View Batch
                             </a>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-
         </c:forEach>
 
-        <!-- IF NO BATCHES -->
+        <!-- No batches -->
         <c:if test="${empty batchList}">
-            <div class="text-center text-muted fs-5">
+            <div class="col-12 text-center text-muted fs-5">
                 No batches available
             </div>
         </c:if>

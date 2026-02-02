@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -39,4 +40,6 @@ public class BatchDto {
     @NotBlank(message = "Batch trainer name is required")
     @Size(min = 3, max = 40, message = "Trainer name must be between 3 and 40 characters")
     private String batchTrainer;
+
+    private MultipartFile file;
 }
