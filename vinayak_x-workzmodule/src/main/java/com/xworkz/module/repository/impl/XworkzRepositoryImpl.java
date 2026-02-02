@@ -53,17 +53,17 @@ public class XworkzRepositoryImpl implements XworkzRepository {
     }
 
     @Override
-    public String findEmail(String emailOrPhone) {
+    public XworkzEntity findEmail(String emailOrPhone) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             if (emailOrPhone.matches("\\d+")) {
                 long phone = Long.parseLong(emailOrPhone);
-                Query query = entityManager.createQuery("select e.password from XworkzEntity e where e.phoneNo=:phone").setParameter("phone", phone);
-                return (String) query.getSingleResult();
+                Query query = entityManager.createQuery("from XworkzEntity e where e.phoneNo=:phone").setParameter("phone", phone);
+                return (XworkzEntity) query.getSingleResult();
             } else {
-                Query query = entityManager.createQuery("select e.password from XworkzEntity e where e.email=:email").setParameter("email", emailOrPhone);
-                return (String) query.getSingleResult();
+                Query query = entityManager.createQuery("from XworkzEntity e where e.email=:email").setParameter("email", emailOrPhone);
+                return (XworkzEntity) query.getSingleResult();
             }
         } catch (Exception e) {
             e.printStackTrace();
