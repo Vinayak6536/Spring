@@ -1,11 +1,11 @@
-package com.xworkz.module.service.impl;
+package com.xworkz.module.service.xworkz.impl;
 
 import com.xworkz.module.util.OTPUtil;
 import com.xworkz.module.util.PasswordCipherUtil;
 import com.xworkz.module.dto.XworkzDto;
 import com.xworkz.module.entity.XworkzEntity;
 import com.xworkz.module.repository.XworkzRepository;
-import com.xworkz.module.service.XworkzService;
+import com.xworkz.module.service.xworkz.XworkzService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +51,15 @@ public class XworkzServiceImpl implements XworkzService {
     }
 
     @Override
-    public String findEmail(String emailOrPhone, String password) {
+    public XworkzDto findEmail(String emailOrPhone, String password) {
         if (emailOrPhone != null) {
-                String fetchedPassword = xworkzRepository.findEmail(emailOrPhone);
-                String decryptPassword = passwordCipherUtil.decrypt(fetchedPassword);
+                XworkzEntity fetchedPassword = xworkzRepository.findEmail(emailOrPhone);
+                XworkzDto xworkzDto=new XworkzDto();
+                BeanUtils.copyProperties(fetchedPassword,xworkzDto);
+                String decryptPassword = passwordCipherUtil.decrypt(xworkzDto.getPassword());
              //   System.out.println(decryptPassword);
                 if (decryptPassword.equals(password)) {
-                    return fetchedPassword;
+                    return xworkzDto;
                 } else {
                     System.out.println("Invalid Password");
                     return null;

@@ -1,11 +1,11 @@
-package com.xworkz.module.service;
+package com.xworkz.module.service.xworkz;
 
 import com.xworkz.module.dto.XworkzDto;
 
 public interface XworkzService {
     boolean validateAndSave(XworkzDto xworkzDto);
 
-    String findEmail(String emailOrPhone,String password);
+    XworkzDto findEmail(String emailOrPhone,String password);
 
     int getCount(String emailOrPhoneNo);
 
