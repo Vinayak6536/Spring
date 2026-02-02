@@ -5,7 +5,7 @@ import com.xworkz.module.entity.XworkzEntity;
 public interface XworkzRepository {
     boolean save(XworkzEntity xworkzEntity);
 
-    String findEmail(String emailOrPhone);
+    XworkzEntity findEmail(String emailOrPhone);
 
     int getCount(String emailOrPhoneNo);
 

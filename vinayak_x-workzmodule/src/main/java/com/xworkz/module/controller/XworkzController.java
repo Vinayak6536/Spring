@@ -1,7 +1,7 @@
 package com.xworkz.module.controller;
 
 import com.xworkz.module.dto.XworkzDto;
-import com.xworkz.module.service.XworkzService;
+import com.xworkz.module.service.xworkz.XworkzService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Random;
 
@@ -46,13 +47,14 @@ public class XworkzController {
     }
 
     @GetMapping("AdminLogin")
-    public String getAdminLogin(String emailOrPhone, String password, Model model) {
+    public String getAdminLogin(String emailOrPhone, String password, Model model, HttpSession session) {
 
         if (xworkzService.checkEmailOrPhone(emailOrPhone)) {
-            String fetchedPassword = xworkzService.findEmail(emailOrPhone, password);
+            XworkzDto xworkzDto = xworkzService.findEmail(emailOrPhone, password);
 
-            if (fetchedPassword != null) {
-                model.addAttribute("Success", fetchedPassword);
+            if (xworkzDto != null) {
+                session.setAttribute("admin",xworkzDto);
+                model.addAttribute("Success", xworkzDto);
                 xworkzService.setCount(emailOrPhone);
                 return "AdminPage";
             } else {
