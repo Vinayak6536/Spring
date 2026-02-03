@@ -1,4 +1,4 @@
-package com.xworkz.module.repository;
+package com.xworkz.module.repository.xworkz;
 
 import com.xworkz.module.entity.XworkzEntity;
 
