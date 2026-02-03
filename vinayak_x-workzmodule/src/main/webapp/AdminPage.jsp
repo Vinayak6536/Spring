@@ -158,6 +158,11 @@
         <!-- Batches Card -->
         <div class="col-md-5">
             <div class="dashboard-card text-center p-4">
+            <c:if test="${not empty success}">
+                <p class="text-center fs-4 fw-bold text-uppercase text-success">
+                    ${success}
+                </p>
+            </c:if>
                 <div class="dashboard-header">
                     <i class="bi bi-journal-code me-2"></i> Batches
                 </div>
@@ -165,8 +170,11 @@
                     <h5>Learn with Experts</h5>
                     <p>Join our curated batches for Java, Python, and Web Development. Hands-on projects included!</p>
                 </div>
-                <a href="BatchList.jsp" class="btn btn-primary w-75 mt-3">
+                <a href="batchList" class="btn btn-primary w-75 mt-3">
                     <i class="bi bi-eye"></i> Explore Batches
+                </a>
+                   <a href="AddBatch.jsp" class="btn btn-primary w-75 mt-3">
+                    <i class="bi bi-eye"></i> Add Batches
                 </a>
             </div>
         </div>

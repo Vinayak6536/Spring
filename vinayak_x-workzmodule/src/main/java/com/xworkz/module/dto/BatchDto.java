@@ -1,9 +1,6 @@
 package com.xworkz.module.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,10 +10,11 @@ import javax.validation.constraints.Size;
 
 @Setter
 @Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class BatchDto {
-    @NotNull(message = "Batch ID is required")
+    //@NotNull(message = "Batch ID is required")
     private Integer batchId;
 
     @NotBlank(message = "Batch name is required")
@@ -41,5 +39,5 @@ public class BatchDto {
     @Size(min = 3, max = 40, message = "Trainer name must be between 3 and 40 characters")
     private String batchTrainer;
 
-    private MultipartFile file;
+   // private MultipartFile file;
 }
