@@ -1,7 +1,7 @@
-package com.xworkz.module.repository.impl;
+package com.xworkz.module.repository.xworkz.impl;
 
 import com.xworkz.module.entity.XworkzEntity;
-import com.xworkz.module.repository.XworkzRepository;
+import com.xworkz.module.repository.xworkz.XworkzRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -4,7 +4,7 @@ import com.xworkz.module.util.OTPUtil;
 import com.xworkz.module.util.PasswordCipherUtil;
 import com.xworkz.module.dto.XworkzDto;
 import com.xworkz.module.entity.XworkzEntity;
-import com.xworkz.module.repository.XworkzRepository;
+import com.xworkz.module.repository.xworkz.XworkzRepository;
 import com.xworkz.module.service.xworkz.XworkzService;
 
 import org.springframework.beans.BeanUtils;
