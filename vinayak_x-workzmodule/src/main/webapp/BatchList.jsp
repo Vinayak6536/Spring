@@ -1,5 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,19 +154,14 @@
             <div class="col-sm-10 col-md-6 col-lg-4 d-flex">
                 <div class="dashboard-card w-100 d-flex flex-column">
 
-                    <!-- Card Header -->
                     <div class="dashboard-header text-center">
                         Batch
                     </div>
 
-                    <!-- Card Body -->
                     <div class="batch-card-body d-flex align-items-center gap-3 p-3 flex-grow-1">
 
-                        <!-- Image -->
-                        <img src="<%= request.getContextPath() %>/resources/static/${batch.image}"
-                             class="batch-logo">
 
-                        <!-- Info -->
+
                         <div class="flex-grow-1">
                             <div class="info-row d-flex justify-content-between">
                                 <span>Batch ID</span>
@@ -174,7 +170,7 @@
 
                             <div class="info-row d-flex justify-content-between">
                                 <span>Trainer</span>
-                                <strong>${batch.trainerName}</strong>
+                                <strong>${batch.batchTrainer}</strong>
                             </div>
 
                             <a href="viewBatch?batchId=${batch.batchId}"
