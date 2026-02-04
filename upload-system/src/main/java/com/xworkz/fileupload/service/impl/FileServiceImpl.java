@@ -26,9 +26,12 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public boolean validateAndSave(FileDto fileDto) throws IOException {
-        MultipartFile file= fileDto.getFile();
+        MultipartFile file = fileDto.getFile();
+
         byte[] bytes=file.getBytes();
-        Path path= Paths.get("V:\\FileUploader\\"+file.getOriginalFilename()+System.currentTimeMillis()+".jpg");
+
+      Path path= Paths.get("V:\\FileUploader\\"+file.getOriginalFilename()+System.currentTimeMillis()+".jpg");
+        System.out.println(path);
         Files.write(path,bytes);
         fileEntity.setOriginalFileName(file.getOriginalFilename());
         fileEntity.setFileData(file.getBytes());
