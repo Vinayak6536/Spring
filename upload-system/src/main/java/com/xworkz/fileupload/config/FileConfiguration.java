@@ -23,6 +23,7 @@ public class FileConfiguration implements WebMvcConfigurer {
 
     @Bean("multipartResolver")
     public CommonsMultipartResolver commonsMultipartResolver(){
+
         CommonsMultipartResolver commonsMultipartResolver=new CommonsMultipartResolver();
         commonsMultipartResolver.setMaxInMemorySize(1048576);
         commonsMultipartResolver.setMaxUploadSize(1048576);
