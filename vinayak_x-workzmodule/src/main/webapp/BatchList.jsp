@@ -110,6 +110,31 @@
             background: #212529;
             color: white;
         }
+
+        .batch-profile-card {
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid #e5e7eb;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .batch-profile-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 26px rgba(0,0,0,0.15);
+        }
+
+        .profile-batch-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0d6efd;
+        }
+
+
+
+
+
     </style>
 </head>
 
@@ -137,7 +162,7 @@
             </div>
 
             <div class="admin-hover-card p-3 text-center">
-                <h6 class="fw-bold mb-1">${admin.name}</h6>
+                <h6 class="fw-bold mb-1">${admin.firstName}</h6>
                 <p class="text-muted mb-3">${admin.email}</p>
                 <a href="logout" class="btn btn-danger btn-sm w-100">Logout</a>
             </div>
@@ -150,39 +175,36 @@
 <div class="container my-5 flex-grow-1" id="batchSection">
     <div class="row g-4 justify-content-center">
 
-        <c:forEach items="${batchList}" var="batch">
-            <div class="col-sm-10 col-md-6 col-lg-4 d-flex">
-                <div class="dashboard-card w-100 d-flex flex-column">
+       <c:forEach items="${batchList}" var="batch">
+           <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+               <div class="batch-profile-card text-center shadow-sm p-4">
 
-                    <div class="dashboard-header text-center">
-                        Batch
-                    </div>
+                   <!-- Top Image -->
+                   <img src="https://tse2.mm.bing.net/th/id/OIP.9i37kmkcwzGQgBL7-yJ14wHaJQ?pid=Api&P=0&h=180"
+                        class="profile-batch-img mb-3"
+                        alt="Batch Image">
 
-                    <div class="batch-card-body d-flex align-items-center gap-3 p-3 flex-grow-1">
+                   <!-- Content -->
+                   <h6 class="fw-bold text-primary mb-1">
+                       Batch ${batch.batchId}
+                   </h6>
+
+                   <p class="text-muted mb-3">
+                       Trainer: <strong>${batch.batchTrainer}</strong>
+                   </p>
+
+                   <a href="batchDetails?batchId=${batch.batchId}"
+                      class="btn btn-sm btn-outline-primary w-100">
+                       View Batch
+                   </a>
+
+               </div>
+           </div>
+       </c:forEach>
 
 
 
-                        <div class="flex-grow-1">
-                            <div class="info-row d-flex justify-content-between">
-                                <span>Batch ID</span>
-                                <strong>${batch.batchId}</strong>
-                            </div>
 
-                            <div class="info-row d-flex justify-content-between">
-                                <span>Trainer</span>
-                                <strong>${batch.batchTrainer}</strong>
-                            </div>
-
-                            <a href="viewBatch?batchId=${batch.batchId}"
-                               class="btn btn-outline-primary w-100 mt-3">
-                                <i class="bi bi-eye"></i> View Batch
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
 
         <!-- No batches -->
         <c:if test="${empty batchList}">
