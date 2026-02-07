@@ -124,7 +124,7 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container d-flex align-items-center">
 
-        <a href="#" onclick="showBatches()">
+        <a href="adminDashboard">
             <img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40">
         </a>
 
@@ -138,16 +138,15 @@
             <div class="d-flex align-items-center text-white">
                 <img src="<%= request.getContextPath() %>/resources/static/admin.png"
                      height="40" class="admin-icon me-2">
-                <span class="fw-semibold">Admin</span>
+                <span class="fw-semibold">${admin.getFirstName()}</span>
             </div>
 
             <div class="admin-hover-card p-3 text-center">
                 <h6 class="fw-bold mb-1">${admin.getFirstName()}</h6>
                 <p class="text-muted mb-3">${admin.getEmail()}</p>
-                <a href="SignOut.jsp" class="btn btn-danger btn-sm w-100">Logout</a>
+                <a href="logout" class="btn btn-danger btn-sm w-100">Logout</a>
             </div>
         </div>
-
     </div>
 </nav>
 
@@ -189,9 +188,13 @@
                     <h5>Grow Your Skills</h5>
                     <p>Track and manage all enrolled students easily. Real-time progress and updates.</p>
                 </div>
-                <a href="StudentDetails.jsp" class="btn btn-success w-75 mt-3">
+                <a href="studentsList" class="btn btn-success w-75 mt-3">
                     <i class="bi bi-eye"></i> View Students
                 </a>
+
+                <a href="registerStudent" class="btn btn-success w-75 mt-3">
+                                    <i class="bi bi-eye"></i> Register Student
+                                </a>
             </div>
         </div>
 

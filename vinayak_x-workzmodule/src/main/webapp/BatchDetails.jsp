@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,12 +109,12 @@
             <div class="d-flex align-items-center text-white">
                 <img src="<%= request.getContextPath() %>/resources/static/admin.png"
                      height="40" class="admin-icon me-2">
-                <span class="fw-semibold">${admin.name}</span>
+                <span class="fw-semibold">${admin.getFirstName()}</span>
             </div>
 
             <div class="admin-hover-card p-3 text-center">
-                <h6 class="fw-bold mb-1">${admin.name}</h6>
-                <p class="text-muted mb-3">${admin.email}</p>
+                <h6 class="fw-bold mb-1">${admin.getFirstName()}</h6>
+                <p class="text-muted mb-3">${admin.getEmail()}</p>
                 <a href="logout" class="btn btn-danger btn-sm w-100">Logout</a>
             </div>
         </div>
@@ -133,10 +134,10 @@
 
                 <div class="p-4">
 
-                    <div class="text-center mb-4">
+                <%--   <div class="text-center mb-4">
                         <img src="<%= request.getContextPath() %>/resources/static/${batch.image}"
                              class="batch-logo">
-                    </div>
+                    </div>  --%>
 
                     <div class="info-row">
                         <strong>Batch ID</strong>
@@ -144,28 +145,23 @@
                     </div>
 
                     <div class="info-row">
-                        <strong>Trainer</strong>
-                        <span>${batch.trainerName}</span>
+                        <strong>Batch Name</strong>
+                        <span>${batch.batchName}</span>
                     </div>
 
                     <div class="info-row">
                         <strong>Start Date</strong>
-                        <span>${batch.startDate}</span>
+                        <span>${batch.batchStartDate}</span>
                     </div>
 
                     <div class="info-row">
                         <strong>End Date</strong>
-                        <span>${batch.endDate}</span>
+                        <span>${batch.batchEndDate}</span>
                     </div>
 
                     <div class="info-row">
-                        <strong>Duration</strong>
-                        <span>${batch.duration}</span>
-                    </div>
-
-                    <div class="info-row">
-                        <strong>Mode</strong>
-                        <span>${batch.mode}</span>
+                        <strong>Trainer</strong>
+                        <span>${batch.batchTrainer}</span>
                     </div>
 
                     <div class="mt-4 text-center">
@@ -173,11 +169,11 @@
                             Registered Students
                         </a>
 
-                        <a href="studentRegister?batchId=${batch.batchId}" class="btn btn-success me-2">
+                        <a href="StudentRegForm.jsp" class="btn btn-success me-2">
                             <i class="bi bi-person-plus"></i> Register Student
                         </a>
 
-                        <a href="adminDashboard" class="btn btn-secondary">
+                        <a href="AdminPage.jsp" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Back
                         </a>
                     </div>
