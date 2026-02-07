@@ -55,6 +55,7 @@ public class XworkzController {
             if (xworkzDto != null) {
                 session.setAttribute("admin",xworkzDto);
                 model.addAttribute("Success", xworkzDto);
+                session.setAttribute("fromBatch", false);
                 xworkzService.setCount(emailOrPhone);
                 return "AdminPage";
             } else {
