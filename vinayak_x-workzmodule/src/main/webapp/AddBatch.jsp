@@ -196,14 +196,11 @@
             <span class="nav-link-custom" onclick="showSection('contact')">Contact</span>
         </div>
 
-        <!-- ADMIN INFO -->
         <div class="ms-auto admin-hover">
             <div class="d-flex align-items-center text-white">
                 <img src="<%= request.getContextPath() %>/resources/static/admin.png"
                      height="40" class="admin-icon me-2">
-
-                <!-- 🔴 FIXED: use correct admin field -->
-                <span class="fw-semibold">Admin</span>
+                <span class="fw-semibold">${admin.getFirstName()}</span>
             </div>
 
             <div class="admin-hover-card p-3 text-center">
@@ -212,7 +209,6 @@
                 <a href="logout" class="btn btn-danger btn-sm w-100">Logout</a>
             </div>
         </div>
-
     </div>
 </nav>
 
