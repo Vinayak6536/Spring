@@ -34,12 +34,16 @@
                     transform: scale(1.1);
                 }
 
-.nav-link-custom {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            cursor: pointer;
-        }
+                .nav-link-custom {
+                    color: white;
+                    margin: 0 18px;
+                    font-weight: 500;
+                }
+
+                .navbar-brand img {
+                    max-height: 40px;
+                }
+
         .nav-link-custom:hover {
             text-decoration: underline;
         }
@@ -89,25 +93,28 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container d-flex align-items-center">
+<nav class="navbar navbar-dark bg-dark py-2">
+    <div class="container">
 
-        <a href="index.jsp" onclick="showSection('home')">
+        <!-- Left: Logo -->
+        <a href="index.jsp" class="navbar-brand d-flex align-items-center">
             <img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40">
         </a>
 
-        <div class="d-flex align-items-center ms-4 gap-4">
+        <!-- Center: Nav links -->
+        <div class="d-none d-md-flex mx-auto align-items-center">
             <span class="nav-link-custom" onclick="showSection('about')">About</span>
             <span class="nav-link-custom" onclick="showSection('fields')">Fields</span>
             <span class="nav-link-custom" onclick="showSection('contact')">Contact</span>
         </div>
 
-        <div class="ms-auto d-flex align-items-center">
+        <!-- Right: Admin login -->
+        <div class="ms-auto">
             <a href="AdminLogin.jsp"
                class="d-flex align-items-center text-white text-decoration-none">
 
                 <img src="<%= request.getContextPath() %>/resources/static/admin.png"
-                     height="40"
+                     height="38"
                      class="admin-icon me-2">
 
                 <span class="fw-semibold">Admin Login</span>
@@ -116,6 +123,14 @@
 
     </div>
 </nav>
+
+
+<%
+response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader("Expires", 0);
+%>
+
 <div class="page-content">
     <div class="container mt-5">
         <div class="row justify-content-center">
