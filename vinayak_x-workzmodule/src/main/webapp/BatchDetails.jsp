@@ -107,16 +107,16 @@
 
         <div class="ms-auto admin-hover">
             <div class="d-flex align-items-center text-white">
-                <img src="<%= request.getContextPath() %>/resources/static/admin.png"
-                     height="40" class="admin-icon me-2">
-                <span class="fw-semibold">${admin.getFirstName()}</span>
-            </div>
+                            <img src="<%= request.getContextPath() %>/resources/static/admin.png"
+                                 height="40" class="admin-icon me-2">
+                            <span class="fw-semibold">${admin.firstName}</span>
+                        </div>
 
-            <div class="admin-hover-card p-3 text-center">
-                <h6 class="fw-bold mb-1">${admin.getFirstName()}</h6>
-                <p class="text-muted mb-3">${admin.getEmail()}</p>
-                <a href="logout" class="btn btn-danger btn-sm w-100">Logout</a>
-            </div>
+                        <div class="admin-hover-card p-3 text-center">
+                            <h6 class="fw-bold mb-1">${admin.firstName}</h6>
+                            <p class="text-muted mb-3">${admin.email}</p>
+                            <a href="logout" class="btn btn-danger btn-sm w-100">Logout</a>
+                        </div>
         </div>
     </div>
 </nav>

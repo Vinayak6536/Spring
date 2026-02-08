@@ -43,8 +43,12 @@
             cursor: pointer;
         }
 
+        /* Dropdown card */
         .admin-hover-card {
-            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+
             position: absolute;
             right: 0;
             top: 55px;
@@ -53,10 +57,19 @@
             border-radius: 15px;
             box-shadow: 0 12px 30px rgba(0,0,0,0.2);
             z-index: 1000;
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease,
+                visibility 0.3s;
         }
 
-        .admin-hover:hover .admin-hover-card {
-            display: block;
+        /* SHOW on hover (icon + card both) */
+        .admin-hover:hover .admin-hover-card,
+        .admin-hover-card:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
 
         .dashboard-card {
@@ -111,6 +124,55 @@
             display: none;
         }
 
+        .admin-hover-card {
+            width: 260px;
+            border-radius: 16px;
+        }
+
+        .dropdown-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f1f3f5;
+        }
+
+        .admin-hover-card {
+            width: 270px;
+            border-radius: 16px;
+        }
+
+        /* Clear profile image */
+        .admin-profile-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #0d6efd;
+            padding: 2px;
+            background: #fff;
+        }
+
+        /* Button polish */
+        .admin-hover-card .btn {
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 8px;
+        }
+
+        /* Optional hover polish */
+        .admin-hover-card .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+
+
+
+
         footer {
             background: #212529;
             color: white;
@@ -124,7 +186,7 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container d-flex align-items-center">
 
-        <a href="adminDashboard">
+        <a href="AdminPage.jsp">
             <img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40">
         </a>
 
@@ -134,20 +196,36 @@
             <span class="nav-link-custom" onclick="showSection('contact')">Contact</span>
         </div>
 
-        <div class="ms-auto admin-hover">
-            <div class="d-flex align-items-center text-white">
-                <img src="<%= request.getContextPath() %>/resources/static/admin.png"
-                     height="40" class="admin-icon me-2">
-                <span class="fw-semibold">${admin.getFirstName()}</span>
-            </div>
+       <div class="ms-auto admin-hover">
+           <div class="d-flex align-items-center text-white">
+               <img src="<%= request.getContextPath() %>/resources/static/admin.png"
+                    height="40" class="admin-icon me-2">
+               <span class="fw-semibold">${admin.getFirstName()}</span>
+           </div>
 
-            <div class="admin-hover-card p-3 text-center">
-                <h6 class="fw-bold mb-1">${admin.getFirstName()}</h6>
-                <p class="text-muted mb-3">${admin.getEmail()}</p>
-                <a href="logout" class="btn btn-danger btn-sm w-100">Logout</a>
-            </div>
-        </div>
-    </div>
+           <div class="admin-hover-card p-3">
+               <!-- Profile section -->
+               <div class="admin-profile d-flex align-items-center mb-3">
+                   <img src="<%= request.getContextPath() %>/resources/static/admin.png"
+                        class="admin-profile-img me-3">
+                   <div>
+                       <div class="fw-bold">${admin.getFirstName()}</div>
+                       <small class="text-muted">${admin.getEmail()}</small>
+                   </div>
+               </div>
+
+               <div class="d-grid gap-2">
+                   <a href="profile" class="btn btn-outline-primary btn-sm">
+                       👤 View Profile
+                   </a>
+                   <a href="logout" class="btn btn-danger btn-sm">
+                       🚪 Logout
+                   </a>
+               </div>
+           </div>
+       </div>
+
+
 </nav>
 
 <!-- ================= BATCH LIST (DEFAULT) ================= -->

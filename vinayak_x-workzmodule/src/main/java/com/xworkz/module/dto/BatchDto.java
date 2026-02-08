@@ -4,7 +4,6 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -14,8 +13,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BatchDto {
-    //@NotNull(message = "Batch ID is required")
-    private Integer batchId;
+//    //@NotNull(message = "Batch ID is required")
+    private int batchId;
 
     @NotBlank(message = "Batch name is required")
     @Size(min = 3, max = 50, message = "Batch name must be between 3 and 50 characters")
