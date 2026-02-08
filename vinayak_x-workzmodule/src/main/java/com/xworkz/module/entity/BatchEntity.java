@@ -1,12 +1,15 @@
 package com.xworkz.module.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Component
 @Entity
 public class BatchEntity {
