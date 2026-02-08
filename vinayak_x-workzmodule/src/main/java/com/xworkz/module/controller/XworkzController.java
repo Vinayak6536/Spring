@@ -53,6 +53,7 @@ public class XworkzController {
             XworkzDto xworkzDto = xworkzService.findEmail(emailOrPhone, password);
 
             if (xworkzDto != null) {
+                System.out.println("Admin Details"+xworkzDto);
                 session.setAttribute("admin",xworkzDto);
                 model.addAttribute("Success", xworkzDto);
                 session.setAttribute("fromBatch", false);
@@ -160,5 +161,11 @@ public class XworkzController {
             return model;
         }
         return model;
+    }
+
+    @GetMapping("logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "AdminLogin";
     }
 }

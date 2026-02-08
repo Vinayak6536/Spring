@@ -1,6 +1,8 @@
 package com.xworkz.module.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
@@ -10,7 +12,8 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Setter
+@Getter
 @Component
 
 public class XworkzEntity {
