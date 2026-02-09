@@ -215,7 +215,7 @@
                </div>
 
                <div class="d-grid gap-2">
-                   <a href="profile" class="btn btn-outline-primary btn-sm">
+                   <a href="viewProfile?email=${admin.getEmail()}" class="btn btn-outline-primary btn-sm">
                        👤 View Profile
                    </a>
                    <a href="logout" class="btn btn-danger btn-sm">
@@ -266,7 +266,7 @@
                     <h5>Grow Your Skills</h5>
                     <p>Track and manage all enrolled students easily. Real-time progress and updates.</p>
                 </div>
-                <a href="studentsList" class="btn btn-success w-75 mt-3">
+                <a href="<%= request.getContextPath()%>/studentsList" class="btn btn-success w-75 mt-3">
                     <i class="bi bi-eye"></i> View Students
                 </a>
 

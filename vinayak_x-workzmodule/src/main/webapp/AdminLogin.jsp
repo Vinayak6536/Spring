@@ -200,7 +200,7 @@ response.setDateHeader("Expires", 0);
                                     <span class="text-muted">|</span>
           --%>
                              <div>
-                                    <a href="ForgotPassword.jsp" class="btn btn-link p-0">
+                                    <a href="forgotPassword" class="btn btn-link p-0">
                                         Forgot Password?
                                     </a>
                                 </div>
