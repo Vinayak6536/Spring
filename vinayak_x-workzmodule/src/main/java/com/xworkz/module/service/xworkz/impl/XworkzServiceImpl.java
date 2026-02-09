@@ -122,4 +122,25 @@ public class XworkzServiceImpl implements XworkzService {
         }
         return false;
     }
+
+    @Override
+    public XworkzDto viewProfileByEmail(String email) {
+        if (email != null){
+           XworkzEntity xworkzEntity1= xworkzRepository.viewProfileByEmail(email);
+           XworkzDto xworkzDto=new XworkzDto();
+           BeanUtils.copyProperties(xworkzEntity1,xworkzDto);
+           return xworkzDto;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean updateAdminProfile(XworkzDto xworkzDto) {
+        if (xworkzDto != null){
+            BeanUtils.copyProperties(xworkzDto,xworkzEntity);
+            xworkzRepository.updateAdminProfile(xworkzEntity);
+            return true;
+        }
+        return false;
+    }
 }
