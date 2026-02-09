@@ -304,7 +304,7 @@
                             <i class="bi bi-save"></i> Save Batch
                         </button>
 
-                        <a href="adminPage.jsp" class="btn btn-secondary">
+                        <a href="backAdminPage" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Back
                         </a>
                     </div>

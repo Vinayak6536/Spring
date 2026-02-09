@@ -47,6 +47,11 @@ public class AdminController {
         return modelAndView;
     }
 
+    @RequestMapping("backAdminPage")
+    public String backAdminPage(){
+        return "AdminPage";
+    }
+
     @GetMapping("registerStudent")
     public String getBatchListStudentReg(HttpSession session) {
         List<BatchDto> batchList = batchService.getBatchList();
@@ -92,7 +97,7 @@ public class AdminController {
     }
 
     @GetMapping("studentsList")
-    public String getStudentsList(HttpSession session) {
+    public String getStudentsList(Model model) {
         System.out.println("studentsList.....");
         List<StudentDto> studentDtos = studentService.getStudentList();
 
@@ -102,18 +107,19 @@ public class AdminController {
         );
 
 
-        session.setAttribute("studentList", studentDtos);
+        model.addAttribute("studentList", studentDtos);
+
         //  session.setAttribute("fromBatch", false);
         return "StudentList";
     }
 
     @GetMapping("students")
-    public String getStudentsByBatchId(@RequestParam("batchId") int batchId, HttpSession session) {
+    public String getStudentsByBatchId(@RequestParam("batchId") int batchId,Model model) {
         System.out.println(batchId);
         if (batchId != 0) {
             List<StudentDto> studentDtoList = studentService.getStudentsByBatchId(batchId);
             System.out.println(studentDtoList);
-            session.setAttribute("getStudentsByBatchId", studentDtoList);
+            model.addAttribute("getStudentsByBatchId", studentDtoList);
         }
 
         return "StudentList";
