@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +25,11 @@ public class XworkzController {
 
     public XworkzController() {
         System.out.println("Running Controller.......");
+    }
+
+    @RequestMapping("forgotPassword")
+    public String forgotPassword(){
+        return "ForgotPassword";
     }
 
     @PostMapping("signUp")
@@ -53,8 +59,8 @@ public class XworkzController {
             XworkzDto xworkzDto = xworkzService.findEmail(emailOrPhone, password);
 
             if (xworkzDto != null) {
-                System.out.println("Admin Details"+xworkzDto);
-                session.setAttribute("admin",xworkzDto);
+                System.out.println("Admin Details" + xworkzDto);
+                session.setAttribute("admin", xworkzDto);
                 model.addAttribute("Success", xworkzDto);
                 session.setAttribute("fromBatch", false);
                 xworkzService.setCount(emailOrPhone);
@@ -70,7 +76,7 @@ public class XworkzController {
 
                 }
                 model.addAttribute("message", (3 - (count + 1)) + " " + "Attempts Left");
-                model.addAttribute("wrongPassword","Incorrect password");
+                model.addAttribute("wrongPassword", "Incorrect password");
                 model.addAttribute("emailOrPhoneno", emailOrPhone);
                 return "AdminLogin";
             }
@@ -163,8 +169,40 @@ public class XworkzController {
         return model;
     }
 
+    @GetMapping("viewProfile")
+    public String viewProfileByEmali(@RequestParam("email") String email, HttpSession session) {
+        if (email != null) {
+            XworkzDto xworkzDto = xworkzService.viewProfileByEmail(email);
+            session.setAttribute("viewProfile", xworkzDto);
+            return "AdminProfileDetails";
+        }
+        return null;
+    }
+
+    @GetMapping("editProfile")
+    public String editProfileByEmali(@RequestParam("email") String email, HttpSession session) {
+        if (email != null) {
+            XworkzDto xworkzDto = xworkzService.viewProfileByEmail(email);
+            session.setAttribute("viewProfile", xworkzDto);
+            return "UpdateAdminProfile";
+        }
+        return null;
+    }
+
+    @PostMapping("updateAdminProfile")
+    public String updateAdminProfile(XworkzDto xworkzDto, Model model) {
+        if (xworkzDto != null) {
+            xworkzService.updateAdminProfile(xworkzDto);
+            model.addAttribute("success", "Admin Profile Updated Successfully");
+            return "UpdateAdminProfile";
+        }
+        model.addAttribute("fail", "Admin Profile not Updated");
+        return "UpdateAdminProfile";
+    }
+
+
     @GetMapping("logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "AdminLogin";
     }

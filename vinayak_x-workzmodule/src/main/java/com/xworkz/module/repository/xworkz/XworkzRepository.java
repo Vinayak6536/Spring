@@ -22,4 +22,8 @@ public interface XworkzRepository {
     void clearExpiredOtp();
 
     boolean resetPassword(String emailOrPhone, String encrypt);
+
+    XworkzEntity viewProfileByEmail(String email);
+
+    boolean updateAdminProfile(XworkzEntity xworkzEntity);
 }

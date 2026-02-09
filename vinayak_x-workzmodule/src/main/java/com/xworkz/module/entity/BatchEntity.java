@@ -3,6 +3,7 @@ package com.xworkz.module.entity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString(exclude = "batch")
 @Component
 @Entity
 public class BatchEntity {
