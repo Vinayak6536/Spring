@@ -207,4 +207,39 @@ public class XworkzRepositoryImpl implements XworkzRepository {
         }
         return false;
     }
+
+    @Override
+    public XworkzEntity viewProfileByEmail(String email) {
+        try {
+           return (XworkzEntity) entityManagerFactory.createEntityManager().createQuery("select e from XworkzEntity e where e.email=:email").setParameter("email",email).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean updateAdminProfile(XworkzEntity xworkzEntity) {
+        try {
+            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query=entityManager.createQuery("update XworkzEntity e set e.firstName=:firstName,e.lastName=:lastName,e.age=:age,e.gender=:gender," +
+                    "e.phoneNo=:phoneNo where e.email=:email");
+            query.setParameter("firstName",xworkzEntity.getFirstName());
+            query.setParameter("lastName",xworkzEntity.getLastName());
+            query.setParameter("age",xworkzEntity.getAge());
+            query.setParameter("gender",xworkzEntity.getGender());
+            query.setParameter("phoneNo",xworkzEntity.getPhoneNo());
+            query.setParameter("email",xworkzEntity.getEmail());
+
+            int rows= query.executeUpdate();
+            if (rows > 0){
+                System.out.println("Admin Details updated");
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

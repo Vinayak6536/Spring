@@ -20,4 +20,8 @@ public interface XworkzService {
     boolean verifyOtp(String emailOrPhone, int otp);
 
     boolean resetPassword(String emailOrPhone,String password,String confirmPassword);
+
+    XworkzDto viewProfileByEmail(String email);
+
+    boolean updateAdminProfile(XworkzDto xworkzDto);
 }
