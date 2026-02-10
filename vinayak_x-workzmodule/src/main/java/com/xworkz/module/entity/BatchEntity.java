@@ -1,6 +1,5 @@
 package com.xworkz.module.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,5 +29,5 @@ public class BatchEntity {
 
     // One Batch → One Logo
     @OneToOne(mappedBy = "batch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private BatchLogoEntity batchLogo;
+    private ImageEntity batchLogo;
 }

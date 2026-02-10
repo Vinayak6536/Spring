@@ -169,11 +169,11 @@
                             Registered Students
                         </a>
 
-                        <a href="StudentRegForm.jsp" class="btn btn-success me-2">
+                        <a href="registerStudentById/${batch.batchId}" class="btn btn-success me-2">
                             <i class="bi bi-person-plus"></i> Register Student
                         </a>
 
-                        <a href="AdminPage.jsp" class="btn btn-secondary">
+                        <a href="backAdminPage" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Back
                         </a>
                     </div>
