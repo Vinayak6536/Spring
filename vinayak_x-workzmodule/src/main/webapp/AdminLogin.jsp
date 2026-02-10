@@ -192,13 +192,13 @@ response.setDateHeader("Expires", 0);
                                   <p class="mb-2">Don’t have an account?</p>  <a href="SignUp.jsp" class="btn btn-outline-primary">
                                         Sign Up
                                     </a>
-</div>
-<div>
-<a href="ChangePassword" class="btn btn-link p-0">
+                                  </div>
+                                   <div>
+                                   <a href="ChangePassword" class="btn btn-link p-0">
                                         Change Password?
                                     </a>
                                     <span class="text-muted">|</span>
-          --%>
+           --%>
                              <div>
                                     <a href="forgotPassword" class="btn btn-link p-0">
                                         Forgot Password?

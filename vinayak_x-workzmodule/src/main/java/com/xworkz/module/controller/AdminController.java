@@ -52,35 +52,49 @@ public class AdminController {
         return "AdminPage";
     }
 
+    @RequestMapping("adminProfileDetails")
+    public String adminProfileDetails(){
+        return "AdminProfileDetails";
+    }
+
     @GetMapping("registerStudent")
-    public String getBatchListStudentReg(HttpSession session) {
+    public String getBatchListStudentReg(Model model) {
         List<BatchDto> batchList = batchService.getBatchList();
 
         System.out.println("BATCH LIST SIZE = " + batchList.size());
         batchList.forEach(System.out::println);
 
-        session.setAttribute("batchList", batchList);
-        //  session.setAttribute("fromBatch", false);
+        model.addAttribute("batchList", batchList);
+        model.addAttribute("fromBatch", false);
+        return "StudentRegForm";
+    }
+
+    @GetMapping("registerStudentById/{batchId}")
+    public String getBatchIdStudentReg(@PathVariable("batchId") int batchId, Model model) {
+        Optional<BatchDto> batchList = batchService.getBatchId(batchId);
+
+        model.addAttribute("batch", batchList.get());
+        model.addAttribute("fromBatch", true);
         return "StudentRegForm";
     }
 
     @GetMapping("batchList")
-    public String getBatchList(HttpSession session) {
+    public String getBatchList(Model model) {
         List<BatchDto> batchList = batchService.getBatchList();
 
         System.out.println("BATCH LIST SIZE = " + batchList.size());
         batchList.forEach(System.out::println);
 
-        session.setAttribute("batchList", batchList);
-        //  session.setAttribute("fromBatch", false);
+        model.addAttribute("batchList", batchList);
+        //model.addAttribute("fromBatch", false);
         return "BatchList";
     }
 
     @GetMapping("batchDetails")
-    public String getBatchDetails(@RequestParam("batchId") int batchId, HttpSession session) {
+    public String getBatchDetails(@RequestParam("batchId") int batchId, Model model) {
         Optional<BatchDto> batchDetails = batchService.getBatchDetails(batchId);
-        session.setAttribute("batch", batchDetails.get());
-        session.setAttribute("fromBatch", true);
+        model.addAttribute("batch", batchDetails.get());
+        model.addAttribute("fromBatch", true);
         return "BatchDetails";
     }
 
@@ -89,6 +103,8 @@ public class AdminController {
         if (studentDto != null) {
             studentService.validateAndSaveStudents(studentDto);
             model.addAttribute("success", "Student Registered Successfully");
+           // model.addAttribute("fromBatch", true);
+
             return "StudentRegForm";
         }
 
@@ -109,7 +125,7 @@ public class AdminController {
 
         model.addAttribute("studentList", studentDtos);
 
-        //  session.setAttribute("fromBatch", false);
+        model.addAttribute("fromBatch", false);
         return "StudentList";
     }
 
