@@ -201,10 +201,6 @@
            </div>
        </c:forEach>
 
-
-
-
-
         <!-- No batches -->
         <c:if test="${empty batchList}">
             <div class="col-12 text-center text-muted fs-5">
