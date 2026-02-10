@@ -96,7 +96,7 @@
             </a>
         </p>
 
-        <a href="SignUp.jsp" class="btn btn-warning btn-lg mt-2">
+        <a href="signUp" class="btn btn-warning btn-lg mt-2">
             Enroll Now
         </a>
     </div>
