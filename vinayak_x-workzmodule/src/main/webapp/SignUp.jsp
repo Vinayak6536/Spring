@@ -8,6 +8,7 @@
     <title>Sign Up</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
@@ -46,6 +47,7 @@
             return false;
         }
         firstNameError.innerText = "";
+        updateAvatar();
         return true;
     }
 
@@ -60,6 +62,7 @@
             return false;
         }
         lastNameError.innerText = "";
+        updateAvatar();
         return true;
     }
 
@@ -171,6 +174,10 @@
 
                        <c:if test="${not empty exist}"> <p class="text-center fs-4 fw-bold text-uppercase text-danger">${ exist }</p> </c:if>
 
+                       <%@ include file="avatar.jspf" %>
+
+
+
                        <div class="mb-2">
                            <label>First Name</label>
                            <input type="text" id="firstName" name="firstName"
@@ -246,6 +253,6 @@
 <footer class="text-center py-3 bg-dark text-white">
     © 2026 My Application. All rights reserved.
 </footer>
-
+<%@ include file="avatar-script.jspf" %>
 </body>
 </html>

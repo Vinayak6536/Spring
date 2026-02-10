@@ -32,6 +32,11 @@ public class XworkzController {
         return "ForgotPassword";
     }
 
+    @RequestMapping("signUp")
+    public String signUp(){
+        return "SignUp";
+    }
+
     @PostMapping("signUp")
     public ModelAndView getSignUp(@Valid XworkzDto xworkzDto, BindingResult result, ModelAndView model) {
         System.out.println(xworkzDto);
