@@ -3,18 +3,20 @@ package com.xworkz.module.controller;
 import com.xworkz.module.dto.XworkzDto;
 import com.xworkz.module.service.xworkz.XworkzService;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.Random;
 
 @Controller
@@ -38,7 +40,7 @@ public class XworkzController {
     }
 
     @PostMapping("signUp")
-    public ModelAndView getSignUp(@Valid XworkzDto xworkzDto, BindingResult result, ModelAndView model) {
+    public ModelAndView getSignUp(@ModelAttribute @Valid XworkzDto xworkzDto, BindingResult result, ModelAndView model) throws IOException {
         System.out.println(xworkzDto);
         if (result.hasErrors()) {
             result.getFieldErrors().forEach(fieldError -> model.addObject(fieldError.getField() + "Error", fieldError.getDefaultMessage()));
@@ -66,6 +68,7 @@ public class XworkzController {
             if (xworkzDto != null) {
                 System.out.println("Admin Details" + xworkzDto);
                 session.setAttribute("admin", xworkzDto);
+                session.setAttribute("viewProfile", xworkzDto.getPath());
                 model.addAttribute("Success", xworkzDto);
                 session.setAttribute("fromBatch", false);
                 xworkzService.setCount(emailOrPhone);
@@ -175,28 +178,63 @@ public class XworkzController {
     }
 
     @GetMapping("viewProfile")
-    public String viewProfileByEmali(@RequestParam("email") String email, HttpSession session) {
+    public String viewProfileByEmail(@RequestParam("email") String email,
+                                     HttpSession session) throws IOException{
+
         if (email != null) {
-            XworkzDto xworkzDto = xworkzService.viewProfileByEmail(email);
-            session.setAttribute("viewProfile", xworkzDto);
+            XworkzDto dto = xworkzService.viewProfileByEmail(email);
+
+            session.setAttribute("viewProfile", dto);
+            session.setAttribute("isEdit", false);
+
             return "AdminProfileDetails";
         }
-        return null;
+        return "redirect:/";
     }
 
+    @GetMapping("/profileImage")
+    public void getProfileImage(@RequestParam("fileName") String fileName,
+                                HttpServletResponse response) throws IOException {
+
+        String uploadDir = "V:/Spring/GitBash/Spring/vinayak_x-workzmodule/UploadedImages/";
+        File file = new File(uploadDir + fileName);
+
+        if (!file.exists()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
+        // Detect correct image type automatically
+        String contentType = Files.probeContentType(file.toPath());
+        response.setContentType(contentType);
+
+        try (InputStream in = new FileInputStream(file);
+             OutputStream out = response.getOutputStream()) {
+
+            IOUtils.copy(in, out);
+            out.flush();
+        }
+    }
+
+
     @GetMapping("editProfile")
-    public String editProfileByEmali(@RequestParam("email") String email, HttpSession session) {
+    public String editProfileByEmali(@RequestParam("email") String email, HttpSession session)throws IOException {
         if (email != null) {
             XworkzDto xworkzDto = xworkzService.viewProfileByEmail(email);
             session.setAttribute("viewProfile", xworkzDto);
+            session.setAttribute("profileImage",xworkzDto.getFile());
+            session.setAttribute("isEdit",true);
+
+
             return "UpdateAdminProfile";
         }
         return null;
     }
 
     @PostMapping("updateAdminProfile")
-    public String updateAdminProfile(XworkzDto xworkzDto, Model model) {
+    public String updateAdminProfile(@ModelAttribute  XworkzDto xworkzDto, Model model) throws IOException {
         if (xworkzDto != null) {
+         //   System.out.println(xworkzDto.getFile());
             xworkzService.updateAdminProfile(xworkzDto);
             model.addAttribute("success", "Admin Profile Updated Successfully");
             return "UpdateAdminProfile";
