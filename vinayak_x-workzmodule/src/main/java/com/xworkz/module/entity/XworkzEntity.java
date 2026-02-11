@@ -35,4 +35,8 @@ public class XworkzEntity {
     private LocalDateTime otpCreatedTime;
 
     private int resendOtpCount;
+
+    private String originalFileName;
+    private long fileSize;
+    private String path;
 }

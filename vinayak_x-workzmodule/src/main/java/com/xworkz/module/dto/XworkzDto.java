@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -52,6 +53,13 @@ public class XworkzDto {
         @NotBlank(message = "Confirm password is required")
         private String confirmPassword;
 
+        private MultipartFile file;
+
+        public MultipartFile getFile() {
+                return file;
+        }
+
+        private String path;
     }
 
 
