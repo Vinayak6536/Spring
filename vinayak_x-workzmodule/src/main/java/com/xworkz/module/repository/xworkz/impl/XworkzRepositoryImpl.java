@@ -211,7 +211,10 @@ public class XworkzRepositoryImpl implements XworkzRepository {
     @Override
     public XworkzEntity viewProfileByEmail(String email) {
         try {
-           return (XworkzEntity) entityManagerFactory.createEntityManager().createQuery("select e from XworkzEntity e where e.email=:email").setParameter("email",email).getSingleResult();
+           XworkzEntity xworkzEntity= (XworkzEntity) entityManagerFactory.createEntityManager().createQuery("select e from XworkzEntity e where e.email=:email").setParameter("email",email).getSingleResult();
+            System.out.println(xworkzEntity.getPath());
+            System.out.println(xworkzEntity.getOriginalFileName());
+            return xworkzEntity;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -220,23 +223,31 @@ public class XworkzRepositoryImpl implements XworkzRepository {
 
     @Override
     public boolean updateAdminProfile(XworkzEntity xworkzEntity) {
+        System.out.println(xworkzEntity.getOriginalFileName());
+        System.out.println(xworkzEntity.getPath());
+        System.out.println(xworkzEntity.getFileSize());
         try {
             EntityManager entityManager= entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query=entityManager.createQuery("update XworkzEntity e set e.firstName=:firstName,e.lastName=:lastName,e.age=:age,e.gender=:gender," +
-                    "e.phoneNo=:phoneNo where e.email=:email");
+                    "e.phoneNo=:phoneNo,e.originalFileName=:originalFileName, e.fileSize=:fileSize, e.path=:path where e.email=:email");
             query.setParameter("firstName",xworkzEntity.getFirstName());
             query.setParameter("lastName",xworkzEntity.getLastName());
             query.setParameter("age",xworkzEntity.getAge());
             query.setParameter("gender",xworkzEntity.getGender());
             query.setParameter("phoneNo",xworkzEntity.getPhoneNo());
+            query.setParameter("originalFileName",xworkzEntity.getOriginalFileName());
+            query.setParameter("fileSize",xworkzEntity.getFileSize());
+            query.setParameter("path",xworkzEntity.getPath());
             query.setParameter("email",xworkzEntity.getEmail());
 
             int rows= query.executeUpdate();
+            entityManager.getTransaction().commit();
             if (rows > 0){
                 System.out.println("Admin Details updated");
                 return true;
             }
+            entityManager.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
