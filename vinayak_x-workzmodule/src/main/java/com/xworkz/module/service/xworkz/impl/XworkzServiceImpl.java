@@ -7,9 +7,18 @@ import com.xworkz.module.entity.XworkzEntity;
 import com.xworkz.module.repository.xworkz.XworkzRepository;
 import com.xworkz.module.service.xworkz.XworkzService;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @Service
@@ -35,16 +44,28 @@ public class XworkzServiceImpl implements XworkzService {
     }
 
     @Override
-    public boolean validateAndSave(XworkzDto xworkzDto) {
+    public boolean validateAndSave(XworkzDto xworkzDto) throws IOException {
       //  System.out.println("service"+xworkzDto);
         if (xworkzDto != null) {
             PasswordCipherUtil util = new PasswordCipherUtil();
             String encryptedPassword = util.encrypt(xworkzDto.getPassword());
             BeanUtils.copyProperties(xworkzDto, xworkzEntity);
             xworkzEntity.setPassword(encryptedPassword);
-            System.out.println(xworkzEntity);
-            return xworkzRepository.save(xworkzEntity);
+          //  System.out.println(xworkzEntity);
 
+            MultipartFile multipartFile=xworkzDto.getFile();
+
+            String uploadDir = "V:/Spring/GitBash/Spring/vinayak_x-workzmodule/UploadedImages/";
+
+            String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+
+            Path path = Paths.get(uploadDir + fileName);
+            Files.write(path, multipartFile.getBytes());
+
+            xworkzEntity.setOriginalFileName(multipartFile.getOriginalFilename());
+            xworkzEntity.setFileSize(multipartFile.getSize());
+            xworkzEntity.setPath(fileName);
+            return xworkzRepository.save(xworkzEntity);
 
         }
         return false;
@@ -124,7 +145,7 @@ public class XworkzServiceImpl implements XworkzService {
     }
 
     @Override
-    public XworkzDto viewProfileByEmail(String email) {
+    public XworkzDto viewProfileByEmail(String email) throws IOException{
         if (email != null){
            XworkzEntity xworkzEntity1= xworkzRepository.viewProfileByEmail(email);
            XworkzDto xworkzDto=new XworkzDto();
@@ -135,10 +156,23 @@ public class XworkzServiceImpl implements XworkzService {
     }
 
     @Override
-    public boolean updateAdminProfile(XworkzDto xworkzDto) {
+    public boolean updateAdminProfile(XworkzDto xworkzDto) throws IOException {
         if (xworkzDto != null){
             BeanUtils.copyProperties(xworkzDto,xworkzEntity);
+            MultipartFile multipartFile=xworkzDto.getFile();
+
+            String uploadDir = "V:/Spring/GitBash/Spring/vinayak_x-workzmodule/UploadedImages/";
+
+            String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+
+            Path path = Paths.get(uploadDir + fileName);
+            Files.write(path, multipartFile.getBytes());
+
+            xworkzEntity.setOriginalFileName(multipartFile.getOriginalFilename());
+            xworkzEntity.setFileSize(multipartFile.getSize());
+            xworkzEntity.setPath(fileName);
             xworkzRepository.updateAdminProfile(xworkzEntity);
+
             return true;
         }
         return false;
