@@ -170,15 +170,13 @@
                     </div>
 
                     <div class="card-body">
-                       <form action="signUp" method="post" onsubmit="return validateForm()">
+                       <form action="signUp" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
 
                        <c:if test="${not empty exist}"> <p class="text-center fs-4 fw-bold text-uppercase text-danger">${ exist }</p> </c:if>
 
                        <%@ include file="avatar.jspf" %>
 
-
-
-                       <div class="mb-2">
+                      <div class="mb-2">
                            <label>First Name</label>
                            <input type="text" id="firstName" name="firstName"
                                   class="form-control" oninput="validateFirstName()" required>
