@@ -157,20 +157,31 @@ public class XworkzServiceImpl implements XworkzService {
 
     @Override
     public boolean updateAdminProfile(XworkzDto xworkzDto) throws IOException {
-        if (xworkzDto != null){
-            BeanUtils.copyProperties(xworkzDto,xworkzEntity);
-            MultipartFile multipartFile=xworkzDto.getFile();
+        if (xworkzDto != null) {
 
-            String uploadDir = "V:/Spring/GitBash/Spring/vinayak_x-workzmodule/UploadedImages/";
+            XworkzEntity oldEntity=xworkzRepository.findEmail(xworkzDto.getEmail());
+            BeanUtils.copyProperties(xworkzDto, xworkzEntity);
+            MultipartFile multipartFile = xworkzDto.getFile();
 
-            String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+            if (multipartFile != null && !multipartFile.isEmpty()) {
 
-            Path path = Paths.get(uploadDir + fileName);
-            Files.write(path, multipartFile.getBytes());
+                String uploadDir = "V:/Spring/GitBash/Spring/vinayak_x-workzmodule/UploadedImages/";
 
-            xworkzEntity.setOriginalFileName(multipartFile.getOriginalFilename());
-            xworkzEntity.setFileSize(multipartFile.getSize());
-            xworkzEntity.setPath(fileName);
+                String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+
+                Path path = Paths.get(uploadDir + fileName);
+                Files.write(path, multipartFile.getBytes());
+
+                xworkzEntity.setOriginalFileName(multipartFile.getOriginalFilename());
+                xworkzEntity.setFileSize(multipartFile.getSize());
+                xworkzEntity.setPath(fileName);
+
+            } else {
+                // ✅ KEEP OLD IMAGE
+                xworkzEntity.setOriginalFileName(oldEntity.getOriginalFileName());
+                xworkzEntity.setFileSize(oldEntity.getFileSize());
+                xworkzEntity.setPath(oldEntity.getPath());
+            }
             xworkzRepository.updateAdminProfile(xworkzEntity);
 
             return true;
