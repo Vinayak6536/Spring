@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
@@ -218,21 +219,24 @@ public class XworkzController {
 
 
     @GetMapping("editProfile")
-    public String editProfileByEmali(@RequestParam("email") String email, HttpSession session)throws IOException {
+    public String editProfileByEmali(@RequestParam("email") String email, Model model,HttpSession session)throws IOException {
+        System.out.println("Edit profile first");
         if (email != null) {
-            XworkzDto xworkzDto = xworkzService.viewProfileByEmail(email);
-            session.setAttribute("viewProfile", xworkzDto);
-            session.setAttribute("profileImage",xworkzDto.getFile());
-            session.setAttribute("isEdit",true);
-
+            XworkzDto dto = xworkzService.viewProfileByEmail(email);
+            System.out.println(dto);
+            session.setAttribute("admin",dto);
+            System.out.println("Edit profile page");
+            model.addAttribute("editProfile", dto);
+            model.addAttribute("profileImage",dto.getFile());
+            model.addAttribute("isEdit",true);
 
             return "UpdateAdminProfile";
         }
-        return null;
+        return "redirect:/adminProfileDetails";
     }
 
     @PostMapping("updateAdminProfile")
-    public String updateAdminProfile(@ModelAttribute  XworkzDto xworkzDto, Model model) throws IOException {
+    public String updateAdminProfile(@ModelAttribute  XworkzDto xworkzDto, @RequestParam("file") MultipartFile file, Model model) throws IOException {
         if (xworkzDto != null) {
          //   System.out.println(xworkzDto.getFile());
             xworkzService.updateAdminProfile(xworkzDto);

@@ -174,7 +174,14 @@
 
                        <c:if test="${not empty exist}"> <p class="text-center fs-4 fw-bold text-uppercase text-danger">${ exist }</p> </c:if>
 
-                       <%@ include file="avatar.jspf" %>
+                       <c:set var="imageBoxId" value="signupImageBox"/>
+                           <c:set var="inputId" value="signupImageInput"/>
+                           <c:set var="inputName" value="file"/>
+                           <c:set var="imagePath" value=""/>
+                           <c:set var="displayName" value=""/>
+                           <c:set var="isEdit" value="true"/>
+
+                           <%@ include file="avatar.jspf" %>
 
                       <div class="mb-2">
                            <label>First Name</label>
