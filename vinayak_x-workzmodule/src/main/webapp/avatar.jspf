@@ -1,0 +1,53 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<div class="text-center mb-3">
+
+    <div id="${imageBoxId}"
+         class="d-flex align-items-center justify-content-center mx-auto"
+         style="width:120px;height:120px;border-radius:50%;
+                border:2px dashed #aaa;
+                background:#f8f9fa;
+                overflow:hidden;
+                cursor:${isEdit ? 'pointer' : 'default'};"
+         <c:if test="${isEdit}">
+             onclick="document.getElementById('${inputId}').click()"
+         </c:if>
+    >
+
+       <%-- Image --%>
+           <img id="${imageBoxId}_preview"
+                src="${not empty imagePath ? pageContext.request.contextPath.concat('/profileImage?fileName=').concat(imagePath) : ''}"
+                style="width:100%;height:100%;object-fit:cover;
+                       display:${not empty imagePath ? 'block' : 'none'};">
+
+           <%-- Initials --%>
+           <span id="${imageBoxId}_initials"
+                 style="font-size:36px;font-weight:bold;
+                        display:${empty imagePath && not empty displayName ? 'flex' : 'none'};
+                        align-items:center;justify-content:center;">
+               <c:if test="${empty imagePath && not empty displayName}">
+                   ${fn:toUpperCase(fn:substring(displayName,0,1))}
+               </c:if>
+           </span>
+
+           <%-- Default Icon --%>
+           <i id="${imageBoxId}_icon"
+              class="bi bi-person fs-1 text-secondary"
+              style="display:${empty imagePath && empty displayName ? 'block' : 'none'};">
+           </i>
+       
+
+    </div>
+
+    <%-- ✅ File Upload Only in Edit/Signup Mode --%>
+    <c:if test="${isEdit}">
+        <input type="file"
+               id="${inputId}"
+               name="${inputName}"
+               class="d-none"
+               accept="image/*"
+               onchange="previewImage(this)">
+    </c:if>
+
+</div>
