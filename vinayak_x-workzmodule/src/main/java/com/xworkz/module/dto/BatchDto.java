@@ -38,5 +38,7 @@ public class BatchDto {
     @Size(min = 3, max = 40, message = "Trainer name must be between 3 and 40 characters")
     private String batchTrainer;
 
-   // private MultipartFile file;
+    private MultipartFile file;
+
+    private String path;
 }
