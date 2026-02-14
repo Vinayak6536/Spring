@@ -101,6 +101,7 @@
         error.innerText = "";
         input.classList.remove("error-input");
         input.classList.add("success-input");
+        updateAvatar();
         return true;
     }
 
@@ -219,15 +220,24 @@
 
             <form action="addBatch"
                   method="post"
-
+                  enctype="multipart/form-data"
                   class="dashboard-card"
                   accept-charset="UTF-8">
 
                 <div class="dashboard-header">
                     Add Batch
                 </div>
-
                 <div class="p-4">
+                       <c:set var="imageBoxId" value="batchImageBox"/>
+                       <c:set var="inputId" value="batchImageInput"/>
+                       <c:set var="inputName" value="file"/>
+                       <c:set var="imagePath" value=""/>
+                       <c:set var="displayName" value=""/>
+                       <c:set var="isEdit" value="true"/>
+
+                       <%@ include file="avatar.jspf" %>
+
+
 
                     <!-- Batch Name -->
                     <div class="mb-2">
@@ -288,15 +298,6 @@
                             ${batchTrainerError}
                         </div>
                     </div>
-
-                    <!-- 🔴 FILE UPLOAD (MATCHES BatchDto.file)
-                    <div class="mb-4">
-                        <label class="form-label">Batch Logo</label>
-                        <input type="file"
-                               name="file"
-                               class="form-control"
-                               accept="image/*">
-                    </div> -->
 
                     <!-- Buttons -->
                     <div class="text-center">
