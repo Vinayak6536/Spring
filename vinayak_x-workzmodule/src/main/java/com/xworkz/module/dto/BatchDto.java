@@ -40,5 +40,5 @@ public class BatchDto {
 
     private MultipartFile file;
 
-    private String path;
+    private String imagePath;
 }
