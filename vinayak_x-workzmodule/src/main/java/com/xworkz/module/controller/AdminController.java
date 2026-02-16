@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,8 +28,13 @@ public class AdminController {
     @Autowired
     private StudentService studentService;
 
+    @RequestMapping("returnAddBatch")
+    public String returnAddBatch(){
+        return "AddBatch";
+    }
+
     @PostMapping("addBatch")
-    public ModelAndView addBatch(@Valid @ModelAttribute("batch") BatchDto batchDto, BindingResult bindingResult, ModelAndView modelAndView) {
+    public ModelAndView addBatch(@Valid @ModelAttribute("batch") BatchDto batchDto, BindingResult bindingResult, ModelAndView modelAndView) throws IOException {
         System.out.println(batchDto);
         if (bindingResult.hasErrors()) {
             bindingResult.getFieldErrors().forEach(fieldError -> modelAndView.addObject(fieldError.getField() + "Error", fieldError.getDefaultMessage()));
@@ -86,7 +92,7 @@ public class AdminController {
         batchList.forEach(System.out::println);
 
         model.addAttribute("batchList", batchList);
-        //model.addAttribute("fromBatch", false);
+        model.addAttribute("isEdit", false);
         return "BatchList";
     }
 

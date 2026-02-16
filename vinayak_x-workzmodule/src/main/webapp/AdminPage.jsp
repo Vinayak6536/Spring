@@ -250,7 +250,7 @@
                 <a href="batchList" class="btn btn-primary w-75 mt-3">
                     <i class="bi bi-eye"></i> Explore Batches
                 </a>
-                   <a href="AddBatch.jsp" class="btn btn-primary w-75 mt-3">
+                   <a href="returnAddBatch" class="btn btn-primary w-75 mt-3">
                     <i class="bi bi-eye"></i> Add Batches
                 </a>
             </div>
