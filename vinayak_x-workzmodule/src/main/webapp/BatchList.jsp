@@ -178,10 +178,14 @@
            <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
                <div class="batch-profile-card text-center shadow-sm p-4">
 
-                   <!-- Top Image -->
-                   <img src="https://tse2.mm.bing.net/th/id/OIP.9i37kmkcwzGQgBL7-yJ14wHaJQ?pid=Api&P=0&h=180"
-                        class="profile-batch-img mb-3"
-                        alt="Batch Image">
+                   <c:set var="imageBoxId" value="batchImageBox"/>
+                                          <c:set var="inputId" value="batchImageInput"/>
+                                          <c:set var="inputName" value="file"/>
+                                          <c:set var="imagePath" value="batch.imagePath.path"/>
+                                          <c:set var="displayName" value="batch.batchName"/>
+                                          <c:set var="isEdit" value="false"/>
+
+                                          <%@ include file="avatar.jspf" %>
 
                    <!-- Content -->
                    <h6 class="fw-bold text-primary mb-1">
