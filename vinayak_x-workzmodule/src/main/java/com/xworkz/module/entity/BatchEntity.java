@@ -29,5 +29,5 @@ public class BatchEntity {
 
     // One Batch → One Logo
     @OneToOne(mappedBy = "batch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ImageEntity batchLogo;
+    private ImageEntity imageLogo;
 }
