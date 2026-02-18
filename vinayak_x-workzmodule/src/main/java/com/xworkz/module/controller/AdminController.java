@@ -105,7 +105,7 @@ public class AdminController {
     }
 
     @PostMapping("addStudent")
-    public String addStudents(StudentDto studentDto, Model model) {
+    public String addStudents(StudentDto studentDto, Model model) throws IOException {
         if (studentDto != null) {
             studentService.validateAndSaveStudents(studentDto);
             model.addAttribute("success", "Student Registered Successfully");

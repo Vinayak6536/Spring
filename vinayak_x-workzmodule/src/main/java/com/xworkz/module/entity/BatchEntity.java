@@ -29,5 +29,6 @@ public class BatchEntity {
 
     // One Batch → One Logo
     @OneToOne(mappedBy = "batch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "imageId")
     private ImageEntity imageLogo;
 }
