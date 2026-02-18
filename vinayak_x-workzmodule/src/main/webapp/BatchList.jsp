@@ -178,14 +178,14 @@
            <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
                <div class="batch-profile-card text-center shadow-sm p-4">
 
-                   <c:set var="imageBoxId" value="batchImageBox"/>
-                                          <c:set var="inputId" value="batchImageInput"/>
-                                          <c:set var="inputName" value="file"/>
-                                          <c:set var="imagePath" value="batch.imagePath.path"/>
-                                          <c:set var="displayName" value="batch.batchName"/>
-                                          <c:set var="isEdit" value="false"/>
+                     <c:set var="imageBoxId" value="batchImageBox"/>
+                     <c:set var="inputId" value="batchImageInput"/>
+                     <c:set var="inputName" value="file"/>
+                     <c:set var="imagePath" value="${batch.imagePath}"/>
+                     <c:set var="displayName" value="${batch.batchName}"/>
+                     <c:set var="isEdit" value="false"/>
 
-                                          <%@ include file="avatar.jspf" %>
+                     <%@ include file="avatar.jspf" %>
 
                    <!-- Content -->
                    <h6 class="fw-bold text-primary mb-1">

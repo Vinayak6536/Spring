@@ -23,6 +23,7 @@ public class BatchRepositoryImpl implements BatchRepository {
         entityManager.getTransaction().begin();
         entityManager.persist(batchEntity);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return true;
     }
 
