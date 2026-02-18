@@ -18,4 +18,6 @@ public class ImageDto {
 
     private byte[] logoData;
     private BatchEntity batch;
+
+    private String imagePath;
 }
