@@ -46,8 +46,17 @@ public class StudentEntity {
     @Column(name = "batch_id", nullable = false)
     private int batchId;
 
-    // ✅ Relation (read-only)
+    // ✅ Batch relation (read only)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "batch_id", insertable = false, updatable = false)
     private BatchEntity batch;
+
+    // ✅ Image FK column
+    @Column(name = "imageId")
+    private Integer imageId;
+
+    // ✅ Image relation (same ImageEntity table)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "studentId", insertable = false, updatable = false)
+    private ImageEntity studentImage;
 }
