@@ -2,12 +2,14 @@ package com.xworkz.module.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
+@Component
 @Entity
 public class ImageEntity {
     @Id
@@ -24,7 +26,7 @@ public class ImageEntity {
 
     @ManyToOne
     @JoinColumn(name = "studentId")
-    private StudentEntity studentId;
+    private StudentEntity student;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

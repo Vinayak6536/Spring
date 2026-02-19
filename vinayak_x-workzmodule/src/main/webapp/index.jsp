@@ -68,7 +68,7 @@
         </div>
 
         <div class="ms-auto d-flex align-items-center">
-            <a href="AdminLogin.jsp"
+            <a href="adminLogin"
                class="d-flex align-items-center text-white text-decoration-none">
 
                 <img src="<%= request.getContextPath() %>/resources/static/admin.png"
