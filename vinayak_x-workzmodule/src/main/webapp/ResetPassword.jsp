@@ -61,7 +61,7 @@ function validatePassword() {
 <body>
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
-<a href="index.jsp"><img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40"></a>
+<a href="index"><img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40"></a>
 
         <div class="ms-auto">
             <a href="AdminLogin.jsp" class="btn btn-outline-light me-2">Sign In</a>

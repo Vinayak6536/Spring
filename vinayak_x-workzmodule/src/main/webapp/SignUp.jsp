@@ -154,8 +154,8 @@
         <a href="index.jsp"><img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40"></a>
 
         <div class="ms-auto">
-            <a href="SignIn.jsp" class="btn btn-outline-light me-2">Sign In</a>
-            <a href="SignUp.jsp" class="btn btn-warning">Sign Up</a>
+            <a href="adminLogin" class="btn btn-outline-light me-2">Sign In</a>
+            <a href="signUp" class="btn btn-warning">Sign Up</a>
         </div>
     </div>
 </nav>
