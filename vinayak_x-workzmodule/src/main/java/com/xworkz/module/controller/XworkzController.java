@@ -30,6 +30,11 @@ public class XworkzController {
         System.out.println("Running Controller.......");
     }
 
+    @RequestMapping("index")
+    public String index(){
+        return "index";
+    }
+
     @RequestMapping("forgotPassword")
     public String forgotPassword(){
         return "ForgotPassword";
@@ -38,6 +43,11 @@ public class XworkzController {
     @RequestMapping("signUp")
     public String signUp(){
         return "SignUp";
+    }
+
+    @RequestMapping("adminLogin")
+    public String adminLogin(){
+        return "AdminLogin";
     }
 
     @PostMapping("signUp")
