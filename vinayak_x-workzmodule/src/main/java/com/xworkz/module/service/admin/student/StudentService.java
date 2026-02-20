@@ -2,11 +2,12 @@ package com.xworkz.module.service.admin.student;
 
 import com.xworkz.module.dto.StudentDto;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public interface StudentService {
-    boolean validateAndSaveStudents(StudentDto studentDto);
+    boolean validateAndSaveStudents(StudentDto studentDto) throws IOException;
 
     List<StudentDto> getStudentList();
 
