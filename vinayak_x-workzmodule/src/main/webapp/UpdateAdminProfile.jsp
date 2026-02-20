@@ -291,7 +291,7 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container d-flex align-items-center">
 
-        <a href="AdminPage.jsp">
+        <a href="AdminPage">
             <img src="<%= request.getContextPath() %>/resources/static/Logo.png" height="40">
         </a>
 
