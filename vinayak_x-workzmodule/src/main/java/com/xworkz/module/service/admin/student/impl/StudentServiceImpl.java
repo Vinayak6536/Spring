@@ -1,13 +1,19 @@
 package com.xworkz.module.service.admin.student.impl;
 
 import com.xworkz.module.dto.StudentDto;
+import com.xworkz.module.entity.ImageEntity;
 import com.xworkz.module.entity.StudentEntity;
 import com.xworkz.module.repository.admin.student.StudentRepository;
 import com.xworkz.module.service.admin.student.StudentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -19,10 +25,33 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentEntity studentEntity;
 
+    @Autowired
+    private ImageEntity imageEntity;
+
     @Override
-    public boolean validateAndSaveStudents(StudentDto studentDto) {
+    public boolean validateAndSaveStudents(StudentDto studentDto) throws IOException {
         if (studentDto != null) {
+            MultipartFile multipartFile=studentDto.getFile();
             BeanUtils.copyProperties(studentDto, studentEntity);
+
+            String uploadDir = "V:/Spring/GitBash/Spring/vinayak_x-workzmodule/UploadedImages/";
+
+            String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+
+            Path path = Paths.get(uploadDir + fileName);
+            Files.write(path, multipartFile.getBytes());
+
+
+
+            imageEntity.setOriginalName(multipartFile.getOriginalFilename());
+            imageEntity.setFileSize(multipartFile.getSize());
+            imageEntity.setImagePath(fileName);
+            imageEntity.setContentType(multipartFile.getContentType());
+
+            imageEntity.setStudent(studentEntity);
+
+            studentEntity.setStudentImage(imageEntity);
+
             studentRepository.saveStudents(studentEntity);
             return true;
         }
