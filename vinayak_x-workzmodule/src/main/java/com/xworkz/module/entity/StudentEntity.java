@@ -51,12 +51,11 @@ public class StudentEntity {
     @JoinColumn(name = "batch_id", insertable = false, updatable = false)
     private BatchEntity batch;
 
-    // ✅ Image FK column
-    @Column(name = "imageId")
-    private Integer imageId;
 
-    // ✅ Image relation (same ImageEntity table)
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "studentId", insertable = false, updatable = false)
+
+    @OneToOne(mappedBy = "student",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
     private ImageEntity studentImage;
 }
