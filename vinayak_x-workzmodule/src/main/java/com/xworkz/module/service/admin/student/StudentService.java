@@ -15,7 +15,7 @@ public interface StudentService {
 
     Optional<StudentDto> editStudent(int studentId);
 
-    boolean updateStudent(StudentDto studentDto);
+    boolean updateStudent(StudentDto studentDto) throws IOException;
 
     boolean deleteStudentById(int studentId);
 }
