@@ -24,7 +24,7 @@ public class ImageEntity {
     @JoinColumn(name = "batch_id")
     private BatchEntity batch;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "studentId")
     private StudentEntity student;
 
