@@ -123,13 +123,15 @@ public class AdminController {
         System.out.println("studentsList.....");
         List<StudentDto> studentDtos = studentService.getStudentList();
 
+        System.out.println();
         System.out.println("BATCH LIST SIZE = " + studentDtos.size());
         studentDtos.forEach(dto ->
-                System.out.println(dto.getStudentId() + " - " + dto.getStudentName())
+                System.out.println(dto.getStudentId() + " - " + dto.getStudentName() + " " +dto.getImagePath())
         );
 
 
         model.addAttribute("studentList", studentDtos);
+        model.addAttribute("isEdit", false);
 
         model.addAttribute("fromBatch", false);
         return "StudentList";
@@ -152,6 +154,8 @@ public class AdminController {
         if (studentId != 0) {
             Optional<StudentDto> studentDto = studentService.editStudent(studentId);
         //    System.out.println(studentDto);
+            model.addAttribute("profileImage",studentDto.get().getFile());
+            model.addAttribute("isEdit",true);
             model.addAttribute("editStudent", studentDto.get());
             return "UpdateStudent";
         }
@@ -159,7 +163,7 @@ public class AdminController {
     }
 
     @PostMapping("updateStudent")
-    public String updateStudentDetails(StudentDto studentDto,Model model){
+    public String updateStudentDetails(StudentDto studentDto,Model model) throws IOException {
         boolean detailsUpdated=studentService.updateStudent(studentDto);
         if (detailsUpdated){
             model.addAttribute("success","Student Details Updated Successfully");
