@@ -122,11 +122,20 @@
             <div class="glass-card p-4">
                 <h3 class="text-center mb-4 fw-bold">Student Registration</h3>
 
-                <form action="updateStudent" method="post">
+                <form action="updateStudent" method="post" enctype="multipart/form-data">
 
-                        <input type="number" name="batchId" value="${editStudent.getBatchId()}" hidden required>
+                        <input type="number" name="batchId" value="${editStudent.getBatchId()}" hidden required/>
 
+                        <input type="hidden" name="studentId" value="${editStudent.studentId}">
 
+                       <c:set var="imageBoxId" value="studentImageBox"/>
+                       <c:set var="inputId" value="studentImageInput"/>
+                       <c:set var="inputName" value="file"/>
+                       <c:set var="imagePath" value="${editStudent.imagePath}"/>
+                       <c:set var="displayName" value="${editStudent.studentName}"/>
+                       <c:set var="isEdit" value="true"/>
+
+                       <%@ include file="avatar.jspf" %>
 
                     <div class="mb-3">
                         <label>Student Name</label>
