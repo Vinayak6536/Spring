@@ -351,7 +351,7 @@
                        <c:set var="imageBoxId" value="adminImageBox"/>
                        <c:set var="inputId" value="adminImageInput"/>
                        <c:set var="inputName" value="file"/>
-                       <c:set var="imagePath" value="${editProfile.path}"/>
+                       <c:set var="imagePath" value="${editProfile.imagePath}"/>
                        <c:set var="displayName" value="${editProfile.firstName}"/>
                        <c:set var="isEdit" value="true"/>
 
