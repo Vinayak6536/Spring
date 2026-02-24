@@ -73,11 +73,11 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public boolean updateStudentDetails(StudentEntity studentEntity) {
         try {
-           /* EntityManager entityManager= factory.createEntityManager();
+            EntityManager entityManager= factory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query= entityManager.createQuery("update StudentEntity e set e.studentName=:studentName,e.phone=:phone," +
                     "e.age=:age,e.gender=:gender,e.qualification=:qualification,e.collegeName=:collegeName," +
-                    "e.address=:address,e.joinedDate=:joinedDate,e.studentImage=:path where e.batchId=:batchId");
+                    "e.address=:address,e.joinedDate=:joinedDate where e.batchId=:batchId");
             query.setParameter("studentName",studentEntity.getStudentName());
             query.setParameter("phone",studentEntity.getPhone());
             query.setParameter("age",studentEntity.getAge());
@@ -86,25 +86,32 @@ public class StudentRepositoryImpl implements StudentRepository {
             query.setParameter("collegeName",studentEntity.getCollegeName());
             query.setParameter("address",studentEntity.getAddress());
             query.setParameter("joinedDate",studentEntity.getJoinedDate());
-            query.setParameter("path",studentEntity.getStudentImage());
             query.setParameter("batchId",studentEntity.getBatchId());
             int updatedDetails=query.executeUpdate();
+
+            Query query1= entityManager.createQuery("Update ImageEntity i set i.originalName=:name,i.imagePath=:path,i.fileSize=:fileSize,i.contentType=:type where i.student=:student");
+            query1.setParameter("name",studentEntity.getStudentImage().getOriginalName());
+            query1.setParameter("path",studentEntity.getStudentImage().getImagePath());
+
+            
             if (updatedDetails > 0){
                 System.out.println("Student Details Updated");
                 return true;
-            }*/
+            }
 
-            EntityManager entityManager = factory.createEntityManager();
-            entityManager.getTransaction().begin();
 
-            // ✅ Correct way
-            entityManager.merge(studentEntity);
 
-            entityManager.getTransaction().commit();
-            entityManager.close();
+//            EntityManager entityManager = factory.createEntityManager();
+//            entityManager.getTransaction().begin();
+//
+//            // ✅ Correct way
+//            entityManager.merge(studentEntity);
+//
+//            entityManager.getTransaction().commit();
+//            entityManager.close();
+//
+//            System.out.println("Student Details Updated");
 
-            System.out.println("Student Details Updated");
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
