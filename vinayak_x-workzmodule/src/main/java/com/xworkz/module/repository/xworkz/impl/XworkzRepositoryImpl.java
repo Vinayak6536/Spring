@@ -31,6 +31,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
                 if (exist > 0) return true;
             }
 
+            entityManager.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,13 +41,13 @@ public class XworkzRepositoryImpl implements XworkzRepository {
 
     @Override
     public boolean save(XworkzEntity xworkzEntity) {
-      //  System.out.println("rep"+xworkzEntity.getPhoneNo());
+        //  System.out.println("rep"+xworkzEntity.getPhoneNo());
         if (xworkzEntity != null) {
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             entityManager.persist(xworkzEntity);
             entityManager.getTransaction().commit();
-
+            entityManager.close();
             return true;
         }
         return false;
@@ -54,9 +55,9 @@ public class XworkzRepositoryImpl implements XworkzRepository {
 
     @Override
     public XworkzEntity findEmail(String emailOrPhone) {
-
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+
             if (emailOrPhone.matches("\\d+")) {
                 long phone = Long.parseLong(emailOrPhone);
                 Query query = entityManager.createQuery("from XworkzEntity e where e.phoneNo=:phone").setParameter("phone", phone);
@@ -65,6 +66,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
                 Query query = entityManager.createQuery("from XworkzEntity e where e.email=:email").setParameter("email", emailOrPhone);
                 return (XworkzEntity) query.getSingleResult();
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,6 +86,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
             Query query = entityManager.createQuery("select e.count from XworkzEntity e where e.email=:email").setParameter("email", emailOrPhoneNo);
             return (int) query.getSingleResult();
         }
+
     }
 
     @Override
@@ -135,7 +138,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
                 if (otp > 0) {
                     isOtpValid = true;
                 }
-            }else {
+            } else {
                 Query query = entityManager.createQuery("update XworkzEntity e set e.otp=:otp, e.otpCreatedTime=:otptime where e.email=:email").setParameter("otp", randaomOTP).setParameter("otptime", LocalDateTime.now()).setParameter("email", emailOrPhone);
                 int otp = query.executeUpdate();
                 if (otp > 0) {
@@ -167,11 +170,11 @@ public class XworkzRepositoryImpl implements XworkzRepository {
     @Override
     public int verifyOtp(String emailOrPhone) {
         try {
-           // System.out.println(emailOrPhone+"repo");
+            // System.out.println(emailOrPhone+"repo");
             if (emailOrPhone.matches("\\d+")) {
                 long phone = Long.parseLong(emailOrPhone);
                 return (int) entityManagerFactory.createEntityManager().createQuery("select e.otp from XworkzEntity e where e.phoneNo=:phone").setParameter("phone", phone).getSingleResult();
-            }else {
+            } else {
                 return (int) entityManagerFactory.createEntityManager().createQuery("select e.otp from XworkzEntity e where e.email=:email").setParameter("email", emailOrPhone).getSingleResult();
 
             }
@@ -182,9 +185,9 @@ public class XworkzRepositoryImpl implements XworkzRepository {
     }
 
     @Override
-    public boolean resetPassword(String emailOrPhone,String encrypt) {
+    public boolean resetPassword(String emailOrPhone, String encrypt) {
         try {
-            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             if (emailOrPhone.matches("\\d+")) {
                 long phone = Long.parseLong(emailOrPhone);
@@ -193,7 +196,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
                     System.out.println("Updated Successfully");
                     return true;
                 }
-            }else {
+            } else {
                 int update = entityManager.createQuery("update XworkzEntity e set e.password=:password where e.email=:email").setParameter("password", encrypt).setParameter("email", emailOrPhone).executeUpdate();
                 if (update > 0) {
                     System.out.println("Updated Successfully");
@@ -211,7 +214,7 @@ public class XworkzRepositoryImpl implements XworkzRepository {
     @Override
     public XworkzEntity viewProfileByEmail(String email) {
         try {
-           XworkzEntity xworkzEntity= (XworkzEntity) entityManagerFactory.createEntityManager().createQuery("select e from XworkzEntity e where e.email=:email").setParameter("email",email).getSingleResult();
+            XworkzEntity xworkzEntity = (XworkzEntity) entityManagerFactory.createEntityManager().createQuery("select e from XworkzEntity e where e.email=:email").setParameter("email", email).getSingleResult();
             System.out.println(xworkzEntity.getPath());
             System.out.println(xworkzEntity.getOriginalFileName());
             return xworkzEntity;
@@ -227,23 +230,23 @@ public class XworkzRepositoryImpl implements XworkzRepository {
         System.out.println(xworkzEntity.getPath());
         System.out.println(xworkzEntity.getFileSize());
         try {
-            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
-            Query query=entityManager.createQuery("update XworkzEntity e set e.firstName=:firstName,e.lastName=:lastName,e.age=:age,e.gender=:gender," +
+            Query query = entityManager.createQuery("update XworkzEntity e set e.firstName=:firstName,e.lastName=:lastName,e.age=:age,e.gender=:gender," +
                     "e.phoneNo=:phoneNo,e.originalFileName=:originalFileName, e.fileSize=:fileSize, e.path=:path where e.email=:email");
-            query.setParameter("firstName",xworkzEntity.getFirstName());
-            query.setParameter("lastName",xworkzEntity.getLastName());
-            query.setParameter("age",xworkzEntity.getAge());
-            query.setParameter("gender",xworkzEntity.getGender());
-            query.setParameter("phoneNo",xworkzEntity.getPhoneNo());
-            query.setParameter("originalFileName",xworkzEntity.getOriginalFileName());
-            query.setParameter("fileSize",xworkzEntity.getFileSize());
-            query.setParameter("path",xworkzEntity.getPath());
-            query.setParameter("email",xworkzEntity.getEmail());
+            query.setParameter("firstName", xworkzEntity.getFirstName());
+            query.setParameter("lastName", xworkzEntity.getLastName());
+            query.setParameter("age", xworkzEntity.getAge());
+            query.setParameter("gender", xworkzEntity.getGender());
+            query.setParameter("phoneNo", xworkzEntity.getPhoneNo());
+            query.setParameter("originalFileName", xworkzEntity.getOriginalFileName());
+            query.setParameter("fileSize", xworkzEntity.getFileSize());
+            query.setParameter("path", xworkzEntity.getPath());
+            query.setParameter("email", xworkzEntity.getEmail());
 
-            int rows= query.executeUpdate();
+            int rows = query.executeUpdate();
             entityManager.getTransaction().commit();
-            if (rows > 0){
+            if (rows > 0) {
                 System.out.println("Admin Details updated");
                 return true;
             }
