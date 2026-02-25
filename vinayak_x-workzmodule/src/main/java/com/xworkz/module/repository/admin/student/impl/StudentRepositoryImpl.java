@@ -97,6 +97,7 @@ public class StudentRepositoryImpl implements StudentRepository {
             query1.setParameter("student",studentEntity.getStudentId());
             int imageUpdate=query1.executeUpdate();
 
+            entityManager.getTransaction().commit();
             
             if (updatedDetails > 0) {
                 if (imageUpdate > 0) {
@@ -105,7 +106,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                 }
             }
 
-
+            entityManager.close();
 
 //            EntityManager entityManager = factory.createEntityManager();
 //            entityManager.getTransaction().begin();
@@ -135,6 +136,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                 entityManager.persist(student);
             }
             entityManager.getTransaction().commit();
+            entityManager.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
