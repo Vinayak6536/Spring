@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Repository
 public class StudentRepositoryImpl implements StudentRepository {
@@ -89,12 +90,16 @@ public class StudentRepositoryImpl implements StudentRepository {
             query.setParameter("batchId",studentEntity.getBatchId());
             int updatedDetails=query.executeUpdate();
 
+
+            System.out.println(studentEntity.getStudentImage());
+
             Query query1= entityManager.createQuery("Update ImageEntity i set i.originalName=:name,i.imagePath=:path,i.fileSize=:fileSize,i.contentType=:type where i.student.studentId=:student");
             query1.setParameter("name",studentEntity.getStudentImage().getOriginalName());
             query1.setParameter("path",studentEntity.getStudentImage().getImagePath());
             query1.setParameter("fileSize",studentEntity.getStudentImage().getFileSize());
             query1.setParameter("type",studentEntity.getStudentImage().getContentType());
             query1.setParameter("student",studentEntity.getStudentId());
+
             int imageUpdate=query1.executeUpdate();
 
             entityManager.getTransaction().commit();
