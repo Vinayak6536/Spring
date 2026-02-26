@@ -91,7 +91,7 @@ public class StudentRepositoryImpl implements StudentRepository {
             int updatedDetails=query.executeUpdate();
 
 
-            System.out.println(studentEntity.getStudentImage());
+          //  System.out.println(studentEntity.getStudentImage());
 
             Query query1= entityManager.createQuery("Update ImageEntity i set i.originalName=:name,i.imagePath=:path,i.fileSize=:fileSize,i.contentType=:type where i.student.studentId=:student");
             query1.setParameter("name",studentEntity.getStudentImage().getOriginalName());
