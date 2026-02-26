@@ -2,6 +2,7 @@ package com.xworkz.module.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
+@ToString(exclude = {"batch","student"})
 @Component
 @Entity
 public class ImageEntity {
