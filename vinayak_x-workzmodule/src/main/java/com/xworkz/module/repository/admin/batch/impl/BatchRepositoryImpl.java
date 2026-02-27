@@ -30,7 +30,7 @@ public class BatchRepositoryImpl implements BatchRepository {
     @Override
     public List<BatchEntity> getBatchList() {
         List fromBatchEntity = factory.createEntityManager().createQuery("from BatchEntity").getResultList();
-        System.out.println(fromBatchEntity);
+      //  System.out.println(fromBatchEntity);
         return fromBatchEntity;
     }
 
