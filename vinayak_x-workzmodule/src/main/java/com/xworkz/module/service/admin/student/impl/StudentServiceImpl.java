@@ -109,7 +109,7 @@ public class StudentServiceImpl implements StudentService {
         if (editStudent.isPresent()) {
             StudentDto studentDto = new StudentDto();
             BeanUtils.copyProperties(editStudent.get(), studentDto);
-            // System.out.println(studentDto);
+             System.out.println(studentDto);
             return Optional.of(studentDto);
         }
         return Optional.empty();
