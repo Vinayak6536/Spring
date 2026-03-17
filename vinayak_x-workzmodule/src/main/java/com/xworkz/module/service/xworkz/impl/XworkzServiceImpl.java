@@ -158,7 +158,7 @@ public class XworkzServiceImpl implements XworkzService {
     @Override
     public boolean updateAdminProfile(XworkzDto xworkzDto) throws IOException {
         if (xworkzDto != null) {
-
+            System.out.println(xworkzDto);
             XworkzEntity oldEntity=xworkzRepository.findEmail(xworkzDto.getEmail());
             BeanUtils.copyProperties(xworkzDto, xworkzEntity);
             MultipartFile multipartFile = xworkzDto.getFile();
