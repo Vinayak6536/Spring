@@ -121,7 +121,7 @@ public class XworkzServiceImpl implements XworkzService {
     public boolean verifyOtp(String emailOrPhone, int otp) {
         xworkzRepository.clearExpiredOtp();
           System.out.println(emailOrPhone);
-    //    System.out.println(otp);
+          System.out.println(otp);
         if (emailOrPhone != null){
             int verifyOtp=xworkzRepository.verifyOtp(emailOrPhone);
             System.out.println(verifyOtp);
