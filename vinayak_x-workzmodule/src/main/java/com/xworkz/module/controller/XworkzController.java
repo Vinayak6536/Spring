@@ -248,7 +248,7 @@ public class XworkzController {
     @PostMapping("updateAdminProfile")
     public String updateAdminProfile(@ModelAttribute  XworkzDto xworkzDto, @RequestParam("file") MultipartFile file, Model model) throws IOException {
         if (xworkzDto != null) {
-         //   System.out.println(xworkzDto.getFile());
+            System.out.println(xworkzDto.getFile());
             xworkzService.updateAdminProfile(xworkzDto);
             model.addAttribute("success", "Admin Profile Updated Successfully");
             return "UpdateAdminProfile";
