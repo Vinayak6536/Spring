@@ -38,7 +38,7 @@ public class BatchRepositoryImpl implements BatchRepository {
     public Optional<BatchEntity> getBatchDetails(int batchId) {
         System.out.println(batchId);
        BatchEntity batchEntity= factory.createEntityManager().find(BatchEntity.class,batchId);
-     //   System.out.println(batchEntity);
+        System.out.println(batchEntity);
        return Optional.of(batchEntity);
     }
 
