@@ -8,8 +8,6 @@ File:<input type="file" name="file">
     <button type="submit">Upload</button>
 </form>
     </pre>
-
-
     <a href="image.jsp">getImage </a>
 </body>
 </html>
