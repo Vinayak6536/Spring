@@ -28,6 +28,8 @@ public class FileServiceImpl implements FileService {
     public boolean validateAndSave(FileDto fileDto) throws IOException {
         MultipartFile file = fileDto.getFile();
 
+        System.out.println(file);
+
         byte[] bytes=file.getBytes();
 
       Path path= Paths.get("V:\\FileUploader\\"+file.getOriginalFilename()+System.currentTimeMillis()+".jpg");
