@@ -15,6 +15,7 @@ public class FileRepositoryImpl implements FileRepository {
 
     @Override
     public boolean save(FileEntity fileEntity) {
+        System.out.println(fileEntity);
         EntityManager entityManager=factory.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(fileEntity);
