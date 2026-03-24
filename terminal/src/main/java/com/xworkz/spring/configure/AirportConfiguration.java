@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.xworkz.spring")
 public class AirportConfiguration {
     public AirportConfiguration(){
-        System.out.println("Airport Config invoked...");
+        System.out.println("Airport Config invoked.......");
     }
 }
