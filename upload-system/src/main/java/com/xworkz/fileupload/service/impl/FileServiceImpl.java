@@ -34,7 +34,7 @@ public class FileServiceImpl implements FileService {
         byte[] bytes=file.getBytes();
 
       Path path= Paths.get("V:\\FileUploader\\"+file.getOriginalFilename()+System.currentTimeMillis()+".jpg");
-        System.out.println(path);
+       // System.out.println(path);
         Files.write(path,bytes);
         fileEntity.setOriginalFileName(file.getOriginalFilename());
         fileEntity.setFileData(file.getBytes());
