@@ -23,7 +23,7 @@ public class MailConfiguration {
         properties.put("mail.transport.protocol","smtp");
         properties.put("mail.smtp.auth","true");
         properties.put("mail.smtp.starttls.enable","true");
-        properties.put("mail.debug","false");
+        properties.put("mail.debug","true");
 
         return mailSender;
 
