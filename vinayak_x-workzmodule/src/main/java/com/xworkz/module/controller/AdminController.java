@@ -76,6 +76,7 @@ public class AdminController {
 
     @GetMapping("registerStudentById/{batchId}")
     public String getBatchIdStudentReg(@PathVariable("batchId") int batchId, Model model) {
+        System.out.println(batchId);
         Optional<BatchDto> batchList = batchService.getBatchId(batchId);
 
         model.addAttribute("batch", batchList.get());
