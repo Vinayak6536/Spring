@@ -93,6 +93,7 @@ public class AdminController {
 
         model.addAttribute("batchList", batchList);
         model.addAttribute("isEdit", false);
+        System.out.println("Get Batch List");
         return "BatchList";
     }
 
