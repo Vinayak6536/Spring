@@ -19,6 +19,7 @@ public class FileRepositoryImpl implements FileRepository {
         EntityManager entityManager=factory.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(fileEntity);
+        System.out.println("Data saved successfully");
         entityManager.getTransaction().commit();
         return true;
     }
