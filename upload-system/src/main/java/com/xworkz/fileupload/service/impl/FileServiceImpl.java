@@ -26,6 +26,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public boolean validateAndSave(FileDto fileDto) throws IOException {
+        System.out.println("Service method......");
         System.out.println(fileDto);
         MultipartFile file = fileDto.getFile();
 
