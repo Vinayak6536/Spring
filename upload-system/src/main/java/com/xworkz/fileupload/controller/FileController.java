@@ -26,6 +26,7 @@ public class FileController {
 
             if (isValid){
                 System.out.println("Data Saved Successfully");
+                System.out.println("File Saved with image");
             }
 
         }
