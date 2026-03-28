@@ -90,7 +90,7 @@ public class AdminController {
 
         System.out.println("BATCH LIST SIZE = " + batchList.size());
         batchList.forEach(System.out::println);
-
+        System.out.println("Fetched BatchList");
         model.addAttribute("batchList", batchList);
         model.addAttribute("isEdit", false);
         System.out.println("Get Batch List");
