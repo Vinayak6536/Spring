@@ -64,7 +64,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     //    System.out.println("Student Repo"+studentId);
         try {
             StudentEntity studentEntity = factory.createEntityManager().find(StudentEntity.class, studentId);
-    //        System.out.println(studentEntity);
+            System.out.println(studentEntity);
             return Optional.ofNullable(studentEntity);
         } catch (Exception e) {
             e.printStackTrace();
