@@ -25,6 +25,7 @@ public class StudentRepositoryImpl implements StudentRepository {
             EntityManager entityManager = factory.createEntityManager();
             entityManager.getTransaction().begin();
             entityManager.persist(studentEntity);
+            System.out.println("Saved Student Entity");
             entityManager.getTransaction().commit();
             entityManager.close();
             return true;
