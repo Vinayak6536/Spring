@@ -40,6 +40,8 @@ public class FileController {
         ServletOutputStream outputStream = response.getOutputStream();
         IOUtils.copy(inputStream,outputStream);
         response.flushBuffer();
+        System.out.println("Image Fetched.......");
+
     }
 
 }
