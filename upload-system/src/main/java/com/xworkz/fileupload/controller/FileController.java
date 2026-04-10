@@ -41,7 +41,7 @@ public class FileController {
         IOUtils.copy(inputStream,outputStream);
         response.flushBuffer();
         System.out.println("Image Fetched.......");
-     //   System.out.println("Seen Image");
+        System.out.println("Seen Image");
     }
 
 }
