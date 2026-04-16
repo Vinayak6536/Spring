@@ -19,7 +19,7 @@ public class FileController {
 
     @PostMapping("/upload")
     public String fileUpload(@ModelAttribute FileDto fileDto)throws IOException{
-        System.out.println(fileDto);
+      //  System.out.println(fileDto);
         System.out.println(fileDto.getFile().toString());
         if (fileDto != null){
             boolean isValid = fileService.validateAndSave(fileDto);
